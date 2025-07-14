@@ -1,1 +1,10 @@
-/* You can add global styles to this file, and also import other style files */
+@font-face {
+    font-family: 'Latto';
+    src: url("assets/fonts/Lato/Lato-Regular.ttf");
+    font-weight: normal;
+}
+@font-face {
+    font-family: 'Latto';
+    src: url('assets/fonts/Lato/Lato-Bold.ttf');
+    font-weight: bold;
+}
