@@ -1,0 +1,21 @@
+header{
+    width: 100%;
+    height: 70px;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+#container{
+    height: 100%;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+}
+#container img{
+    width : 40px;
+    object-fit: contain;
+}
+#container h1{
+    font-size: 28px;
+}

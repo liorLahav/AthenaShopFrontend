@@ -1,10 +1,14 @@
 @font-face {
-    font-family: 'Latto';
+    font-family: 'Lato';
     src: url("assets/fonts/Lato/Lato-Regular.ttf");
     font-weight: normal;
 }
 @font-face {
-    font-family: 'Latto';
+    font-family: 'Lato';
     src: url('assets/fonts/Lato/Lato-Bold.ttf');
     font-weight: bold;
+}
+body{
+    font-family: 'Lato',sans-serif;
+    background-color: #fbf7f6;
 }
