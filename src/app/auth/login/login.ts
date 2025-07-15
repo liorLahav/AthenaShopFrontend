@@ -27,7 +27,6 @@ export class Login {
   }]
   
   onSubmit = (f:NgForm) : Observable<submitResult> =>{
-    console.log(this.inputFields[0].value);
     if(f.valid){
       const username : string | undefined = this.inputFields[0].value;
       const password : string | undefined = this.inputFields[1].value;
