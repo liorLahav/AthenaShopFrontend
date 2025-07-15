@@ -1,5 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
+export interface InputField{
+  title : string,
+  name : string,
+  placeholder? : string,
+  pattern: string,
+  value? : string,
+  required :boolean
+}
 @Component({
   selector: 'app-dynamic-form',
   standalone: false,
@@ -7,15 +16,9 @@ import { Component } from '@angular/core';
   styleUrl: './dynamic-form.css'
 })
 export class DynamicForm {
-  title = "Login"
-  inputs = [{
-    title : "user name",
-    placeholder : "הכנס שם משתמש"
-  },{
-    title : "password",
-    placeholder : "הכנס סיסמא",
-  },{
-    title : "Yogev"
-  }]
-
+  @Input() inputFilleds! : InputField[];
+  @Input() title! : string;
+  onSubmit = (f : NgForm) =>{
+    console.log(f.invalid);
+  }
 }

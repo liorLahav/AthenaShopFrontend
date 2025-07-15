@@ -1,10 +1,15 @@
 <div id="container">
     <h2>{{title}}</h2>
-    <form >
-        <div *ngFor="let input of inputs">
+    <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+        <div *ngFor="let input of inputFilleds">
             <label>{{input.title}}</label>
-            <input placeholder={{input.placeholder}} />
+            <input [(ngModel)]="input.value"
+                   placeholder={{input.placeholder}} 
+                   pattern={{input.pattern}}
+                   name={{input.name}}
+                   [required]="input.required"
+                   />
         </div>
-        <button>Submit</button>
+        <button type="submit" [disabled]="f.invalid">Submit</button>
     </form>
 </div>

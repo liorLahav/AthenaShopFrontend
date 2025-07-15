@@ -27,3 +27,9 @@ button{
     border: none;
     font-family: inherit;
 }
+button:disabled{
+    opacity: 0.7;
+}
+input{
+    font-family: inherit;
+}
