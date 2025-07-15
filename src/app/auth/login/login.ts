@@ -13,14 +13,12 @@ import { catchError, map, Observable, of } from 'rxjs';
 export class Login {
   constructor(@Inject(USERS_SERVICE_TOKEN) private users: UsersService){}
   inputFields : InputField[]  = [{
-      title : "User name",
-      name: "username",
+      title : "Username",
       placeholder : "Username goes here",
       required : true,
       pattern: "^.{5,}$",
   },{
       title : "Password",
-      name:"password",
       placeholder : "Dont foregt the password",
       pattern : "^.{5,}$",
       required : true

@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 
 export interface InputField{
   title : string,
-  name : string,
   placeholder? : string,
   pattern: string,
   value? : string,
