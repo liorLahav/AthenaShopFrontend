@@ -1,6 +1,10 @@
 <div id="container">
     <h2>{{title}}</h2>
     <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+        <p [ngClass]="{
+            'success' : success && messsage != '',
+            'fail' : !success && messsage != '',
+        }" *ngIf="messsage != ''">{{messsage}}</p>
         <div *ngFor="let input of inputFilleds">
             <label>{{input.title}}</label>
             <input [(ngModel)]="input.value"

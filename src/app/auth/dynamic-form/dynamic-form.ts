@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 export interface InputField{
   title : string,
@@ -8,6 +9,10 @@ export interface InputField{
   pattern: string,
   value? : string,
   required :boolean
+}
+export interface submitResult{
+  success : boolean,
+  message : string,
 }
 @Component({
   selector: 'app-dynamic-form',
@@ -18,7 +23,13 @@ export interface InputField{
 export class DynamicForm {
   @Input() inputFilleds! : InputField[];
   @Input() title! : string;
+  @Input() submitCallback! : (f : NgForm) => Observable<submitResult>;
+  success = false;
+  messsage : string = "";
   onSubmit = (f : NgForm) =>{
-    console.log(f.invalid);
+    const res = this.submitCallback(f).subscribe(res =>{
+      this.success = res.success;
+      this.messsage = res.message;
+    });
   }
 }

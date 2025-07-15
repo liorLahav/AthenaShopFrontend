@@ -27,6 +27,22 @@ form div{
     margin-bottom: 15px;
     font-size: 20px;
 }
+form p{
+    width: 70%;
+    height: 20px;
+    border: solid;
+    border-radius: 7px;
+    padding: 10px 0;
+    text-align: center;
+    border-color: white;
+    color: white;
+}
+.success{
+    background-color: green;
+}
+.fail{
+    background-color: red;
+}
 
 form div:first-child{
     margin-top: 10px;
