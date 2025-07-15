@@ -1,0 +1,10 @@
+<div id="container">
+    <h2>{{title}}</h2>
+    <form >
+        <div *ngFor="let input of inputs">
+            <label>{{input.title}}</label>
+            <input placeholder={{input.placeholder}} />
+        </div>
+        <button>Submit</button>
+    </form>
+</div>
