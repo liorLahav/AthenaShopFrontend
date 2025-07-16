@@ -13,6 +13,5 @@ export class UserService{
     }
     updateUser(user : User){
         this.userstore.update({ user : user});
-        console.log(user);
     }
 }

@@ -8,6 +8,7 @@ import { DynamicForm } from './auth/dynamic-form/dynamic-form';
 import { NgFor } from '@angular/common';
 import { Login } from './auth/login/login';
 import { USERS_SERVICE_TOKEN, usersServiceFactory } from './usersService';
+import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { USERS_SERVICE_TOKEN, usersServiceFactory } from './usersService';
     AppRoutingModule,
     FormsModule,
     NgFor,
+    AkitaNgDevtools.forRoot(),
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),

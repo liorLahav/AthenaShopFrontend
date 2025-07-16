@@ -14,6 +14,7 @@ export class UsersMock implements UsersService {
       userRole: userRoles.Admin,
       dateCreated: new Date('2024-01-01'),
       buyingHistory: []
+      
     },
     {
       userName: 'Bob',

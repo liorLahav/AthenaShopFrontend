@@ -3,6 +3,7 @@ import { InputField, submitResult } from '../dynamic-form/dynamic-form';
 import {NgForm } from '@angular/forms';
 import { User, USERS_SERVICE_TOKEN, UsersService } from '../../usersService';
 import { catchError, map, Observable, of } from 'rxjs';
+import { UserService } from '../../state/user/user.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ import { catchError, map, Observable, of } from 'rxjs';
   styleUrl: './login.css'
 })
 export class Login {
-  constructor(@Inject(USERS_SERVICE_TOKEN) private users: UsersService){}
+  constructor(@Inject(USERS_SERVICE_TOKEN) private users: UsersService,private userService: UserService){}
   inputFields : InputField[]  = [{
       title : "Username",
       placeholder : "Username goes here",
@@ -30,8 +31,14 @@ export class Login {
       const password : string | undefined = this.inputFields[1].value;
       if (username && password){
         return this.users.login(username,password).pipe(
-          map(data => data ? { success: true, message: "Logged in!" }
-            : { success: false, message: "Wrong credentials." }),
+          map(data => {
+            if (data){
+              this.userService.updateUser(data);
+              return { success: true, message: "Logged in!" }
+
+            }
+            return { success: false, message: "Wrong credentials." }
+          }),
           catchError(() => of({
             success : false,
             message : "Server problem."
