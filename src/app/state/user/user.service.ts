@@ -8,7 +8,7 @@ import { User } from "../../usersService";
 export class UserService{
     constructor(private userstore : UserStore){}
 
-    updateisLoaded(isLoading : boolean){
+    updateIsLoaded(isLoading : boolean){
         this.userstore.setLoading(isLoading);
     }
     updateUser(user : User){
