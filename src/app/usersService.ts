@@ -10,7 +10,7 @@ export interface User {
     id :number,
     userRole : userRoles,
     dateCreated : Date,
-    buyingHistory : string[], // Will deal with this later
+    buyingHistory : string[], // TODO create Receipt entity
     password ? : string,
 }
 
