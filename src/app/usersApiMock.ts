@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
-import { User, userRoles, UsersService } from './usersService';
+import { LoginResponse, User, userRoles, UsersApiService } from './UsersApiService';
 import { Observable, of } from 'rxjs';
+
+interface ServerUser extends User{
+  password : string
+}
 
 @Injectable({
   providedIn: 'root'
 })
-export class UsersMock implements UsersService {
-    users: User[] = [
+export class UsersApiMock implements UsersApiService {
+    users: ServerUser[] = [
     {
       userName: 'Alice',
       password: '111111111',
@@ -33,7 +37,14 @@ export class UsersMock implements UsersService {
       password: '111111111'
     }
   ];
-  login(username : string,password : string): Observable<User | undefined> {
-    return of(this.users.find(u =>u.userName == username && u.password == password));
+  login(username : string,password : string): Observable<LoginResponse> {
+    const user : ServerUser | undefined = this.users.find(u =>u.userName == username && u.password == password);
+    if (user){
+      const {password , ...passwordLessUser} = user;
+      return of({success :true,user : passwordLessUser});
+    }
+    return of({
+      success : false
+    });
   }
 }
