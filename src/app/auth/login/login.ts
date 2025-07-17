@@ -33,9 +33,9 @@ export class Login {
         return this.users.login(username,password).pipe(
           map(data => {
             if (data){
+              delete data.password;
               this.userService.updateUser(data);
               return { success: true, message: "Logged in!" }
-
             }
             return { success: false, message: "Wrong credentials." }
           }),
