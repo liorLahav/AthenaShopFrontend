@@ -7,7 +7,7 @@ import { Header } from './header/header';
 import { DynamicForm } from './auth/dynamic-form/dynamic-form';
 import { NgFor } from '@angular/common';
 import { Login } from './auth/login/login';
-import { USERS_SERVICE_TOKEN, usersServiceFactory } from './usersService';
+import { USERS_API_SERVICE_TOKEN, usersServiceFactory } from './UsersApiService';
 import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 
 @NgModule({
@@ -26,7 +26,7 @@ import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
-    {provide : USERS_SERVICE_TOKEN,useValue : usersServiceFactory()}
+    {provide : USERS_API_SERVICE_TOKEN,useValue : usersServiceFactory()}
   ],
   bootstrap: [App]
 })
