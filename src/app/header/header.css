@@ -5,7 +5,7 @@ header{
     flex-wrap: nowrap;
     justify-content: center;
 }
-.headline-container{
+header .headline-container{
     height: 100%;
     width: 50%;
     display: flex;
