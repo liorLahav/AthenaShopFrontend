@@ -9,6 +9,7 @@ import { NgFor } from '@angular/common';
 import { Login } from './auth/login/login';
 import { USERS_API_SERVICE_TOKEN, usersServiceFactory } from './UsersApiService';
 import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
+import { Register } from './auth/register/register';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
     Header,
     DynamicForm,
     Login,
+    Register,
   ],
   imports: [
     BrowserModule,
