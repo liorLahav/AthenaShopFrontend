@@ -1,4 +1,5 @@
-<app-dynamic-form [submitCallback]="onSubmit" 
-                  [title] = "'Login'" 
-                  [inputFilleds]="inputFields"
-/>
+    <app-dynamic-form [submitCallback]="onSubmit" 
+                    [title] = "'Login'" 
+                    [inputFilleds]="inputFields"
+    />
+    <a [routerLink]="['/register']" class="auth-link">Not registered ? register here</a>

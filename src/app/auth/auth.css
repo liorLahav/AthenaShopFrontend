@@ -1,0 +1,16 @@
+.auth-link{
+    display: block;
+    text-align: center;
+    margin-top: 7px;
+    font-size: 17px;
+    cursor: pointer;
+    color: inherit;
+    font-family: inherit;
+}
+.auth-link:hover{
+    font-weight: bold;
+    text-decoration: underline;
+}
+.auth-link:active{
+    color: black;
+}
