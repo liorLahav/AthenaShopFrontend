@@ -6,7 +6,7 @@ const routes: Routes = [{
   path : 'login' , 
   component : Login,
 },{
-  path : '',
+  path : '**',
   component : Login,
 }];
 
