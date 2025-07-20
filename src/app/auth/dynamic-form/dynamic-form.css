@@ -31,6 +31,8 @@
 }
 .dynamic-form-message{
     width: 70%;
+    margin-top: 10px;
+    min-width: 200px;
     height: 20px;
     border: solid;
     border-radius: 7px;
