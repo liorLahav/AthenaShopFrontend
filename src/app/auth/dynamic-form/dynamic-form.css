@@ -9,6 +9,8 @@
 }
 .dynamic-form-headline{
     margin: 20px 30%;
+    font-size: 25px;
+    font-weight: bold;
 }
 .dynamic-form{
     background-color: white;

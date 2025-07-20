@@ -1,5 +1,5 @@
 <div class="dynamic-form-container">
-    <h2 class="dynamic-form-headline">{{title}}</h2>
+    <div class="dynamic-form-headline">{{title}}</div>
     <form class="dynamic-form" (ngSubmit)="onSubmit(f)" #f="ngForm">
         <div class="dynamic-form-message" [ngClass]="{
             'success' : success,
