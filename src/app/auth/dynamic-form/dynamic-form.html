@@ -13,6 +13,7 @@
                    name={{input.title}}
                    [required]="input.required"
                    [type]="input.type ? input.type : 'text'"
+                   (input)="input.inputHandler && input.inputHandler($event)"
                    />
         </div>
         <button class="dynamic-form-submit" type="submit" [disabled]="f.invalid">Submit</button>

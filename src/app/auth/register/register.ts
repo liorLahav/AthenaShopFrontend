@@ -18,7 +18,7 @@ export const passwordRegexPattern = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$"
   selector: 'app-register',
   standalone: false,
   templateUrl: './register.html',
-  styleUrl: './register.css'
+  styleUrls: ['./register.css','../auth.css']
 })
 export class Register {
     constructor(@Inject(USERS_API_SERVICE_TOKEN) private usersApiService: UsersApiService){}
@@ -33,12 +33,23 @@ export class Register {
         pattern: passwordRegexPattern,
         placeholder : "Min 8 chars, incl. A–Z, a–z, 0–9",
         required : true,
+        type : "password",
+        inputHandler : (event : Event) => this.onPasswordChange(event)
+    },{
+        title : "Repeat Password",
+        required : true,
         type : "password"
     }]
+
+    onPasswordChange(event :Event){
+      const value = (event.target as HTMLInputElement).value;
+      this.inputFields[2].pattern = value + "$";
+    }
+    
     onSubmit = (f : NgForm) : Observable<submitResult> => {
       if (f.valid){
         const username : string  = this.inputFields[0].value as string;
-        const password : string  = this.inputFields[1].value as string;  
+        const password : string  = this.inputFields[1].value as string;
         return this.usersApiService.register(username,password).pipe(
           map(res => res),
           catchError(res => of(SERVER_PROBLEM))

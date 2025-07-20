@@ -13,7 +13,7 @@ const INVALID_FORM : submitResult = {
   selector: 'app-login',
   standalone: false,
   templateUrl: './login.html',
-  styleUrl: './login.css'
+  styleUrls: ['./login.css','../auth.css']
 })
 export class Login {
   constructor(private userService: UserService){}

@@ -5,10 +5,11 @@ import { Observable } from 'rxjs';
 export interface InputField{
   title : string,
   placeholder? : string,
-  pattern: string,
+  pattern?: string,
   value? : string,
   required :boolean,
-  type? : string
+  type? : string,
+  inputHandler? : (event : Event) => void;
 }
 export interface submitResult{
   success : boolean,

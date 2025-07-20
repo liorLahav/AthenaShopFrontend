@@ -81,7 +81,6 @@ export class UsersApiMock implements UsersApiService {
         dateCreated: new Date(),
         buyingHistory: []
       },)
-      console.log(this.users)
       return of(SUCCESS)
     }
     return of(INVALID_PASSWORD)  
