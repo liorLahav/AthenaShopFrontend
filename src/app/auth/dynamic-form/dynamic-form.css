@@ -7,10 +7,10 @@
     height: 50%;
     width: 70%;
 }
-.dynamic-form-container h2{
+.dynamic-form-headline{
     margin: 20px 30%;
 }
-.dynamic-form-container form{
+.dynamic-form{
     background-color: white;
     width:70%;
     padding: 0 15%;
@@ -20,14 +20,14 @@
     border-radius: 15px;
 }
 
-.dynamic-form-container form div{
+.dynamic-form-section{
     display: flex;
     flex-direction: column;
     width: 70%;
     margin-bottom: 30px;
     font-size: 20px;
 }
-.dynamic-form-container form p{
+.dynamic-form-message{
     width: 70%;
     height: 20px;
     border: solid;
@@ -37,32 +37,32 @@
     border-color: white;
     color: white;
 }
-.dynamic-form-container .success{
+.dynamic-form-message.success{
     background-color: green;
 }
-.dynamic-form-container .fail{
+.dynamic-form-message.fail{
     background-color: red;
 }
 
-.dynamic-form-container form div:first-child{
+.dynamic-form-section:first-child{
     margin-top: 10px;
 }
 
-.dynamic-form-container form input{
+.dynamic-form-section-input{
     width: 100%;
     height : 30px;
     border-radius: 5px;
     box-sizing: border-box;
 }
-.dynamic-form-container form input::placeholder{
+.dynamic-form-section-input::placeholder{
     text-align: center;
 }
-.dynamic-form-container form button{
+.dynamic-form-submit{
     width: 70%;
     height: 40px;
     margin-bottom: 20px;
 }
-.dynamic-form-container form div label  {
+.dynamic-form-section-headline  {
     margin-bottom: 2px;
     font-weight: bold;
 }
