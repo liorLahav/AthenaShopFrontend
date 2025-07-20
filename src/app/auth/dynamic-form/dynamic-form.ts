@@ -7,7 +7,8 @@ export interface InputField{
   placeholder? : string,
   pattern: string,
   value? : string,
-  required :boolean
+  required :boolean,
+  type? : string
 }
 export interface submitResult{
   success : boolean,

@@ -12,6 +12,7 @@
                    pattern={{input.pattern}}
                    name={{input.title}}
                    [required]="input.required"
+                   [type]="input.type ? input.type : 'text'"
                    />
         </div>
         <button class="dynamic-form-submit" type="submit" [disabled]="f.invalid">Submit</button>

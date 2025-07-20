@@ -1,16 +1,34 @@
 import { Injectable } from '@angular/core';
-import { LoginResponse, User, userRoles, UsersApiService } from './UsersApiService';
+import { LoginResponse, RegisterResponse, User, userRoles, UsersApiService } from './UsersApiService';
 import { Observable, of } from 'rxjs';
+import { passwordRegexPattern } from './auth/register/register';
 
 interface ServerUser extends User{
   password : string
+}
+const USER_EXISTS : RegisterResponse ={
+  success : false,
+  message : "User already exist",
+}
+const INVALID_USERNAME : RegisterResponse ={
+  success : false,
+  message : "Username dont follow our rules",
+}
+const INVALID_PASSWORD : RegisterResponse ={
+  success : false,
+  message : "Password dont follow our rules",
+}
+const SUCCESS : RegisterResponse ={
+  success : true,
+  message : "User registered succesfully",
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsersApiMock implements UsersApiService {
-    users: ServerUser[] = [
+  idCounter :number = 4;
+  users: ServerUser[] = [
     {
       userName: 'Alice',
       password: '111111111',
@@ -46,5 +64,26 @@ export class UsersApiMock implements UsersApiService {
     return of({
       success : false
     });
+  }
+  register(username: string, password: string): Observable<RegisterResponse> {
+    if (username.length < 8)
+      return of(INVALID_USERNAME)
+    const user = this.users.find(user => user.userName == username);
+    if (user)
+      return of(USER_EXISTS);
+    const passwordReg :RegExp = new RegExp(passwordRegexPattern)
+    if(passwordReg.test(password)){
+      this.users.push({
+        userName: username,
+        password: password,
+        id: this.idCounter++,
+        userRole: userRoles.User,
+        dateCreated: new Date(),
+        buyingHistory: []
+      },)
+      console.log(this.users)
+      return of(SUCCESS)
+    }
+    return of(INVALID_PASSWORD)  
   }
 }
