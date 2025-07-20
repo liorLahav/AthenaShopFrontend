@@ -16,9 +16,14 @@ export interface LoginResponse{
     success : boolean,
     user? : User,
 }
+export interface RegisterResponse{
+    success : boolean,
+    message : string,
+}
 
 export interface UsersApiService{
     login(username : string,password : string): Observable<LoginResponse>;
+    register(username : string,password:string) : Observable<RegisterResponse>;
 }
 
 export const USERS_API_SERVICE_TOKEN = new InjectionToken<UsersApiService>('UsersService');
