@@ -4,20 +4,20 @@
     display: flex;
     flex-wrap: nowrap;
     justify-content: center;
-}
-.headline-container{
-    height: 100%;
-    width: 50%;
-    display: flex;
-    justify-content: center;
-    flex-wrap: nowrap;
-}
-.headline-logo{
-    width : 50px;
-    object-fit: contain;
-}
-.headline-text{
-    font-size: 28px;
-    font-weight: bold;
-    margin-top: 15px;
+    .headline-container {
+            height: 100%;
+            width: 50%;
+            display: flex;
+            justify-content: center;
+            flex-wrap: nowrap;
+    }
+    .headline-logo {
+        width: 50px;
+        object-fit: contain;
+    } 
+    .headline-text {
+        font-size: 28px;
+        font-weight: bold;
+        margin-top: 15px;
+    }
 }
