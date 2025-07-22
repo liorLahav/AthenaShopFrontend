@@ -4,11 +4,13 @@ import { Injectable } from "@angular/core";
 
 export interface UserState{
     user : User,
+    isAuthed : boolean
 }
 
 export const getInitialUserState = () =>{
     return {
         user : {} as User,
+        isAuthed : false,
     }
 }
 
