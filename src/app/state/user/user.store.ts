@@ -10,7 +10,7 @@ export interface UserState{
 export const getInitialUserState = () =>{
     return {
         user : {} as User,
-        isAuthed : false,
+        isAuthed : true,
     }
 }
 
