@@ -1,8 +1,8 @@
 import { Component, Inject } from '@angular/core';
-import { InputField, submitResult } from '../dynamic-form/dynamic-form';
+import { InputField, submitResult } from './dynamic-form/dynamic-form';
 import { NgForm } from '@angular/forms';
 import { catchError, map, Observable, of } from 'rxjs';
-import { RegisterResponse, USERS_API_SERVICE_TOKEN, UsersApiService } from '../../UsersApiService';
+import { RegisterResponse, USERS_API_SERVICE_TOKEN, UsersApiService } from '../UsersApiService';
 
 const SERVER_PROBLEM : RegisterResponse = {
   success : false,
@@ -17,8 +17,8 @@ export const passwordRegexPattern = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$"
 @Component({
   selector: 'app-register',
   standalone: false,
-  templateUrl: '../auth.html',
-  styleUrls: ['./register.css','../auth.css']
+  templateUrl: './auth.html',
+  styleUrls: ['./auth.css']
 })
 export class Register {
     constructor(@Inject(USERS_API_SERVICE_TOKEN) private usersApiService: UsersApiService){}

@@ -1,8 +1,8 @@
 import { Component, Inject } from '@angular/core';
-import { InputField, submitResult } from '../dynamic-form/dynamic-form';
+import { InputField, submitResult } from './dynamic-form/dynamic-form';
 import {NgForm } from '@angular/forms';
 import {Observable, of } from 'rxjs';
-import { UserService } from '../../state/user/user.service';
+import { UserService } from '../state/user/user.service';
 
 const INVALID_FORM : submitResult = {
     success: false, 
@@ -12,8 +12,8 @@ const INVALID_FORM : submitResult = {
 @Component({
   selector: 'app-login',
   standalone: false,
-  templateUrl: '../auth.html',
-  styleUrls: ['./login.css','../auth.css']
+  templateUrl: './auth.html',
+  styleUrls: ['./auth.css']
 })
 export class Login {
   constructor(private userService: UserService){}

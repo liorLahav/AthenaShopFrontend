@@ -6,10 +6,10 @@ import { App } from './app';
 import { Header } from './header/header';
 import { DynamicForm } from './auth/dynamic-form/dynamic-form';
 import { NgFor } from '@angular/common';
-import { Login } from './auth/login/login';
+import { Login } from './auth/login';
 import { USERS_API_SERVICE_TOKEN, usersServiceFactory } from './UsersApiService';
 import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
-import { Register } from './auth/register/register';
+import { Register } from './auth/register';
 
 @NgModule({
   declarations: [
