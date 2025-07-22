@@ -12,7 +12,7 @@ const INVALID_FORM : submitResult = {
 @Component({
   selector: 'app-login',
   standalone: false,
-  templateUrl: './login.html',
+  templateUrl: '../auth.html',
   styleUrls: ['./login.css','../auth.css']
 })
 export class Login {
@@ -28,6 +28,9 @@ export class Login {
       pattern : "^.{5,}$",
       required : true
   }]
+  title = "Login"
+  linkRoute = "register"
+  linkText = "New here ? create new account here"
   
   onSubmit = (f:NgForm) : Observable<submitResult> =>{
     if(f.valid){

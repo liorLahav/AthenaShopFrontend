@@ -17,7 +17,7 @@ export const passwordRegexPattern = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$"
 @Component({
   selector: 'app-register',
   standalone: false,
-  templateUrl: './register.html',
+  templateUrl: '../auth.html',
   styleUrls: ['./register.css','../auth.css']
 })
 export class Register {
@@ -40,6 +40,10 @@ export class Register {
         required : true,
         type : "password"
     }]
+
+    title = "Register"
+    linkRoute = "login"
+    linkText = "Already have an account ? Login here"
 
     onPasswordChange(event :Event){
       const value = (event.target as HTMLInputElement).value;

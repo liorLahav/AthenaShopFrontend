@@ -11,7 +11,8 @@ const routes: Routes = [{
   component : Register,
 },{
   path : '**',
-  component : Login,
+  redirectTo: "login",
+  pathMatch : "full",
 }];
 
 @NgModule({
