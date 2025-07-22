@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Login } from './auth/login';
 import { Register } from './auth/register';
+import { Main } from './main/main';
 
 const routes: Routes = [{
   path : 'login' , 
@@ -11,8 +12,7 @@ const routes: Routes = [{
   component : Register,
 },{
   path : '**',
-  redirectTo: "login",
-  pathMatch : "full",
+  component : Main,
 }];
 
 @NgModule({

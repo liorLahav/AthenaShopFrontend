@@ -10,6 +10,7 @@ import { Login } from './auth/login';
 import { USERS_API_SERVICE_TOKEN, usersServiceFactory } from './UsersApiService';
 import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 import { Register } from './auth/register';
+import { Main } from './main/main';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { Register } from './auth/register';
     DynamicForm,
     Login,
     Register,
+    Main,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,52 @@
+.newest-shoe-container{
+    width: 100%;
+    height: 200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    padding-bottom: 50px;
+    border-bottom: 2px solid #d5d1cf;    .buy-new-shoes{
+        width: 35%;
+        margin-bottom: 50px;
+        .buy-new-shoes-headline{
+            font-size: 30px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+        .buy-new-shoes-text{
+            font-size: 15px;
+        }
+        .buy-new-shoes-button{
+            width: 50%;
+            font-size: 15px;
+            padding: 5px 6px;
+            max-width: 100px;
+            box-sizing: border-box;
+            white-space: nowrap;
+        }
+    }
+    .buy-new-shoes > *{
+        margin-top: 15px;
+    }
+    .newest-shoe-headline{
+        transform: rotate(-90deg);
+            transform-origin: right bottom;
+            font-size: 37px;
+            font-weight: bold;
+            color: #333;
+            display: inline-block;
+            width: 200px;
+            position: absolute;
+            bottom: 270px;
+            right: 0;
+        }
+    .newest-shoe-image{
+        transform: scaleX(-1) scale(1.4);
+        width: 30%;
+        max-width: 300px;
+        object-fit: cover;
+        margin-right: 105px;
+        transform-origin: center;
+    }
+}

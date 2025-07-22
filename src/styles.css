@@ -18,19 +18,24 @@ app-root {
 app-root {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
 }
+app-root > *{
+    width: 90%;
+    margin-top: 15px;
+}
+
 body{
     font-family: 'Lato',sans-serif;
     background-color: #fbf7f6;
-    color: #404040;
-    font-family: 'Lato', sans-serif;
-   
+    color: #404040;   
 }
-button{
-    border-radius: 5px;
+.button{
+    border-radius: 7px;
     cursor: pointer;
     border: none;
     font-family: inherit;
+    text-align: center;
 }
 .dark-button{
     background-color: #404040;
@@ -44,4 +49,7 @@ button{
 }
 input{
     font-family: inherit;
+}
+div{
+    border-color: #d5d1cf;
 }
