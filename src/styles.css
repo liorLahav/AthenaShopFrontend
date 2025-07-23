@@ -41,6 +41,16 @@ body{
     background-color: #404040;
     color: white;
 }
+.light-button{
+    border: 0.1px solid;
+}
+.light-button:hover{
+    color: white;
+    background-color: black;
+}
+.light-button:active{
+    transform: scale(1.05);
+}
 .dark-button:hover{
     background-color: #2c2b2b;
 }

@@ -11,6 +11,7 @@ import { USERS_API_SERVICE_TOKEN, usersServiceFactory } from './UsersApiService'
 import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 import { Register } from './auth/register';
 import { Main } from './main/main';
+import { Shoe } from './components/shoe/shoe';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { Main } from './main/main';
     Login,
     Register,
     Main,
+    Shoe,
   ],
   imports: [
     BrowserModule,

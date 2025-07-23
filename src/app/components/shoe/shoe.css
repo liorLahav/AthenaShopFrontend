@@ -1,0 +1,56 @@
+img{
+   width:20px;
+}
+.shoe{
+    background-color: white;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    border-radius: 15px;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    .shoe-image{
+        width: clamp(100px,100%,200px);
+    }
+    .shoe-details{
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        width: 100%;
+        .shoe-name{
+            width: 100%;
+            font-size: 10px;
+        }
+        .price {
+            color: #e46464;
+        }
+        .rating{
+            display: flex;
+            justify-content: flex-start;
+            width: 100%;
+            .favorite-icon{
+                width: 10px;
+            }
+            .rating-score{
+                font-size: 10px;
+            }
+        }
+        .add-button{
+            box-sizing: border-box;
+            width: 50px;
+            padding: 2px 1px;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            flex-wrap: nowrap;
+            font-weight: bold;
+        }
+        .plus{
+            font-size: 15px;
+        }
+    }
+    .shoe-details > *{
+        margin-bottom: 10px;
+    }
+}
