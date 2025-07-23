@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { InputField } from './auth/dynamic-form/dynamic-form';
 
 @Component({
   selector: 'app-root',

@@ -1,0 +1,70 @@
+.dynamic-form-container{
+    margin: 0 15%;
+    margin-top: 10%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    height: 50%;
+    width: 70%;
+    .dynamic-form-headline {
+            margin: 20px 30%;
+            font-size: 25px;
+            font-weight: bold;
+    }
+    .dynamic-form {
+            background-color: white;
+            width: 70%;
+            padding: 0 15%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            border-radius: 15px;
+        .dynamic-form-section {
+            display: flex;
+            flex-direction: column;
+            width: 70%;
+            margin-bottom: 30px;
+            font-size: 20px;
+            .dynamic-form-section-headline {
+                margin-bottom: 2px;
+                font-weight: bold;
+            }
+        }
+        .dynamic-form-section:first-child {
+            margin-top: 10px;
+        }
+        .dynamic-form-section-input {
+            width: 100%;
+            height: 30px;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .dynamic-form-section-input::placeholder {
+            text-align: center;
+        }
+        .dynamic-form-message {
+            width: 70%;
+            margin-top: 10px;
+            min-width: 200px;
+            height: 20px;
+            border: solid;
+            border-radius: 7px;
+            padding: 10px 0;
+            text-align: center;
+            border-color: white;
+            color: white;
+        }
+        .dynamic-form-message.success {
+            background-color: green;
+        }
+        .dynamic-form-message.fail {
+            background-color: red;
+        }
+        .dynamic-form-submit {
+            width: 70%;
+            height: 40px;
+            margin-bottom: 20px;
+        }
+    }
+}
+

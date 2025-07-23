@@ -1,0 +1,21 @@
+<div class="dynamic-form-container">
+    <div class="dynamic-form-headline">{{title}}</div>
+    <form class="dynamic-form" (ngSubmit)="onSubmit(f)" #f="ngForm">
+        <div class="dynamic-form-message" [ngClass]="{
+            'success' : success,
+            'fail' : !success,
+        }" *ngIf="messsage != ''">{{messsage}}</div>
+        <div class="dynamic-form-section" *ngFor="let input of inputFilleds">
+            <div class="dynamic-form-section-headline">{{input.title}}</div>
+            <input class="dynamic-form-section-input" [(ngModel)]="input.value"
+                   placeholder={{input.placeholder}} 
+                   pattern={{input.pattern}}
+                   name={{input.title}}
+                   [required]="input.required"
+                   [type]="input.type ? input.type : 'text'"
+                   (input)="input.inputHandler && input.inputHandler($event)"
+                   />
+        </div>
+        <button class="dark-button dynamic-form-submit" type="submit" [disabled]="f.invalid">Submit</button>
+    </form>
+</div>
