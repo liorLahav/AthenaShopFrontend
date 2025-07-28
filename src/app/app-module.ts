@@ -12,6 +12,7 @@ import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 import { Register } from './auth/register';
 import { Main } from './main/main';
 import { Shoe } from './components/shoe/shoe';
+import { LogoHeadline } from './components/logo-headline/logo-headline';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { Shoe } from './components/shoe/shoe';
     Register,
     Main,
     Shoe,
+    LogoHeadline,
   ],
   imports: [
     BrowserModule,

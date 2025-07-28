@@ -2,10 +2,7 @@
     'authed': userQuery.isAuthed,
     'unauthed': !userQuery.isAuthed
   }">
-    <div class="headline-container">
-        <img class="headline-logo" src="assets/images/OfekUnit.png"/>
-        <div class="headline-text">AthenaShop</div>
-    </div>
+    <app-logo-headline class="headline-logo"/>
     <div class="buttons-container" 
         *ngIf="userQuery.isAuthed"
         >
