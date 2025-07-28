@@ -1,6 +1,4 @@
-img{
-   width:20px;
-}
+
 .shoe{
     background-color: white;
     display: flex;
@@ -10,7 +8,7 @@ img{
     padding: 10px 20px;
     box-sizing: border-box;
     .shoe-image{
-        width: clamp(100px,100%,200px);
+        width: clamp(70px,70%,200px);
     }
     .shoe-details{
         display: flex;
