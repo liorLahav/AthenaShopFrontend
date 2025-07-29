@@ -17,7 +17,7 @@ export class TopPicks {
   getTopPicksShoes(){
     this.shoesService.getTopNMostCompetiableShoes(4).pipe(
       tap((shoes : Shoe[]) => {
-        this.topPicksShoes = shoes.map(shoe => getDisplayShoe(shoe));
+        this.topPicksShoes = shoes.sort((a : Shoe,b : Shoe) => b.rates.rank - a.rates.rank).map(shoe => getDisplayShoe(shoe));
       })
     ).subscribe()
   }

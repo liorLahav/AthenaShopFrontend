@@ -19,6 +19,7 @@
     justify-content: space-between;
     align-items: center;
     position: relative;
+    font-size: 15px;
     .buy-new-shoes{
         width: 35%;
         margin-bottom: 50px;
@@ -28,12 +29,11 @@
             white-space: nowrap;
         }
         .buy-new-shoes-text{
-            font-size: 15px;
+            color: #afadab;
         }
         .buy-new-shoes-button{
             width: 50%;
             margin-right: 5px;
-            font-size: 15px;
             padding: 5px 6px;
             max-width: 100px;
             box-sizing: border-box;
@@ -76,10 +76,13 @@
     }
     .about-data{
         width: 37%;
-        font-size: 11px;
+        font-size: 10px;
         max-width: 400px;
         margin-bottom: 100px;
         margin-right: 7%;
+    }
+    .about-text{
+        color: #afadab;
     }
     .about-shoe-wrapper{
         width: 400px;

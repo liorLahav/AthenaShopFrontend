@@ -45,6 +45,7 @@
         .shoe-card {
             margin: 0 10px;
             max-width: 250px;
+            width: 22%;
         }
     }
 }
