@@ -2,20 +2,18 @@
     'authed': userQuery.isAuthed,
     'unauthed': !userQuery.isAuthed
   }">
-    <app-logo-headline class="headline-logo"/>
-    <div class="buttons-container" 
-        *ngIf="userQuery.isAuthed"
-        >
-                <a class="nav-button" name = {{button.name}}
-                [routerLink]="button.route"
-                *ngFor="let button of buttons"
-                >
-                    {{button.name}}
-                </a>
-    </div>
-    <div class="cart-button">
-        <div class="cart-button-text">My Cart</div>
-        <img class="cart-button-image" src="assets/images/shopping-cart.svg" />
-    </div>
+    <app-logo-headline [RedirectToHome]="true" class="headline-logo"/>
+    <ng-container *ngIf="userQuery.isAuthed">
+        <div class="buttons-container">
+            <a class="nav-button" [attr.name]="button.name" [routerLink]="button.route" *ngFor="let button of buttons">
+                {{ button.name }}
+            </a>
+        </div>
+
+        <div class="cart-button">
+            <div class="cart-button-text">My Cart</div>
+            <img class="cart-button-image" src="assets/images/shopping-cart.svg" />
+        </div>
+    </ng-container>
 </header>
 

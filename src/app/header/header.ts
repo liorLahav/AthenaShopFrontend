@@ -19,5 +19,4 @@ export class Header {
       name : "New Item",
       route : "new-item",
     }]
-    
 }
