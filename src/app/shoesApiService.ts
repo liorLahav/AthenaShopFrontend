@@ -3,9 +3,12 @@ import { ShoesApiMock } from "./shoesApiMock";
 import { Injectable } from "@angular/core";
 
 export enum Brand {
-  AdiadsYeezy = 'Adidas_Yeezy',
+  Yeezy = 'Yeezy',
   Nike = 'Nike',
-  Puma = 'Puma'
+  Puma = 'Puma',
+  Adidas = 'Adidas',
+  OffWhite = "Off_White",
+  AirJordan = "Air_Jordan"
 }
 
 
@@ -16,7 +19,7 @@ export interface DisplayShoe{
     price : number,
 }
 export const defalutShoe : Shoe = {
-    brand : Brand.AdiadsYeezy,
+    brand : [Brand.Adidas,Brand.Yeezy],
     model : "350 natural",
     price : 100,
     rates : {
@@ -27,7 +30,7 @@ export const defalutShoe : Shoe = {
 }
 
 export interface Shoe{
-    brand : Brand,
+    brand : Brand[],
     model : string,
     price : number,
     rates : rate,
@@ -50,9 +53,12 @@ export interface shoesApiServiceInterface{
     getLastNAddedShoe(n? : number) : Observable<Shoe[]>
 }
 export const getDisplayShoe = (shoe : Shoe) =>{
-    const shoeBrandKey = shoe.brand;
+    let shoeBrandKey = "";
+    shoe.brand.forEach(b => shoeBrandKey += b + "_")
+    shoeBrandKey = shoeBrandKey.slice(0,-1);
+    console.log(shoeBrandKey);
     return {
-        name : shoeBrandKey.replaceAll("_"," ") + " " + shoe.model.toLowerCase(),
+        name : shoe.brand.at(-1)?.replace("_"," ") + " " + shoe.model.toLowerCase(),
         path : "assets/images/items/" + shoeBrandKey.toLowerCase() + "_" + shoe.model.replaceAll(" ","_") + ".png",
         rating : shoe.rates.rank,
         price : shoe.price,

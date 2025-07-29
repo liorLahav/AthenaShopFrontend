@@ -12,7 +12,7 @@ export class ShoesApiMock implements shoesApiServiceInterface {
   private shoes: Shoe[] = [
     {
       id: '1',
-      brand: Brand.AdiadsYeezy,
+      brand: [Brand.Adidas,Brand.Yeezy],
       model: '350 oreo',
       price: 220,
       rates: {
@@ -22,7 +22,7 @@ export class ShoesApiMock implements shoesApiServiceInterface {
     },
     {
       id: '2',
-      brand: Brand.AdiadsYeezy,
+      brand: [Brand.Adidas,Brand.Yeezy],
       model: '700 wave runner',
       price: 300,
       rates: {
@@ -32,8 +32,8 @@ export class ShoesApiMock implements shoesApiServiceInterface {
     },
     {
       id: '3',
-      brand: Brand.Nike,
-      model: 'air jordan 1 low unc',
+      brand: [Brand.Nike,Brand.AirJordan],
+      model: '1 low unc',
       price: 110,
       rates: {
         amount: 1560,
@@ -42,7 +42,7 @@ export class ShoesApiMock implements shoesApiServiceInterface {
     },
     {
       id: '4',
-      brand: Brand.AdiadsYeezy,
+      brand: [Brand.Adidas,Brand.Yeezy],
       model: 'slides bone',
       price: 90,
       rates: {

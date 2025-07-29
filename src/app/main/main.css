@@ -12,9 +12,8 @@
     border-bottom: 0;
 }
 .newest-shoe-container{
-    height: 270px;
-    padding-top: 20px;
-    box-sizing: border-box;
+    height: 250px;
+    padding-bottom: 100px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -52,14 +51,14 @@
             display: inline-block;
             width: 250px;
             position: absolute;
-            bottom: 270px;
+            bottom: 320px;
             right: 0;
         }
     .newest-shoe-image{
         transform: scaleX(-1) scale(1.4);
-        width: clamp(200px,30%,300px);
+        width: clamp(220px,30%,350px);
         object-fit: cover;
-        margin-right: 115px;
+        margin-right: 120px;
         transform-origin: center;
     }
 }
@@ -78,14 +77,14 @@
         width: 37%;
         font-size: 10px;
         max-width: 400px;
-        margin-bottom: 100px;
+        margin-bottom: 70px;
         margin-right: 7%;
     }
     .about-text{
         color: #afadab;
     }
     .about-shoe-wrapper{
-        width: 400px;
+        width: clamp(450px,50%,500px);
         height: 100%;
         overflow: hidden;
         display: flex;
