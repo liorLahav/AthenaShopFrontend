@@ -1,11 +1,11 @@
 <div class="shoe">
-    <img class="shoe-image" [src]="'assets/images/items/' + shoeImage" />
-    <ng-container *ngTemplateOutlet="shoeDetails"/>
+        <img class="shoe-image" [src]="shoe.path" />
+        <ng-container *ngTemplateOutlet="shoeDetails" />
 </div>
 
 <ng-template #shoeDetails>
     <div class="shoe-details">
-        <div class="shoe-name">{{shoeName}}</div>
+        <div class="shoe-name">{{shoe.name}}</div>
         <ng-container *ngTemplateOutlet="shoeRating" />
         <div class="button light-button add-button">Add <div class="plus">+</div></div>
         <div class="price">50</div>
@@ -15,6 +15,6 @@
 <ng-template #shoeRating>
     <div class="rating">
         <img class="favorite-icon" src="assets/images/Five_Pointed_Star_Solid.svg" />
-        <div class="rating-score">4.5/5</div>
+        <div class="rating-score">{{shoe.rating}}/5</div>
     </div>
 </ng-template>
