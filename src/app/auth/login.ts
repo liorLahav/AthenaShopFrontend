@@ -1,8 +1,9 @@
 import { Component, Inject } from '@angular/core';
 import { InputField, submitResult } from './dynamic-form/dynamic-form';
 import {NgForm } from '@angular/forms';
-import {Observable, of } from 'rxjs';
+import {Observable, of, tap } from 'rxjs';
 import { UserService } from '../state/user/user.service';
+import { Router } from '@angular/router';
 
 const INVALID_FORM : submitResult = {
     success: false, 
@@ -16,7 +17,7 @@ const INVALID_FORM : submitResult = {
   styleUrls: ['./auth.css']
 })
 export class Login {
-  constructor(private userService: UserService){}
+  constructor(private userService: UserService,private router :Router){}
   inputFields : InputField[]  = [{
       title : "Username",
       placeholder : "Username goes here",
@@ -36,7 +37,16 @@ export class Login {
     if(f.valid){
       const username : string  = this.inputFields[0].value as string;
       const password : string  = this.inputFields[1].value as string;
-      return this.userService.login(username,password);
+      return this.userService.login(username,password).pipe(
+        tap({
+          next: (res: submitResult) => {
+            if(res.success)
+            setTimeout(() => {
+              this.router.navigate(["/"]);
+            },2000);
+          }
+        })
+      );
     }
     return of(INVALID_FORM)
   }
