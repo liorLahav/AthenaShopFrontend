@@ -1,12 +1,4 @@
-@media (max-width: 750px) {
-    .top-picks-container {
-        .shoes-container{
-            .shoe-card:last-child{
-                display: none;
-            }
-        }
-    }
-}
+
 .top-picks-container {
     .top-picks-header {
         width: 100%;
@@ -41,11 +33,23 @@
         justify-content: space-around;
         align-items: center;
         margin-top: 10px;
-        height: 80%;
         .shoe-card {
             margin: 0 10px;
             max-width: 250px;
-            width: 22%;
+            width: 24%;
+        }
+    }
+}
+@media (max-width: 750px) {
+    .top-picks-container {
+        .shoes-container {
+            .shoe-card:last-child {
+                display: none;
+            }
+
+            .shoe-card {
+                width: 30%;
+            }
         }
     }
 }
