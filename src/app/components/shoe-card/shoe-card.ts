@@ -9,7 +9,4 @@ import { DisplayShoe } from '../../shoesApiService';
 })
 export class ShoeCard {
   @Input() shoe! : DisplayShoe;
-  ngOnInit() : void{
-    console.log(this.shoe);
-  }
 }
