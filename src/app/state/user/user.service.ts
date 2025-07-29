@@ -31,7 +31,6 @@ export class UserService{
         this.updateIsLoaded(true);
         return this.usersApiService.login(username,password).pipe(
                   map(data => {
-                    console.log(data)
                     if (data.success){
                       this.userstore.update({
                         "user" : data.user,
