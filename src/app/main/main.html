@@ -1,38 +1,24 @@
 <main class="main">
     <ng-container *ngTemplateOutlet="newestShoe"/>
-    <ng-container *ngTemplateOutlet="topPicks"/>
+    <app-top-picks class="top-picks section"/>
     <ng-container *ngTemplateOutlet="about"/>
 </main>
 
 <ng-template #newestShoe>
-    <div class="newest-shoe-container">
+    <div class="section newest-shoe-container">
         <div class="buy-new-shoes">
             <div class="buy-new-shoes-headline">Buy new shoes</div>
             <div class="buy-new-shoes-text">Take the time to be sure the shoes you buy are right for your feet</div>
             <div class="button dark-button buy-new-shoes-button">Buy Now</div>
         </div>
-        <div class="newest-shoe-headline">{{lastShoeName}}</div>
-        <img class="newest-shoe-image" [src]="'assets/images/items/' + lastShoeImage">
-    </div>
-</ng-template>
-
-<ng-template #topPicks>
-    <div class = "top-picks-container">
-        <div class = "top-picks-header">
-            <img class="top-picks-header-image" src="assets/images/sneakers.svg">
-            <div class="top-picks-header-headline">TOP picks for you</div>
-            <div class="top-picks-view-all">View all ></div>
-        </div>
-        <div
-         class="shoes-container">
-            <app-shoe class="shoe-card" *ngFor="let shoe of shoes"/>
-        </div>
+        <div class="newest-shoe-headline">{{lastShoeAdded?.name}}</div>
+        <img class="newest-shoe-image" [src]="lastShoeAdded ? lastShoeAdded.path : ''" alt="shoe">
     </div>
 </ng-template>
 
 <ng-template #about>
     <div class="about">
-        <div class="about-data">
+        <div class="section about-data">
             <app-logo-headline class="headline-logo" headlineText="About AthenaShop"/>
             <div class="about-text">
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard
@@ -42,7 +28,7 @@
             </div>
         </div>
         <div class="about-shoe-wrapper">
-         <img class="about-shoe" src="assets/images/items/nike_air_jordan_1_travis_mocha_high.png" alt="Jordan mocha">
+         <img class="about-shoe" [src]="highestRatedShoe?.path" [alt]="highestRatedShoe?.name">
         </div>
     </div>
 </ng-template>

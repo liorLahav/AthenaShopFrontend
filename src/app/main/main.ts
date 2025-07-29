@@ -1,4 +1,7 @@
 import { Component, Input } from '@angular/core';
+import { Shoe, shoesApiService,getDisplayShoe, DisplayShoe } from '../shoesApiService';
+import { ShoeCard } from '../components/shoe-card/shoe-card';
+import { catchError, map, tap } from 'rxjs';
  
 @Component({
   selector: 'app-main',
@@ -8,7 +11,25 @@ import { Component, Input } from '@angular/core';
 })
 export class Main {
 
-  shoes = [1,2,3,4]
-  lastShoeImage = "adidas_yeezy_700_mauve.png"
-  lastShoeName = "YEEZY BOOST 700"
+  constructor(private shoesService : shoesApiService){}
+  lastShoeAdded : DisplayShoe | null = null;
+  highestRatedShoe : DisplayShoe | null = null;
+  ngOnInit() : void{
+    this.getLastAddedShoe();
+    this.getMostSoldShoe();
+  }
+  getLastAddedShoe(){
+      this.shoesService.getLastNAddedShoe().pipe(
+      tap((shoe : Shoe[]) =>{
+        this.lastShoeAdded = getDisplayShoe(shoe[0]);
+      })
+    ).subscribe();
+  }
+  getMostSoldShoe(){
+    this.shoesService.getTopNMostSoldShoes().pipe(
+      tap(shoes =>{
+        this.highestRatedShoe = getDisplayShoe(shoes[0]);
+      })
+    ).subscribe()
+  }
 }
