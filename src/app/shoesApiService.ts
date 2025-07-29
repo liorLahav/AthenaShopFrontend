@@ -2,12 +2,12 @@ import { Observable } from "rxjs";
 import { ShoesApiMock } from "./shoesApiMock";
 import { Injectable } from "@angular/core";
 
-enum brand{
-    "Yeezy",
-    "Adidas",
-    "Nike",
-    "Puma"
+export enum Brand {
+  AdiadsYeezy = 'Adidas_Yeezy',
+  Nike = 'Nike',
+  Puma = 'Puma'
 }
+
 
 export interface DisplayShoe{
     name : string,
@@ -15,16 +15,26 @@ export interface DisplayShoe{
     rating : number,
     price : number,
 }
+export const defalutShoe : Shoe = {
+    brand : Brand.AdiadsYeezy,
+    model : "350 natural",
+    price : 100,
+    rates : {
+        amount : 100,
+        rank : 4.5,
+    },
+    id : "item_4"
+}
 
 export interface Shoe{
-    brand : brand,
+    brand : Brand,
     model : string,
     price : number,
     rates : rate,
     id : string,
 }
 export interface rate{
-    amount : string,
+    amount : number,
     rank : number,
 }
 export interface shoeItem{
@@ -40,9 +50,10 @@ export interface shoesApiServiceInterface{
     getLastNAddedShoe(n? : number) : Observable<Shoe[]>
 }
 export const getDisplayShoe = (shoe : Shoe) =>{
+    const shoeBrandKey = shoe.brand;
     return {
-        name : shoe.model[0].toUpperCase() + shoe.model.slice(1).toLowerCase(),
-        path : "assets/images/items/" + shoe.model.replaceAll(" ","_") + ".png",
+        name : shoeBrandKey.replaceAll("_"," ") + " " + shoe.model.toLowerCase(),
+        path : "assets/images/items/" + shoeBrandKey.toLowerCase() + "_" + shoe.model.replaceAll(" ","_") + ".png",
         rating : shoe.rates.rank,
         price : shoe.price,
     }

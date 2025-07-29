@@ -1,13 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Shoe, shoeItem, shoesApiService, shoesApiServiceInterface } from './shoesApiService';
+import { Brand, Shoe, shoeItem, shoesApiService, shoesApiServiceInterface } from './shoesApiService';
 import { Observable, of } from 'rxjs';
 
-enum brand {
-  "Yeezy",
-  "Adidas", 
-  "Nike",
-  "Puma"
-}
+
 
 @Injectable({
   providedIn: 'root'
@@ -17,41 +12,41 @@ export class ShoesApiMock implements shoesApiServiceInterface {
   private shoes: Shoe[] = [
     {
       id: '1',
-      brand: brand.Adidas,
-      model: 'adidas yeezy 350 oreo',
+      brand: Brand.AdiadsYeezy,
+      model: '350 oreo',
       price: 220,
       rates: {
-        amount: '2100',
+        amount: 2100,
         rank: 4.5
       }
     },
     {
       id: '2',
-      brand: brand.Adidas,
-      model: 'adidas yeezy 700 wave runner',
+      brand: Brand.AdiadsYeezy,
+      model: '700 wave runner',
       price: 300,
       rates: {
-        amount: '1850',
+        amount: 1850,
         rank: 4.7
       }
     },
     {
       id: '3',
-      brand: brand.Nike,
-      model: 'nike air jordan 1 low unc',
+      brand: Brand.Nike,
+      model: 'air jordan 1 low unc',
       price: 110,
       rates: {
-        amount: '1560',
+        amount: 1560,
         rank: 4.3
       }
     },
     {
       id: '4',
-      brand: brand.Adidas,
-      model: 'adidas yeezy slides bone',
+      brand: Brand.AdiadsYeezy,
+      model: 'slides bone',
       price: 90,
       rates: {
-        amount: '2890',
+        amount: 2890,
         rank: 4.1
       }
     }
