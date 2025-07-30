@@ -56,7 +56,6 @@ export const getDisplayShoe = (shoe : Shoe) =>{
     let shoeBrandKey = "";
     shoe.brand.forEach(b => shoeBrandKey += b + "_")
     shoeBrandKey = shoeBrandKey.slice(0,-1);
-    console.log(shoeBrandKey);
     return {
         name : shoe.brand.at(-1)?.replace("_"," ") + " " + shoe.model.toLowerCase(),
         path : "assets/images/items/" + shoeBrandKey.toLowerCase() + "_" + shoe.model.replaceAll(" ","_") + ".png",
@@ -65,11 +64,15 @@ export const getDisplayShoe = (shoe : Shoe) =>{
     }
 }
 
+const sheosApiServiceFactory = (type : string) : shoesApiServiceInterface =>{
+    return new ShoesApiMock();
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class shoesApiService implements shoesApiServiceInterface{
-    shoesApiServiceProvider : shoesApiServiceInterface = new ShoesApiMock();
+    shoesApiServiceProvider : shoesApiServiceInterface = sheosApiServiceFactory("memory");
     getTopNMostSoldShoes(n?: number): Observable<Shoe[]> {
         return this.shoesApiServiceProvider.getTopNMostSoldShoes(n);
     }

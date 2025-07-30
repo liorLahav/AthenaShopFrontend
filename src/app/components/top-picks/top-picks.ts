@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { DisplayShoe, getDisplayShoe, Shoe, shoesApiService } from '../../shoesApiService';
-import { tap } from 'rxjs';
+import { defalutShoe, DisplayShoe, getDisplayShoe, Shoe, shoesApiService } from '../../shoesApiService';
+import { catchError, of, tap } from 'rxjs';
 
 @Component({
   selector: 'app-top-picks',
@@ -18,6 +18,10 @@ export class TopPicks {
     this.shoesService.getTopNMostCompetiableShoes(4).pipe(
       tap((shoes : Shoe[]) => {
         this.topPicksShoes = shoes.sort((a : Shoe,b : Shoe) => b.rates.rank - a.rates.rank).map(shoe => getDisplayShoe(shoe));
+      }),
+      catchError((err) =>{
+        this.topPicksShoes = Array(4).fill(defalutShoe);
+        return of(this.topPicksShoes);
       })
     ).subscribe()
   }

@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Shoe, shoesApiService,getDisplayShoe, DisplayShoe } from '../shoesApiService';
-import { ShoeCard } from '../components/shoe-card/shoe-card';
-import { catchError, map, tap } from 'rxjs';
+import { Shoe, shoesApiService,getDisplayShoe, DisplayShoe, defalutShoe } from '../shoesApiService';
+import {  catchError, of, tap } from 'rxjs';
  
 @Component({
   selector: 'app-main',
@@ -22,6 +21,10 @@ export class Main {
       this.shoesService.getLastNAddedShoe().pipe(
       tap((shoe : Shoe[]) =>{
         this.lastShoeAdded = getDisplayShoe(shoe[0]);
+      }),
+      catchError((err)=>{
+        this.highestRatedShoe = getDisplayShoe(defalutShoe)
+        return of(defalutShoe)
       })
     ).subscribe();
   }
@@ -29,6 +32,10 @@ export class Main {
     this.shoesService.getTopNMostSoldShoes().pipe(
       tap(shoes =>{
         this.highestRatedShoe = getDisplayShoe(shoes[0]);
+      }),
+      catchError((err) => {
+        this.highestRatedShoe = getDisplayShoe(defalutShoe)
+        return of(defalutShoe)
       })
     ).subscribe()
   }
