@@ -56,7 +56,7 @@
         }
     .newest-shoe-image{
         transform: scaleX(-1) scale(1.4);
-        width: clamp(220px,30%,350px);
+        width: clamp(220px,40%,350px);
         object-fit: cover;
         margin-right: 120px;
         transform-origin: center;
