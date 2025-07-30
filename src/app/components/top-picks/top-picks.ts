@@ -10,7 +10,7 @@ import { catchError, of, tap } from 'rxjs';
 })
 export class TopPicks {
   constructor(private shoesService : shoesApiService){}
-  topPicksShoes : DisplayShoe[] | null = []
+  topPicksShoes : DisplayShoe[] = []
   ngOnInit() : void{
     this.getTopPicksShoes();
   }
