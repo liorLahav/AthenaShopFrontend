@@ -3,7 +3,7 @@
     'unauthed': !userQuery.isAuthed
   }">
     <app-logo-headline [RedirectToHome]="true" class="headline-logo"/>
-    <ng-container *ngIf="userQuery.isAuthed">
+    <ng-container *ngIf="userQuery.isAuthed && currentRoute != '/login'">
         <div class="buttons-container">
             <a class="nav-button" [attr.name]="button.name" [routerLink]="button.route" *ngFor="let button of buttons">
                 {{ button.name }}

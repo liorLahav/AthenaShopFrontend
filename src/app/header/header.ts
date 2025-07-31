@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { UserQuery } from '../state/user/user.query';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -8,7 +10,8 @@ import { UserQuery } from '../state/user/user.query';
   styleUrl: './header.css'
 })
 export class Header {
-    constructor(protected userQuery : UserQuery){}
+    constructor(protected userQuery : UserQuery,protected router : Router){}
+    currentRoute = ""
     buttons = [{
       name : "Shop",
       route : "Shop",
@@ -19,4 +22,10 @@ export class Header {
       name : "New Item",
       route : "new-item",
     }]
+    ngOnInit() : void{
+      this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event : NavigationEnd) =>{
+        this.currentRoute = event.urlAfterRedirects;
+        console.log(this.currentRoute);
+      })
+    }
 }
