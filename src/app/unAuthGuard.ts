@@ -12,6 +12,6 @@ export class unAuthGuard implements CanActivate{
         if (isAuthed){
             this.router.navigate(['/'])
         }
-        return this.userQuery.isAuthed;
+        return !this.userQuery.isAuthed;
     }
 }
