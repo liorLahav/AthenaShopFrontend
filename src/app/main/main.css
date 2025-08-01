@@ -1,0 +1,96 @@
+.main > *{
+    border-bottom: 2px solid #d5d1cf;
+    padding-bottom: 50px;
+    width: 100%;
+}
+.top-picks{
+    display: inline-block;
+    height: 45%;
+    max-height: 270px;
+}
+.main>*:last-child {
+    border-bottom: 0;
+}
+.newest-shoe-container{
+    height: 250px;
+    padding-bottom: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    font-size: 17px;
+    .buy-new-shoes{
+        width: 35%;
+        margin-bottom: 50px;
+        .buy-new-shoes-headline{
+            font-size: 35px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+        .buy-new-shoes-text{
+            color: #afadab;
+        }
+        .buy-new-shoes-button{
+            width: 50%;
+            margin-right: 5px;
+            padding: 6px 7px;
+            max-width: 100px;
+            box-sizing: border-box;
+            white-space: nowrap;
+        }
+    }
+    .buy-new-shoes > *{
+        margin-top: 15px;
+    }
+    .newest-shoe-headline{
+        transform: rotate(-90deg);
+            transform-origin: right bottom;
+            font-size: 37px;
+            font-weight: bold;
+            color: #333;
+            display: inline-block;
+            width: 250px;
+            position: absolute;
+            bottom: 320px;
+            right: 0;
+        }
+    .newest-shoe-image{
+        transform: scaleX(-1) scale(1.4);
+        width: clamp(180px,40%,350px);
+        object-fit: cover;
+        margin-right: 120px;
+        transform-origin: center;
+    }
+}
+.about{
+    margin-top: 80px;
+    margin-left: 20px;
+    height: 250px;
+    display: flex;
+    justify-content: center;    
+    align-items: center;
+    .headline-logo{
+        display: flex;
+        justify-content: flex-start;
+    }
+    .about-data{
+        width: 37%;
+        font-size: 12px;
+        max-width: 400px;
+        margin-bottom: 70px;
+        margin-right: 7%;
+    }
+    .about-text{
+        color: #afadab;
+    }
+    .about-shoe-wrapper{
+        width: clamp(450px,50%,500px);
+        height: 100%;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+    }
+    .about-shoe{
+        width: 100%;
+    }
+}

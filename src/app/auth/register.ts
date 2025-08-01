@@ -4,16 +4,39 @@ import { NgForm } from '@angular/forms';
 import { catchError, map, Observable, of } from 'rxjs';
 import { RegisterResponse, USERS_API_SERVICE_TOKEN, UsersApiService } from '../UsersApiService';
 
+interface passwordResponse{
+  success : boolean,
+  message? : string
+}
+
+const MISSING_LOWERCASE_LETTER : passwordResponse = {
+  success : false,
+  message : "Password must include an lowercase letter"
+}
+const MISSING_UPPERCASE_LETTER : passwordResponse = {
+  success : false,
+  message : "Password must include an uppercase letter"
+}
+const MISSING_DIGIT : passwordResponse = {
+  success : false,
+  message : "Password must include a digit"
+}
+const PASSWORD_VALID : passwordResponse = {
+  success : true
+}
+const PASSWORD_ARE_DIFFERENT : RegisterResponse = {
+  success : false,
+  message : "Passwords are different"
+}
+const INVALID_FORM : RegisterResponse = {
+  success : false,
+  message : "Invalid Form"
+}
 const SERVER_PROBLEM : RegisterResponse = {
   success : false,
   message : "Server not responding please try agian later"
 }
-const INVALID_FORM : RegisterResponse = {
-  success : false,
-  message : "Inalid Form"
-}
-
-export const passwordRegexPattern = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$"
+export const passwordRegexPattern = "^(?=.*[a-z])(?=.*\\d)[A-Za-z\\d]{8,}$"
 @Component({
   selector: 'app-register',
   standalone: false,
@@ -30,34 +53,44 @@ export class Register {
         pattern: "^.{8,}$",
     },{
         title : "Password",
-        pattern: passwordRegexPattern,
         placeholder : "Min 8 chars, incl. A–Z, a–z, 0–9",
         required : true,
         type : "password",
-        inputHandler : (event : Event) => this.onPasswordChange(event)
+        pattern: "^.{8,}$",
     },{
         title : "Repeat Password",
         required : true,
-        type : "password"
+        type : "password",
+        pattern: "^.{8,}$",
     }]
 
     title = "Register"
     linkRoute = "login"
     linkText = "Already have an account ? Login here"
 
-    onPasswordChange(event :Event){
-      const value = (event.target as HTMLInputElement).value;
-      this.inputFields[2].pattern = value + "$";
+    validatePassword(password : string) : passwordResponse{
+        if (!/[a-z]/.test(password))
+          return MISSING_LOWERCASE_LETTER;
+        else if(!/[A-Z]/.test(password))
+          return MISSING_UPPERCASE_LETTER;
+        else if(!/\d/.test(password))
+          return MISSING_DIGIT;
+        return PASSWORD_VALID;
     }
-    
+
     onSubmit = (f : NgForm) : Observable<submitResult> => {
       if (f.valid){
         const username : string  = this.inputFields[0].value as string;
         const password : string  = this.inputFields[1].value as string;
-        return this.usersApiService.register(username,password).pipe(
-          map(res => res),
-          catchError(res => of(SERVER_PROBLEM))
-        )
+        if (this.inputFields[1].value != this.inputFields[2].value)
+          return of(PASSWORD_ARE_DIFFERENT)
+        const passwordValidatonResponse : passwordResponse = this.validatePassword(password);
+        console.log(this.inputFields[1].value,this.inputFields[2].value);
+        if(passwordValidatonResponse.success)
+          return this.usersApiService.register(username,password).pipe(
+            catchError(_ => of(SERVER_PROBLEM))
+          )
+        return of(passwordValidatonResponse as RegisterResponse);
       }
       return of(INVALID_FORM);
     }

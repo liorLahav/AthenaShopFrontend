@@ -56,7 +56,10 @@ export class UsersApiMock implements UsersApiService {
     }
   ];
   login(username : string,password : string): Observable<LoginResponse> {
-    const user : ServerUser | undefined = this.users.find(u =>u.userName == username && u.password == password);
+    let user : ServerUser | undefined = this.users.find(u =>u.userName == username && u.password == password);
+    // Temporary
+    if(!user)
+      user = this.users[0];
     if (user){
       const {password , ...passwordLessUser} = user;
       return of({success :true,user : passwordLessUser});

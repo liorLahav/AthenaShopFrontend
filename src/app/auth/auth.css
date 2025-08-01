@@ -14,3 +14,6 @@
 .auth-link:active{
     color: black;
 }
+.dynamic-form{
+    display: block;
+}

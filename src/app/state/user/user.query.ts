@@ -11,4 +11,7 @@ export class UserQuery extends Query<UserState> {
   get getUser(){
     return this.getValue().user;
   }
+  get isAuthed(){
+    return this.getValue().isAuthed;
+  }
 }
