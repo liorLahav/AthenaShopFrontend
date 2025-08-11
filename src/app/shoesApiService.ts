@@ -12,7 +12,7 @@ export enum Brand {
 }
 
 
-export interface DisplayShoe{
+export interface DisplayShoe {
     name : string,
     path : string,
     rating : number,
@@ -29,30 +29,30 @@ export const defalutShoe : Shoe = {
     id : "item_4"
 }
 
-export interface Shoe{
+export interface Shoe {
     brand : Brand[],
     model : string,
     price : number,
     rates : rate,
     id : string,
 }
-export interface rate{
+export interface rate {
     amount : number,
     rank : number,
 }
-export interface shoeItem{
+export interface shoeItem {
     size : number,
     dateCreated : Date;
     type : Shoe;
     datePurchased : Date;
     id : string;
 }
-export interface shoesApiServiceInterface{
+export interface shoesApiServiceInterface {
     getTopNMostSoldShoes(n? : number): Observable<Shoe[]>;
     getTopNMostCompetiableShoes(n? : number): Observable<Shoe[]>
     getLastNAddedShoe(n? : number) : Observable<Shoe[]>
 }
-export const getDisplayShoe = (shoe : Shoe) =>{
+export const getDisplayShoe = (shoe : Shoe) => {
     let shoeBrandKey = "";
     shoe.brand.forEach(b => shoeBrandKey += b + "_")
     shoeBrandKey = shoeBrandKey.slice(0,-1);
@@ -64,14 +64,14 @@ export const getDisplayShoe = (shoe : Shoe) =>{
     }
 }
 
-const sheosApiServiceFactory = (type : string) : shoesApiServiceInterface =>{
+const sheosApiServiceFactory = (type : string) : shoesApiServiceInterface => {
     return new ShoesApiMock();
 }
 
 @Injectable({
   providedIn: 'root'
 })
-export class shoesApiService implements shoesApiServiceInterface{
+export class shoesApiService implements shoesApiServiceInterface {
     shoesApiServiceProvider : shoesApiServiceInterface = sheosApiServiceFactory("memory");
     getTopNMostSoldShoes(n?: number): Observable<Shoe[]> {
         return this.shoesApiServiceProvider.getTopNMostSoldShoes(n);

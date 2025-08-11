@@ -17,7 +17,7 @@ export class Main {
     this.getLastAddedShoe();
     this.getMostSoldShoe();
   }
-  getLastAddedShoe(){
+  getLastAddedShoe() {
       this.shoesService.getLastNAddedShoe().pipe(
       tap((shoe : Shoe[]) =>{
         this.lastShoeAdded = getDisplayShoe(shoe[0]);
@@ -28,7 +28,7 @@ export class Main {
       })
     ).subscribe();
   }
-  getMostSoldShoe(){
+  getMostSoldShoe() {
     this.shoesService.getTopNMostSoldShoes().pipe(
       tap(shoes =>{
         this.highestRatedShoe = getDisplayShoe(shoes[0]);

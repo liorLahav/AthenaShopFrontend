@@ -68,7 +68,7 @@ export class Register {
     linkRoute = "login"
     linkText = "Already have an account ? Login here"
 
-    validatePassword(password : string) : passwordResponse{
+    validatePassword(password : string) : passwordResponse {
         if (!/[a-z]/.test(password))
           return MISSING_LOWERCASE_LETTER;
         else if(!/[A-Z]/.test(password))

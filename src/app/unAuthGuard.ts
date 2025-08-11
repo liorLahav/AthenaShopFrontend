@@ -6,7 +6,7 @@ import { ROUTES } from "./routes";
 @Injectable({
     providedIn : "root"
 })
-export class unAuthGuard implements CanActivate{
+export class unAuthGuard implements CanActivate {
     constructor(private userQuery : UserQuery,private router : Router){}
     canActivate(): boolean {
         const isAuthed = this.userQuery.isAuthed;

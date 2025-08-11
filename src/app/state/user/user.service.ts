@@ -24,7 +24,7 @@ const INVALID_FORM : submitResult = {
 export class UserService{
     constructor(private userstore : UserStore,@Inject(USERS_API_SERVICE_TOKEN) private usersApiService: UsersApiService){}
 
-    updateIsLoaded(isLoading : boolean){
+    updateIsLoaded(isLoading : boolean) {
         this.userstore.setLoading(isLoading);
     }
     login(username : string ,password : string) : Observable<submitResult>{
