@@ -27,8 +27,8 @@ export class DynamicForm {
   @Input() submitCallback! : (f : NgForm) => Observable<submitResult>;
   success = false;
   messsage : string = "";
-  onSubmit = (f : NgForm) =>{
-    const res = this.submitCallback(f).subscribe(res =>{
+  onSubmit = (form : NgForm) =>{
+    const res = this.submitCallback(form).subscribe(res =>{
       this.success = res.success;
       this.messsage = res.message;
     });
