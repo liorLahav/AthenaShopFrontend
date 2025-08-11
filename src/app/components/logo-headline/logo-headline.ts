@@ -1,5 +1,6 @@
 import { Component, input, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { ROUTES } from '../../routes';
 
 @Component({
   selector: 'app-logo-headline',
@@ -14,6 +15,6 @@ export class LogoHeadline {
 
   onClick(){
     if(this.RedirectToHome)
-      this.router.navigate(["/"]);
+      this.router.navigate([ROUTES.HOME]);
   }
 }

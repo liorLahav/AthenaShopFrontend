@@ -4,6 +4,7 @@ import {NgForm } from '@angular/forms';
 import {Observable, of, tap } from 'rxjs';
 import { UserService } from '../state/user/user.service';
 import { Router } from '@angular/router';
+import { ROUTES } from '../routes';
 
 const INVALID_FORM : submitResult = {
     success: false, 
@@ -42,7 +43,7 @@ export class Login {
           next: (res: submitResult) => {
             if(res.success)
             setTimeout(() => {
-              this.router.navigate(["/"]);
+              this.router.navigate([ROUTES.HOME]);
             },2000);
           }
         })
