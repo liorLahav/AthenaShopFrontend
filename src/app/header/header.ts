@@ -25,7 +25,6 @@ export class Header {
     ngOnInit() : void{
       this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event : NavigationEnd) =>{
         this.currentRoute = event.urlAfterRedirects;
-        console.log(this.currentRoute);
       })
     }
 }

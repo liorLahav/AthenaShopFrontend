@@ -85,7 +85,6 @@ export class Register {
         if (this.inputFields[1].value != this.inputFields[2].value)
           return of(PASSWORD_ARE_DIFFERENT)
         const passwordValidatonResponse : passwordResponse = this.validatePassword(password);
-        console.log(this.inputFields[1].value,this.inputFields[2].value);
         if(passwordValidatonResponse.success)
           return this.usersApiService.register(username,password).pipe(
             catchError(_ => of(SERVER_PROBLEM))
