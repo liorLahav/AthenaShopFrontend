@@ -1,0 +1,22 @@
+<div class="shop-container">
+    <app-shop-sidebar/>
+    <div class="items-container">
+        <div class="items-header">
+            <div class="items-headline">SNEAKERS SHOP</div>
+                <div class="items-header-top">
+                    <div class="sneakers-amout">791</div>
+                    <div class="sort">
+                        <div class="select-label">Sort by</div>
+                        <select class="sort-select" selected>
+                            <option class="default-option" value="" selected disabled>Selected</option>
+                            <option *ngFor="let sort of sortOptions">{{sort}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="items-headline-bottom"></div>
+                <div class="shoes-container">
+                    <app-shoe-card class="shoe" *ngFor="let dispalyShoe of shoes" [shoe] = "dispalyShoe" />
+                </div>
+        </div>
+    </div>
+</div>
