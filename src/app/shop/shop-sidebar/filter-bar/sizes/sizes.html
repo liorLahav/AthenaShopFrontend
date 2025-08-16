@@ -1,0 +1,12 @@
+<input class="search-input" placeholder="Your size" type="text" />
+<div class="size-wrapper">
+    <div class="size-container">
+        <div    
+                [ngClass]="{ 'checked-size' : checked.has(size)}" 
+                [id] = "size" 
+                (click)="onClick($event)" 
+                class="size" 
+                *ngFor="let size of sizes">
+                {{size}}</div>
+    </div>
+</div>
