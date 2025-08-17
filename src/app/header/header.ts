@@ -14,7 +14,7 @@ export class Header {
     currentRoute = ""
     buttons = [{
       name : "Shop",
-      route : "Shop",
+      route : "shop",
     },{
       name : "History",
       route : "history"

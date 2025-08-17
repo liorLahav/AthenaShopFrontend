@@ -1,21 +1,23 @@
 <div class="shop-container">
-    <app-shop-sidebar/>
+    <app-shop-sidebar [filters]="filters"/>
     <div class="items-container">
         <div class="items-header">
             <div class="items-headline">SNEAKERS SHOP</div>
                 <div class="items-header-top">
-                    <div class="sneakers-amout">791</div>
+                    <div class="sneakers-amout">{{shoes.length}} sneakers</div>
                     <div class="sort">
                         <div class="select-label">Sort by</div>
-                        <select class="sort-select" selected>
+                        <select  class="sort-select" selected>
                             <option class="default-option" value="" selected disabled>Selected</option>
-                            <option *ngFor="let sort of sortOptions">{{sort}}</option>
+                            <option [value]="sort.key" *ngFor="let sort of typesArray">{{sort.val}}</option>
                         </select>
                     </div>
                 </div>
-                <div class="items-headline-bottom"></div>
+                <div class="items-headline-bottom">
+                    <div class="filter-tag" *ngFor="let filter of filtersArray">{{filter.title}} : {{filter.value}}</div>
+                </div>
                 <div class="shoes-container">
-                    <app-shoe-card class="shoe" *ngFor="let dispalyShoe of shoes" [shoe] = "dispalyShoe" />
+                    <app-shoe-card class="shoe" *ngFor="let dispalyShoe of dispalyShoes" [shoe] = "dispalyShoe" />
                 </div>
         </div>
     </div>

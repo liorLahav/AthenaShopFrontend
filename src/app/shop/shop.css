@@ -55,14 +55,28 @@
                     }
                 }
             }
+            .items-headline-bottom{
+                width: 100%;
+                display: flex;
+                flex-wrap: nowrap;
+                .filter-tag{
+                    margin-right: 5px;
+                    padding: 5px 7px;
+                    color: gray;
+                    background-color: white;
+                    border-radius: 7px;
+                    cursor: default;
+                }
+            }
             .shoes-container{
                 width: 100%;
                 display: flex;
-                justify-content: space-between;
+                justify-content: flex-start;
                 flex-wrap: wrap;
                 margin-top: 20px;
                 .shoe{
                     width: 31%;
+                    margin-left: 2%;
                 }
             }
         }

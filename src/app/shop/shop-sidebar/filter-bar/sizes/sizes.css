@@ -22,10 +22,12 @@
         height: 100px;
         width: 90%;
         max-width: 130px;
+        font-size: 12px;;
         display: flex;
         justify-content: flex-start;
         flex-wrap: wrap;
         overflow-y: visible;
+        color: gray;
 
         .filler {
             width: 20%;
@@ -34,14 +36,16 @@
 
         .size {
             width: 25px;
+            height: 25px;
+            padding: 1px;
             margin: 3px 3px;
-            aspect-ratio: 1 / 1;
             border: 1px gray solid;
             vertical-align: middle;
             cursor: pointer;
             display: grid;
             place-items: center;
-            border-radius: 5px;
+            border-radius: 8px;
+            fo
         }
 
         .size:hover,.checked-size{

@@ -16,6 +16,16 @@ import { LogoHeadline } from './components/logo-headline/logo-headline';
 import { persistState } from '@datorama/akita';
 import { shoesApiService } from './shoesApiService';
 import { TopPicks } from './components/top-picks/top-picks';
+import { Shop } from './shop/shop';
+import { ShopSidebar } from './shop/shop-sidebar/shop-sidebar';
+import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { FilterBar } from './shop/shop-sidebar/filter-bar/filter-bar';
+import {MatSliderModule} from '@angular/material/slider';
+import { Range } from './shop/shop-sidebar/filter-bar/range/range';
+import { Checkbox } from './shop/shop-sidebar/filter-bar/checkbox/checkbox';
+import { Sizes } from './shop/shop-sidebar/filter-bar/sizes/sizes';
 
 persistState({
   key : 'akita-store',
@@ -33,6 +43,12 @@ persistState({
     ShoeCard,
     LogoHeadline,
     TopPicks,
+    Shop,
+    ShopSidebar,
+    FilterBar,
+    Range,
+    Checkbox,
+    Sizes,
   ],
   imports: [
     BrowserModule,
@@ -40,6 +56,10 @@ persistState({
     FormsModule,
     NgFor,
     AkitaNgDevtools.forRoot(),
+    MatInputModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatSliderModule
   ],
   providers: [
     shoesApiService,

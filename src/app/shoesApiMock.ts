@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Brand, Shoe, shoeItem, shoesApiService, shoesApiServiceInterface } from './shoesApiService';
+import {shoesFilter, Brand, Shoe, shoeItem, shoesApiService, shoesApiServiceInterface } from './shoesApiService';
 import { Observable, of } from 'rxjs';
 
 
@@ -91,4 +91,23 @@ export class ShoesApiMock implements shoesApiServiceInterface {
         n = this.ShoeItems.length;
       return of(this.ShoeItems.slice().sort((a : shoeItem,b : shoeItem) => b.dateCreated.getTime() - a.dateCreated.getTime()).slice(0,n).map((s : shoeItem) => s.type))
     }
+    getShoesByFilter(filter: shoesFilter): Observable<shoeItem[]> {
+      let matchingShoes : shoeItem[] = []
+      for (const shoe of this.ShoeItems){
+        if (filter?.n == matchingShoes.length)
+          break;
+        console.log(shoe.type.brand.filter(b => filter.brand?.includes(b)))
+        if (filter.brand && !(shoe.type.brand.filter(b => filter.brand?.includes(b)).length >= 1))
+          continue;
+        if (filter.size && !(filter.size.includes(shoe.size)))
+          continue;
+        if (filter.price){
+          if (shoe.type.price > filter.price.max || shoe.type.price < filter.price.min)
+            continue;
+        }
+        matchingShoes.push(shoe);
+      }
+      return of(matchingShoes);
+    }
+
 }

@@ -1,8 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { filtersService } from '../../../filtersService';
+import { Brand } from '../../../shoesApiService';
 
 export interface filter{
   title : string,
+  type : string,
 }
 export interface sizeFilter extends filter{
   type : "size"
@@ -15,20 +17,21 @@ export interface rangeFilter extends filter{
 }
 export interface checkboxFilter extends filter{
   type : "checkbox",
-  options : string[],
+  options : Brand[],
 }
+export type universalFilter =  checkboxFilter | rangeFilter | sizeFilter;
 
 interface sizeOutput{
   type : "size"
-  value : number[]
+  value : number[] | null
 }
 interface checkboxOutput{
   type : "checkbox"
-  value : string[]
+  value : string[] | null
 }
 interface rangeOutput{
   type : "range"
-  value : { min: number; max: number; }
+  value : { min: number; max: number; } | null
 }
 
 type outputType = sizeOutput | checkboxOutput | rangeOutput;
@@ -42,10 +45,13 @@ type outputType = sizeOutput | checkboxOutput | rangeOutput;
 })
 export class FilterBar {
     constructor (private filters : filtersService){}
-    @Input() title! : string;
     @Input() filter! : rangeFilter | sizeFilter | checkboxFilter;
-    
     onOutput(output : outputType){
-      this.filters.update({title : this.title , value : output.value})
+      if (output.value == null){
+        this.filters.remove(this.filter.title);
+      }
+      else{
+        this.filters.update({title : this.filter.title ,type : output.type, value : output.value})
+      }
     }
 }

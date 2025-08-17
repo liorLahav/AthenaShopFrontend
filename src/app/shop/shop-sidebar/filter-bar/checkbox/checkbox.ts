@@ -9,7 +9,7 @@ import { checkboxFilter } from '../filter-bar';
 })
 export class Checkbox {
   @Input() options : string[] = [];
-  @Output() output  = new EventEmitter<string[]>
+  @Output() output  = new EventEmitter<string[] | null>
   checked : string[] = [];
   onInput(event:Event){
     const target = event.target as HTMLInputElement;
@@ -20,6 +20,12 @@ export class Checkbox {
       }
       else{
         this.checked = this.checked.filter(item => item != target.id);
+      }
+      if (this.checked.length == 0){
+        this.output.emit(null);
+      }
+      else{
+        this.output.emit(this.checked);
       }
     }
   }

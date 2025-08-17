@@ -1,21 +1,22 @@
 <div class="prices">
-    <div class="min">{{curMin}}</div>
-    <div class="max">{{curMax}}</div>
+    <div class="min">{{min}}</div>
+    <div class="max">{{max}}</div>
 </div>
 <input  [style.--orangeSize]="BackgroundSize" 
         class="range" 
         type="range" 
-        [min]="curMin" 
-        [max]="curMax" 
-        [(ngModel)] = 'value'
-        (input)="onInput()">
+        [min]="min" 
+        [max]="max" 
+        [(ngModel)] = 'curMax'
+        (input)="onThumbInput()"
+        >
 <div class="text-input-container">
     <div class="text-input">
         <div>From</div>
-        <input (input)="onMinInput($event)" class="number-input" type="text" [value]="min"  />
+        <input (input)="onMinInput($event)" class="number-input" type="text" [value]="curMin"  />
     </div>
     <div class="text-input">
         <div>To</div>
-        <input (input)="onMaxInput($event)" class="number-input" type="text" [value]="max" />
+        <input (input)="onMaxInput($event)" class="number-input" type="text" [value]="curMax" />
     </div>
 </div>
