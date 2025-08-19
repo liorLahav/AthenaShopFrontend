@@ -25,6 +25,10 @@
             color: #e46464;
             font-size: 12px;
         }
+        .shop-price{
+            color: gray;
+            font-size: 16px;
+        }
         .rating{
             display: flex;
             justify-content: flex-start;
