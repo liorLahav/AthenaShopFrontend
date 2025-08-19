@@ -1,4 +1,4 @@
-<input class="search-input" placeholder="Your size" type="text" />
+<input [(ngModel)]="sizeInput" (input)="onSearchInput()" class="search-input" placeholder="Your size" type="text" />
 <div class="size-wrapper">
     <div class="size-container">
         <div    
@@ -6,7 +6,7 @@
                 [id] = "size" 
                 (click)="onClick($event)" 
                 class="size" 
-                *ngFor="let size of sizes">
+                *ngFor="let size of displayedSizes">
                 {{size}}</div>
     </div>
 </div>

@@ -11,8 +11,11 @@ export class Sizes {
   @Output() output = new EventEmitter<number[] | null>;
   @Output() resetCallback = new EventEmitter<() => void>
   checked : Set<number> = new Set<number>;
+  sizeInput = "";
+  displayedSizes : number[] = []
   ngOnInit(){
     this.resetCallback.emit(() => this.reset());
+    this.displayedSizes = this.sizes;
   }
   onClick(event :Event){
     const id = +(event.target as HTMLElement).id;
@@ -27,6 +30,9 @@ export class Sizes {
     else{
       this.output.emit([...this.checked]);
     }
+  }
+  onSearchInput(){
+    this.displayedSizes = this.sizes.filter(size => String(size).startsWith(this.sizeInput))
   }
   reset(){
     this.checked.clear();
