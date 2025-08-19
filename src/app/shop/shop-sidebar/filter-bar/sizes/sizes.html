@@ -2,7 +2,7 @@
 <div class="size-wrapper">
     <div class="size-container">
         <div    
-                [ngClass]="{ 'checked-size' : checked.has(size)}" 
+                [class.checked-size]="checked.has(size)" 
                 [id] = "size" 
                 (click)="onClick($event)" 
                 class="size" 

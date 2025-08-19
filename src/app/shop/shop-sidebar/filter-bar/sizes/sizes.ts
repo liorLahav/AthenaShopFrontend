@@ -9,7 +9,11 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class Sizes {
   @Input() sizes! : number[];
   @Output() output = new EventEmitter<number[] | null>;
+  @Output() resetCallback = new EventEmitter<() => void>
   checked : Set<number> = new Set<number>;
+  ngOnInit(){
+    this.resetCallback.emit(() => this.reset());
+  }
   onClick(event :Event){
     const id = +(event.target as HTMLElement).id;
     if(!this.checked.has(id))
@@ -23,5 +27,8 @@ export class Sizes {
     else{
       this.output.emit([...this.checked]);
     }
+  }
+  reset(){
+    this.checked.clear();
   }
 }
