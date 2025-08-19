@@ -59,6 +59,7 @@
                 width: 100%;
                 display: flex;
                 flex-wrap: nowrap;
+                align-items: center;
                 .filter-tag{
                     margin-right: 5px;
                     padding: 5px 7px;
@@ -66,7 +67,28 @@
                     background-color: white;
                     border-radius: 7px;
                     cursor: default;
+                    display: flex;
+                    flex-wrap: nowrap;
+                    .x{
+                        font-size: 9px;
+                        margin-top: 2.5px;
+                        margin-left: 10px;
+                        cursor: pointer;
+                    }
+                    .x:hover{
+                        font-weight: bold;
+                    }
                 }
+                .clear-all{
+                    color: gray;
+                    font-size: 9px;
+                    cursor: pointer;
+                    text-decoration: underline;
+                }
+                .clear-all:hover{
+                    font-weight: bold;
+                }
+                
             }
             .shoes-container{
                 width: 100%;

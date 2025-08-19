@@ -7,17 +7,20 @@
                     <div class="sneakers-amout">{{shoes.length}} sneakers</div>
                     <div class="sort">
                         <div class="select-label">Sort by</div>
-                        <select  class="sort-select" selected>
-                            <option class="default-option" value="" selected disabled>Selected</option>
-                            <option [value]="sort.key" *ngFor="let sort of typesArray">{{sort.val}}</option>
+                        <select (change)="getSortType($event)" class="sort-select">
+                            <option class="default-option" value="" [selected]="chosenSort === ''">Selected</option>
+                            <option [value]="sort.val" 
+                                    *ngFor="let sort of typesArray"
+                                     [selected]="chosenSort === sort.val">{{sort.val}}</option>
                         </select>
                     </div>
                 </div>
                 <div class="items-headline-bottom">
-                    <div class="filter-tag" *ngFor="let filter of filtersArray">{{filter.title}} : {{filter.value}}</div>
+                    <div class="filter-tag" *ngFor="let filter of filtersArray">{{filter.title}} : {{filter.value}} <div class ="x">X</div></div>
+                    <div *ngIf="filtersArray.length > 0" class="clear-all">Clear all</div>
                 </div>
                 <div class="shoes-container">
-                    <app-shoe-card class="shoe" *ngFor="let dispalyShoe of dispalyShoes" [shoe] = "dispalyShoe" />
+                    <app-shoe-card class="shoe" *ngFor="let dispalyShoe of displayShoes" [shoe] = "dispalyShoe" />
                 </div>
         </div>
     </div>
