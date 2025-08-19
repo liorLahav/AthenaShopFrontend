@@ -10,23 +10,32 @@ import { checkboxFilter } from '../filter-bar';
 export class Checkbox {
   @Input() options : string[] = [];
   @Output() output  = new EventEmitter<string[] | null>
-  checked : string[] = [];
+  @Output() resetCallback = new EventEmitter<() => void>
+  checked : {[key : string] : boolean} = {};
   onInput(event:Event){
     const target = event.target as HTMLInputElement;
     if(target){
       const isChecked = target.checked;
       if(isChecked){
-        this.checked.push(target.id);
+        this.checked[target.id] = true;
       }
       else{
-        this.checked = this.checked.filter(item => item != target.id);
+        this.checked[target.id] = false;
       }
-      if (this.checked.length == 0){
+      if (Object.values(this.checked).filter(val => val).length == 0){
         this.output.emit(null);
       }
       else{
-        this.output.emit(this.checked);
+        console.log(target)
+        this.output.emit(Object.keys(this.checked).filter((k) => this.checked[k] == true));
       }
     }
+  }
+  reset(){
+    this.options.forEach(option =>{this.checked[option] = false})
+  }
+  ngOnInit(){
+    this.resetCallback.emit(() => this.reset());
+    this.options.forEach(option =>{this.checked[option] = false})
   }
 }
