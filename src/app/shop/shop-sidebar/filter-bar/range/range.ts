@@ -11,6 +11,7 @@ export class Range {
   @Input() min : number = 0;
   @Input() max! : number;
   @Output() output = new EventEmitter<{min: number, max: number} | null>;
+  @Output() resetCallback = new EventEmitter<() => void>;
   value = 0;
   curMax = 0;
   curMin = 0;
@@ -37,9 +38,14 @@ export class Range {
       this.output.emit({min : this.curMin , max : this.curMax});
     }
   }
+  reset(){
+    this.curMin = this.min;
+    this.curMax = this.max;
+  }
 
   ngOnInit() {
     this.curMax = this.max;
     this.curMin = this.min;
+    this.resetCallback.emit(() => this.reset());
   }
 }

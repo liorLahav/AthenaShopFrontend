@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { filtersService } from '../../../filtersService';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { ALL_FILTERS, filtersService } from '../../../filtersService';
 import { Brand } from '../../../shoesApiService';
 
 export interface filter{
@@ -46,6 +46,14 @@ type outputType = sizeOutput | checkboxOutput | rangeOutput;
 export class FilterBar {
     constructor (private filters : filtersService){}
     @Input() filter! : rangeFilter | sizeFilter | checkboxFilter;
+    reset : () => void = () =>{};
+    value = ""
+    ngOnInit(){
+      this.onFilterRemove();
+    }
+    onResetCallback(reset : () => void){
+      this.reset = reset;
+    }
     onOutput(output : outputType){
       if (output.value == null){
         this.filters.remove(this.filter.title);
@@ -53,5 +61,12 @@ export class FilterBar {
       else{
         this.filters.update({title : this.filter.title ,type : output.type, value : output.value})
       }
+    }
+    onFilterRemove(){
+      this.filters.removedFilters$.subscribe(title =>{
+        if(title == this.filter.title || ALL_FILTERS == title){
+          this.reset();
+        }
+      })
     }
 }

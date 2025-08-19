@@ -4,13 +4,13 @@
         <img class="filter-bar-arrow" src="assets/images/arrow.png"/>
     </div>
         <ng-container *ngIf="filter.type=='range'">
-            <app-range (output)="onOutput({type : 'range',value : $event})" [max]="filter.max" [min]="filter.min"/>
+            <app-range (resetCallback)="onResetCallback($event)" (output)="onOutput({type : 'range',value : $event})" [max]="filter.max" [min]="filter.min"/>
         </ng-container>
         <ng-container *ngIf="filter.type=='checkbox'">
-            <app-checkbox (output)="onOutput({type : 'checkbox',value : $event})" [options]="filter.options" />
+            <app-checkbox (resetCallback)="onResetCallback($event)" (output)="onOutput({type : 'checkbox',value : $event})" [options]="filter.options" />
         </ng-container>
         <ng-container *ngIf="filter.type == 'size'">
-            <app-sizes (output)="onOutput({type : 'size' , value : $event})" [sizes]="filter.sizes"/>
+            <app-sizes (resetCallback)="onResetCallback($event)" (output)="onOutput({type : 'size' , value : $event})" [sizes]="filter.sizes"/>
         </ng-container>
     <hr class="end-line"/>
 </div>
