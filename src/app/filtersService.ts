@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { shoesApiService } from './shoesApiService';
 import { BehaviorSubject, debounceTime, map } from 'rxjs';
-
+export const ALL_FILTERS = 'all'
 interface filter{
   title : string
   type : string
@@ -16,14 +16,20 @@ export class filtersService {
   private filters : {[key : string] : any} = {}
   private isFilterChangedSource = new BehaviorSubject<void>(undefined);
   isFilterChanged$ = this.isFilterChangedSource.asObservable();
+  private removedFiltersSource = new BehaviorSubject<string>("");
+  removedFilters$ = this.removedFiltersSource.asObservable();
 
   private filterChanged(){
     this.isFilterChangedSource.next();
+  }
+  private filterRemoved(title : string){
+    this.removedFiltersSource.next(title);
   }
 
   clear(){
     this.filters = {}
     this.filterChanged();
+    this.filterRemoved(ALL_FILTERS);
   }
   getFilters(){
     return {...this.filters};
@@ -39,7 +45,7 @@ export class filtersService {
   }
   remove(title : string){
     delete this.filters[title.toLowerCase()];
-    console.log(this.filters);
     this.filterChanged();
+    this.filterRemoved(title);
   }
 }
