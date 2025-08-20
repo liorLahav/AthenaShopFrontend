@@ -7,7 +7,7 @@
     border-radius: 15px;
     padding: 10px 20px;
     box-sizing: border-box;
-    font-size: 12px;
+    font-size: 11px;
     .shoe-image{
         width: clamp(70px,70%,200px);
     }
@@ -27,7 +27,7 @@
         }
         .shop-price{
             color: gray;
-            font-size: 16px;
+            font-size: 14px;
         }
         .rating{
             display: flex;
