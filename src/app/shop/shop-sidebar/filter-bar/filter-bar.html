@@ -1,8 +1,9 @@
 <div class="filter-bar-container">
     <div class="filter-bar-header">
         <div class="filter-bar-title">{{filter.title}}</div>
-        <img class="filter-bar-arrow" src="assets/images/arrow.png"/>
+        <img [ngStyle]="{transform : visable ? 'rotate(180deg)' : 'rotate(0deg)'}" (click)="changeVisablity()" class="filter-bar-arrow" src="assets/images/arrow.png"/>
     </div>
+    <ng-container *ngIf="visable">
         <ng-container *ngIf="filter.type=='range'">
             <app-range (resetCallback)="onResetCallback($event)" (output)="onOutput({type : 'range',value : $event})" [max]="filter.max" [min]="filter.min"/>
         </ng-container>
@@ -12,6 +13,7 @@
         <ng-container *ngIf="filter.type == 'size'">
             <app-sizes (resetCallback)="onResetCallback($event)" (output)="onOutput({type : 'size' , value : $event})" [sizes]="filter.sizes"/>
         </ng-container>
+    </ng-container>
     <hr class="end-line"/>
 </div>
 

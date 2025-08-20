@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { ALL_FILTERS, filtersService } from '../../../filtersService';
 import { Brand } from '../../../shoesApiService';
+import { option } from './checkbox/checkbox';
 
 export interface filter{
   title : string,
@@ -17,7 +18,7 @@ export interface rangeFilter extends filter{
 }
 export interface checkboxFilter extends filter{
   type : "checkbox",
-  options : Brand[],
+  options : option[],
 }
 export type universalFilter =  checkboxFilter | rangeFilter | sizeFilter;
 
@@ -48,6 +49,7 @@ export class FilterBar {
     @Input() filter! : rangeFilter | sizeFilter | checkboxFilter;
     reset : () => void = () =>{};
     value = ""
+    visable = true;
     ngOnInit(){
       this.onFilterRemove();
     }
@@ -62,9 +64,12 @@ export class FilterBar {
         this.filters.update({title : this.filter.title ,type : output.type, value : output.value})
       }
     }
+    changeVisablity(){
+      this.visable = !this.visable;
+    }
     onFilterRemove(){
       this.filters.removedFilters$.subscribe(title =>{
-        if(title == this.filter.title || ALL_FILTERS == title){
+        if(title == this.filter.title.toLocaleLowerCase() || ALL_FILTERS == title){
           this.reset();
         }
       })
