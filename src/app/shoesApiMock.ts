@@ -387,7 +387,6 @@ export class ShoesApiMock implements shoesApiServiceInterface {
       for (const shoe of this.shoeItems){
         if (filter?.n == matchingShoes.length)
           break;
-        console.log(shoe.type.brand.filter(b => filter.brand?.includes(b)))
         if (filter.brand && !(shoe.type.brand.filter(b => filter.brand?.includes(b)).length >= 1))
           continue;
         if (filter.size && !(filter.size.includes(shoe.size)))

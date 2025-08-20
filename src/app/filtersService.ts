@@ -40,7 +40,6 @@ export class filtersService {
   update(filter : filter){
     const {title, ...rest} = filter;
     this.filters[filter.title.toLowerCase()] = rest;
-    console.log(this.filters);
     this.filterChanged();
   }
   remove(title : string){
