@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
-import {checkboxFilter, rangeFilter, sizeFilter, universalFilter } from './filter-bar/filter-bar';
-import { Brand } from '../../shoesApiService';
+import {universalFilter } from './filter-bar/filter-bar';
 
 @Component({
   selector: 'app-shop-sidebar',

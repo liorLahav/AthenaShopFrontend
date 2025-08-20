@@ -15,23 +15,28 @@ export class Range {
   value = 0;
   curMax = 0;
   curMin = 0;
+  
   get BackgroundSize() {
     const percent = (this.curMax - this.min) / (this.max - this.min) * 100;
     return percent + "%";
   }
+
   onMaxInput(event : Event){
     const input = +(event.target as HTMLInputElement).value.replace("$","")
     this.curMax = Math.min(input,this.max);
     this.updateRange();
   }
+
   onMinInput(event : Event){
     const input = +(event.target as HTMLInputElement).value.replace("$","")
     this.curMin = Math.max(input,this.min);
     this.updateRange();
   }
+
   onThumbInput(){
     this.updateRange();
   }
+
   updateRange(){
     if(this.min == this.curMin && this.max == this.curMax){
       this.output.emit(null);
@@ -40,14 +45,14 @@ export class Range {
       this.output.emit({min : this.curMin , max : this.curMax});
     }
   }
+
   reset(){
     this.curMin = this.min;
     this.curMax = this.max;
   }
 
   ngOnInit() {
-    this.curMax = this.max;
-    this.curMin = this.min;
     this.resetCallback.emit(() => this.reset());
+    this.reset();
   }
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import {getDisplayShoe, shoesApiService, shoeItem, Shoe, Brand, DisplayShoe } from '../shoesApiService';
-import {debounceTime, of  } from 'rxjs';
+import {getDisplayShoe, shoesApiService, shoeItem, Shoe} from '../shoesApiService';
+import {debounceTime } from 'rxjs';
 import { filtersService } from '../filtersService';
 import { universalFilter } from './shop-sidebar/filter-bar/filter-bar';
 
@@ -90,9 +90,7 @@ export class Shop {
         debounceTime(DEBOUNCE_TIME),
       ).subscribe(() =>{
         this.shoesService.getShoesByFilter(this.filtersService.getFiltersValues())
-        .subscribe(shoes => {
-          this.shoes = shoes
-        });
+        .subscribe(shoes => this.shoes = shoes);
     })
   }
   getSortType(event: Event) {
@@ -112,7 +110,7 @@ export class Shop {
     }
   }
   get typesArray(){
-    return Object.entries(sortType).map((item) => ({key : item[0] , val : item[1]}));
+    return Object.entries(sortType).map((item) => item[1]);
   }
   get filtersArray(){
     const arr: {title: string, value: string}[] = [];
@@ -127,7 +125,7 @@ export class Shop {
     return arr;
   }
   get displayShoes(){
-    const seen = new Set<string|number>();
+    const seen = new Set<string>();
     const distinctShoes: Shoe[] = [];
     for (const cur of this.shoes) {
       const id = cur.type.id;

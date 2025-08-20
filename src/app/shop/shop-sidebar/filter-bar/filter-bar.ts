@@ -1,6 +1,5 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ALL_FILTERS, filtersService } from '../../../filtersService';
-import { Brand } from '../../../shoesApiService';
 import { option } from './checkbox/checkbox';
 
 export interface filter{
@@ -51,7 +50,7 @@ export class FilterBar {
     value = ""
     visable = true;
     ngOnInit(){
-      this.onFilterRemove();
+      this.listenToFilterRemoval();
     }
     onResetCallback(reset : () => void){
       this.reset = reset;
@@ -67,7 +66,7 @@ export class FilterBar {
     changeVisablity(){
       this.visable = !this.visable;
     }
-    onFilterRemove(){
+    listenToFilterRemoval(){
       this.filters.removedFilters$.subscribe(title =>{
         if(title == this.filter.title.toLocaleLowerCase() || ALL_FILTERS == title){
           this.reset();

@@ -9,9 +9,9 @@
                         <div class="select-label">Sort by</div>
                         <select (change)="getSortType($event)" class="sort-select">
                             <option class="default-option" value="" [selected]="chosenSort === ''">Selected</option>
-                            <option [value]="sort.val" 
+                            <option [value]="sort" 
                                     *ngFor="let sort of typesArray"
-                                     [selected]="chosenSort === sort.val">{{sort.val}}</option>
+                                     [selected]="chosenSort === sort">{{sort}}</option>
                         </select>
                     </div>
                 </div>

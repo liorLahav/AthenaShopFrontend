@@ -41,6 +41,7 @@ export class Checkbox {
   }
   ngOnInit(){
     this.resetCallback.emit(() => this.reset());
-    this.options.forEach(option =>{this.checked[option.key] = false})
+    this.reset();
   }
+
 }
