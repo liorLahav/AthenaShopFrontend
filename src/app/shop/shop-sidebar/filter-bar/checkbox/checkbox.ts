@@ -1,5 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { checkboxFilter } from '../filter-bar';
+
+export interface option{
+  key : string,
+  title : string,
+  amount : number
+}
 
 @Component({
   selector: 'app-checkbox',
@@ -8,7 +13,7 @@ import { checkboxFilter } from '../filter-bar';
   styleUrl: './checkbox.css'
 })
 export class Checkbox {
-  @Input() options : string[] = [];
+  @Input() options : option[] = [];
   @Output() output  = new EventEmitter<string[] | null>
   @Output() resetCallback = new EventEmitter<() => void>
   checked : {[key : string] : boolean} = {};
@@ -26,16 +31,16 @@ export class Checkbox {
         this.output.emit(null);
       }
       else{
-        console.log(target)
-        this.output.emit(Object.keys(this.checked).filter((k) => this.checked[k] == true));
+        const checkedOptions : option[] = this.options.filter((option) => this.checked[option.key]);
+        this.output.emit(checkedOptions.map(option => option.title));
       }
     }
   }
   reset(){
-    this.options.forEach(option =>{this.checked[option] = false})
+    this.options.forEach(option =>{this.checked[option.key] = false})
   }
   ngOnInit(){
     this.resetCallback.emit(() => this.reset());
-    this.options.forEach(option =>{this.checked[option] = false})
+    this.options.forEach(option =>{this.checked[option.key] = false})
   }
 }

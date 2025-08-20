@@ -1,5 +1,4 @@
 <div [id]="option" class="option" *ngFor="let option of options">
-    <!-- <input (input)="onInput($event)" [id]="option" class="option-checkbox" type="checkbox" /> -->
-    <input [id]="option" type="checkbox" (input)="onInput($event)" [(ngModel)]="checked[option]"/>
-    <div class="option-text">{{option}}</div>
+    <input class="option-checkbox" [id]="option.key" type="checkbox" (input)="onInput($event)" [(ngModel)]="checked[option.key]"/>
+    <div class="option-text">{{option.title}}<div class="amount">({{option.amount}})</div></div>
 </div>
