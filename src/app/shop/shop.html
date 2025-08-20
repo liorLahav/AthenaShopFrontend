@@ -16,12 +16,13 @@
                     </div>
                 </div>
                 <div class="items-headline-bottom">
-                    <div class="filter-tag" *ngFor="let filter of filtersArray">{{filter.title}} : {{filter.value}} <div class ="x">X</div></div>
-                    <div *ngIf="filtersArray.length > 0" class="clear-all">Clear all</div>
+                    <div class="filter-tag" *ngFor="let filter of filtersArray">{{filter.title}} : {{filter.value}} <div [id]="filter.title" (click)="clearFilter($event)" class ="x">X</div></div>
+                    <div (click)="clearAllFilters()" *ngIf="filtersArray.length > 0" class="clear-all">Clear all</div>
                 </div>
-                <div class="shoes-container">
-                    <app-shoe-card class="shoe" *ngFor="let dispalyShoe of displayShoes" [shoe] = "dispalyShoe" />
-                </div>
+        </div>
+        <div class="shoes-container">
+            <app-shoe-card class="shoe" *ngFor="let dispalyShoe of displayShoes" [shoe] = "dispalyShoe" />
+            <div class="empty-message" *ngIf="displayShoes.length == 0">no shoes</div>
         </div>
     </div>
 </div>

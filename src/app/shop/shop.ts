@@ -12,7 +12,6 @@ enum sortType {
   PopularityDescending = "popularity (high to low)",
 }
 
-
 @Component({
   selector: 'app-shop',
   standalone: false,
@@ -22,7 +21,6 @@ enum sortType {
 export class Shop {
   constructor(protected shoesService : shoesApiService,protected filtersService : filtersService){}
   shoes : shoeItem[] = [];
-  displayShoes : DisplayShoe[] = [];
   chosenSort : string = "";
   filters : universalFilter[] = []
   ngOnInit() : void{
@@ -30,9 +28,15 @@ export class Shop {
       this.shoes = shoes;
       this.setUpFilters();
       this.sortShoes();
-      console.log(this.shoes);
       this.subscribeToShoesByFilter();
     })
+  }
+  clearAllFilters(){
+    this.filtersService.clear();
+  }
+  clearFilter(event : Event){
+    const title = (event.target as HTMLElement).id;
+    this.filtersService.remove(title);
   }
   setUpFilters(){
     const prices = [
@@ -41,6 +45,20 @@ export class Shop {
         return acc;
       }, new Set<number>())
     ];
+    const seen = new Set<string>;
+    const brands = this.shoes.reduce((acc,cur) =>{
+            if(!seen.has(cur.type.id)){
+              cur.type.brand.forEach(brand =>{
+                if(!(brand in acc)){
+                  acc[brand] = 0;
+                }
+                acc[brand] += 1;
+              })
+              seen.add(cur.type.id);
+            }
+            return acc;
+          }, {} as {[key : string] : number})
+    
     this.filters = [
         {
           title : "Size",
@@ -53,10 +71,11 @@ export class Shop {
         {
           title : "Brand",
           type : "checkbox",
-          options : [...this.shoes.reduce((acc,cur) =>{
-            cur.type.brand.forEach(b => acc.add(b))
-            return acc;
-          },new Set<Brand>())].sort(),
+          options : Object.entries(brands).map(([key, value]) => ({
+                    key : key,
+                    title: key.replaceAll("_", " "),
+                    amount: value
+                  }))
         },
         {
           title : "Price",
@@ -73,17 +92,14 @@ export class Shop {
         this.shoesService.getShoesByFilter(this.filtersService.getFiltersValues())
         .subscribe(shoes => {
           this.shoes = shoes
-          this.updateDisplayShoes();
         });
     })
   }
   getSortType(event: Event) {
     this.chosenSort = (event.target as HTMLSelectElement).value;
-    console.log(this.chosenSort);
     this.sortShoes();
   }
   sortShoes(){
-    console.log(this.chosenSort);    
     switch(this.chosenSort){
       case sortType.PriceAscending:
         this.shoes = [...this.shoes].sort((a : shoeItem,b : shoeItem) => a.type.price - b.type.price);
@@ -94,7 +110,6 @@ export class Shop {
       default: 
         this.shoes = [...this.shoes].sort((a : shoeItem,b : shoeItem) => b.type.rates.rank - a.type.rates.rank)
     }
-    this.updateDisplayShoes();
   }
   get typesArray(){
     return Object.entries(sortType).map((item) => ({key : item[0] , val : item[1]}));
@@ -111,8 +126,7 @@ export class Shop {
     }
     return arr;
   }
-  updateDisplayShoes(){
-    console.log("ll")
+  get displayShoes(){
     const seen = new Set<string|number>();
     const distinctShoes: Shoe[] = [];
     for (const cur of this.shoes) {
@@ -121,6 +135,6 @@ export class Shop {
       seen.add(id);
       distinctShoes.push(cur.type);
     }
-    this.displayShoes =  distinctShoes.map(shoe => getDisplayShoe(shoe))
+    return distinctShoes.map(shoe => getDisplayShoe(shoe))
   }
 }
