@@ -3,11 +3,15 @@
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
-
     .option-text {
         margin: 5px;
+        font-size: 10px;
+        display: flex;
+        flex-wrap: nowrap;
+        .amount {
+            color: gray;
+        }
     }
-
     .option-checkbox {
         appearance: none;
         border-radius: 5px;

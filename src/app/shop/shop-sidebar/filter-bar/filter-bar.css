@@ -6,6 +6,9 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
+        .filter-bar-title{
+            font-weight: bold;
+        }
         .filter-bar-arrow{
             margin-top: 3px;
             width: 22px;
