@@ -383,6 +383,7 @@ export class ShoesApiMock implements shoesApiServiceInterface {
       return of(this.shoeItems.slice().sort((a : shoeItem,b : shoeItem) => b.dateCreated.getTime() - a.dateCreated.getTime()).slice(0,n).map((s : shoeItem) => s.type))
     }
     getShoesByFilter(filter: shoesFilter): Observable<shoeItem[]> {
+      filter.brand = filter.brand?.map(b => b.toString().replaceAll(" ","_") as Brand)
       let matchingShoes : shoeItem[] = []
       for (const shoe of this.shoeItems){
         if (filter?.n == matchingShoes.length)
