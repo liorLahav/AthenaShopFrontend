@@ -20,11 +20,13 @@ export class Range {
     return percent + "%";
   }
   onMaxInput(event : Event){
-    this.curMax = Math.min(+(event.target as HTMLInputElement).value,this.max);
+    const input = +(event.target as HTMLInputElement).value.replace("$","")
+    this.curMax = Math.min(input,this.max);
     this.updateRange();
   }
   onMinInput(event : Event){
-    this.curMin = Math.max(+(event.target as HTMLInputElement).value,this.min);
+    const input = +(event.target as HTMLInputElement).value.replace("$","")
+    this.curMin = Math.max(input,this.min);
     this.updateRange();
   }
   onThumbInput(){

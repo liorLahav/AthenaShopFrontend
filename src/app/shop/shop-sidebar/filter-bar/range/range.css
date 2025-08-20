@@ -56,3 +56,13 @@
     display: flex;
     justify-content: space-between;
 }
+.slider{
+    width: 90%;
+    background-color: transparent;
+}
+::ng-deep .mdc-slider__thumb::before {
+    display: none !important;
+}
+::ng-deep .mdc-slider__state-layer {
+    display: none !important;
+}

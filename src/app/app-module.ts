@@ -22,6 +22,7 @@ import { FilterBar } from './shop/shop-sidebar/filter-bar/filter-bar';
 import { Range } from './shop/shop-sidebar/filter-bar/range/range';
 import { Checkbox } from './shop/shop-sidebar/filter-bar/checkbox/checkbox';
 import { Sizes } from './shop/shop-sidebar/filter-bar/sizes/sizes';
+import {MatSliderModule} from '@angular/material/slider';
 
 persistState({
   key : 'akita-store',
@@ -51,7 +52,8 @@ persistState({
     AppRoutingModule,
     FormsModule,
     NgFor,
-    AkitaNgDevtools.forRoot()
+    AkitaNgDevtools.forRoot(),
+    MatSliderModule
   ],
   providers: [
     shoesApiService,

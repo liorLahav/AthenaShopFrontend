@@ -1,22 +1,27 @@
 <div class="prices">
-    <div class="min">{{min}}</div>
-    <div class="max">{{max}}</div>
+    <div class="min">{{min}}$</div>
+    <div class="max">{{max}}$</div>
 </div>
-<input  [style.--orangeSize]="BackgroundSize" 
+<!-- <input  [style.--orangeSize]="BackgroundSize" 
         class="range" 
         type="range" 
         [min]="min" 
         [max]="max" 
         [(ngModel)] = 'curMax'
         (input)="onThumbInput()"
-        >
+        > -->
+<mat-slider (input)="onThumbInput()" class="slider" [min]="min" [max]="max">
+    <input [(ngModel)]="curMin" matSliderStartThumb>
+    <input [(ngModel)]="curMax" matSliderEndThumb>
+</mat-slider>
+
 <div class="text-input-container">
     <div class="text-input">
         <div>From</div>
-        <input (input)="onMinInput($event)" class="number-input" type="text" [value]="curMin"  />
+        <input (input)="onMinInput($event)" class="number-input" type="text" [value]="curMin + '$'"  />
     </div>
     <div class="text-input">
         <div>To</div>
-        <input (input)="onMaxInput($event)" class="number-input" type="text" [value]="curMax" />
+        <input (input)="onMaxInput($event)" class="number-input" type="text" [value]="curMax + '$'" />
     </div>
 </div>
