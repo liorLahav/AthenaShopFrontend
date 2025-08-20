@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { UserQuery } from '../state/user/user.query';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
+import { ROUTES } from '../routes';
 
 @Component({
   selector: 'app-header',
@@ -14,7 +15,7 @@ export class Header {
     currentRoute = ""
     buttons = [{
       name : "Shop",
-      route : "shop",
+      route : ROUTES.SHOP,
     },{
       name : "History",
       route : "history"
