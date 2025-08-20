@@ -1,44 +1,20 @@
-
-.range {
-    margin-top: 10px;
-    width: 100%;
-    -webkit-appearance: none;
-    appearance: none;
-    border-radius: 15px;
-    background: linear-gradient(to right, #ff6600 var(--orangeSize), #ccc var(--orangeSize));
+.prices{
+    font-size: 10px;
 }
-
-.range::-webkit-slider-runnable-track {
-    height: 3px;
-}
-
-.range::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 14px;
-    height: 14px;
-    background: red;
-    border: 4px solid white;
-    border-radius: 50%;
-    cursor: pointer;
-    margin-top: -6px;
-}
-
 .text-input-container {
     width: 100%;
     display: flex;
     justify-content: space-between;
     flex-wrap: nowrap;
     font-size: 10px;
-
     .text-input {
         color: gray;
         font-size: inherit;
-        margin-top: 10px;
+        margin-top: 1px;
         width: 40%;
         display: flex;
         flex-wrap: nowrap;
         justify-content: space-between;
-
         .number-input {
             font-size: inherit;
             margin-left: 5px;
@@ -59,10 +35,4 @@
 .slider{
     width: 90%;
     background-color: transparent;
-}
-::ng-deep .mdc-slider__thumb::before {
-    display: none !important;
-}
-::ng-deep .mdc-slider__state-layer {
-    display: none !important;
 }

@@ -1,15 +1,7 @@
 <div class="prices">
-    <div class="min">{{min}}$</div>
-    <div class="max">{{max}}$</div>
+    <div >{{min}}$</div>
+    <div >{{max}}$</div>
 </div>
-<!-- <input  [style.--orangeSize]="BackgroundSize" 
-        class="range" 
-        type="range" 
-        [min]="min" 
-        [max]="max" 
-        [(ngModel)] = 'curMax'
-        (input)="onThumbInput()"
-        > -->
 <mat-slider (input)="onThumbInput()" class="slider" [min]="min" [max]="max">
     <input [(ngModel)]="curMin" matSliderStartThumb>
     <input [(ngModel)]="curMax" matSliderEndThumb>
