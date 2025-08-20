@@ -1,4 +1,4 @@
-import { NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
+import { NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing-module';
@@ -10,7 +10,18 @@ import { Login } from './auth/login';
 import { USERS_API_SERVICE_TOKEN, usersServiceFactory } from './UsersApiService';
 import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 import { Register } from './auth/register';
+import { Main } from './main/main';
+import { ShoeCard } from './components/shoe-card/shoe-card';
+import { LogoHeadline } from './components/logo-headline/logo-headline';
+import { persistState } from '@datorama/akita';
+import { shoesApiService } from './shoesApiService';
+import { TopPicks } from './components/top-picks/top-picks';
 
+persistState({
+  key : 'akita-store',
+  include : ["user"],
+  storage : localStorage
+})
 @NgModule({
   declarations: [
     App,
@@ -18,6 +29,10 @@ import { Register } from './auth/register';
     DynamicForm,
     Login,
     Register,
+    Main,
+    ShoeCard,
+    LogoHeadline,
+    TopPicks,
   ],
   imports: [
     BrowserModule,
@@ -27,7 +42,7 @@ import { Register } from './auth/register';
     AkitaNgDevtools.forRoot(),
   ],
   providers: [
-    provideBrowserGlobalErrorListeners(),
+    shoesApiService,
     {provide : USERS_API_SERVICE_TOKEN,useValue : usersServiceFactory()}
   ],
   bootstrap: [App]

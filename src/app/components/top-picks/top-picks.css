@@ -1,0 +1,55 @@
+
+.top-picks-container {
+    .top-picks-header {
+        width: 100%;
+        margin-top: 10px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+
+        .top-picks-header-image {
+            height: 30px;
+            transform: rotate(45deg);
+            object-fit: contain;
+        }
+
+        .top-picks-header-headline {
+            font-weight: bold;
+        }
+
+        .top-picks-view-all {
+            margin-left: auto;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .top-picks-view-all:hover {
+            transform: scale(1.1);
+        }
+    }
+
+    .shoes-container {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        margin-top: 10px;
+        .shoe-card {
+            margin: 0 10px;
+            max-width: 250px;
+            width: 24%;
+        }
+    }
+}
+@media (max-width: 750px) {
+    .top-picks-container {
+        .shoes-container {
+            .shoe-card:last-child {
+                display: none;
+            }
+
+            .shoe-card {
+                width: 30%;
+            }
+        }
+    }
+}

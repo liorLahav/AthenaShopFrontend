@@ -2,17 +2,27 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Login } from './auth/login';
 import { Register } from './auth/register';
+import { Main } from './main/main';
+import { authGuard } from './authGuard';
+import { unAuthGuard } from './unAuthGuard';
+import { ROUTES } from './routes';
+
 
 const routes: Routes = [{
-  path : 'login' , 
+  path :  ROUTES.LOGIN, 
   component : Login,
+  canActivate : [unAuthGuard]
 },{
-  path : 'register',
+  path : ROUTES.REGISTER,
   component : Register,
+  canActivate: [unAuthGuard]
+},{
+  path : ROUTES.HOME,
+  component : Main,
+  canActivate : [authGuard]
 },{
   path : '**',
-  redirectTo: "login",
-  pathMatch : "full",
+  redirectTo : ROUTES.LOGIN
 }];
 
 @NgModule({

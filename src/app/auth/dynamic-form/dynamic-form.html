@@ -1,6 +1,6 @@
 <div class="dynamic-form-container">
     <div class="dynamic-form-headline">{{title}}</div>
-    <form class="dynamic-form" (ngSubmit)="onSubmit(f)" #f="ngForm">
+    <form class="dynamic-form" (ngSubmit)="onSubmit(dynamicForm)" #dynamicForm="ngForm">
         <div class="dynamic-form-message" [ngClass]="{
             'success' : success,
             'fail' : !success,
@@ -16,6 +16,6 @@
                    (input)="input.inputHandler && input.inputHandler($event)"
                    />
         </div>
-        <button class="dark-button dynamic-form-submit" type="submit" [disabled]="f.invalid">Submit</button>
+        <button class="button dark-button dynamic-form-submit" type="submit" [disabled]="dynamicForm.invalid">Submit</button>
     </form>
 </div>

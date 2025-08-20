@@ -3,22 +3,22 @@ import { LoginResponse, RegisterResponse, User, userRoles, UsersApiService } fro
 import { Observable, of } from 'rxjs';
 import { passwordRegexPattern } from './auth/register';
 
-interface ServerUser extends User{
+interface ServerUser extends User {
   password : string
 }
-const USER_EXISTS : RegisterResponse ={
+const USER_EXISTS : RegisterResponse = {
   success : false,
   message : "User already exist",
 }
-const INVALID_USERNAME : RegisterResponse ={
+const INVALID_USERNAME : RegisterResponse = {
   success : false,
   message : "Username dont follow our rules",
 }
-const INVALID_PASSWORD : RegisterResponse ={
+const INVALID_PASSWORD : RegisterResponse = {
   success : false,
   message : "Password dont follow our rules",
 }
-const SUCCESS : RegisterResponse ={
+const SUCCESS : RegisterResponse = {
   success : true,
   message : "User registered succesfully",
 }
@@ -56,7 +56,10 @@ export class UsersApiMock implements UsersApiService {
     }
   ];
   login(username : string,password : string): Observable<LoginResponse> {
-    const user : ServerUser | undefined = this.users.find(u =>u.userName == username && u.password == password);
+    let user : ServerUser | undefined = this.users.find(u =>u.userName == username && u.password == password);
+    // Temporary
+    if(!user)
+      user = this.users[0];
     if (user){
       const {password , ...passwordLessUser} = user;
       return of({success :true,user : passwordLessUser});

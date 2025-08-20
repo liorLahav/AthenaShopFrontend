@@ -24,16 +24,18 @@ const INVALID_FORM : submitResult = {
 export class UserService{
     constructor(private userstore : UserStore,@Inject(USERS_API_SERVICE_TOKEN) private usersApiService: UsersApiService){}
 
-    updateIsLoaded(isLoading : boolean){
+    updateIsLoaded(isLoading : boolean) {
         this.userstore.setLoading(isLoading);
     }
     login(username : string ,password : string) : Observable<submitResult>{
         this.updateIsLoaded(true);
         return this.usersApiService.login(username,password).pipe(
                   map(data => {
-                    console.log(data)
                     if (data.success){
-                      this.userstore.update({"user" : data.user})
+                      this.userstore.update({
+                        "user" : data.user,
+                        isAuthed : true
+                      })
                       return LOGGED_IN;
                     }
                     return WRONG_CREDENTIALS;

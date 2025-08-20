@@ -5,29 +5,51 @@
 }
 @font-face {
     font-family: 'Lato';
-    src: url('assets/fonts/Lato/Lato-Bold.ttf');
+    src: url('assets/fonts/Lato/Lato-Black.ttf');
     font-weight: bold;
 }
-html{
-    height: 100%;
+html,
+body,
+app-root {
     width: 100%;
     margin: 0;
+    padding: 0;
 }
+app-root {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+app-root > *{
+    width: 90%;
+    margin-top: 15px;
+}
+
 body{
     font-family: 'Lato',sans-serif;
     background-color: #fbf7f6;
-    color: #404040;
-    font-family: 'Lato', sans-serif;
+    color: #404040;   
 }
-button{
-    border-radius: 5px;
+.button{
+    border-radius: 7px;
     cursor: pointer;
     border: none;
     font-family: inherit;
+    text-align: center;
 }
 .dark-button{
     background-color: #404040;
     color: white;
+}
+.light-button{
+    border: 0.1px solid;
+}
+.light-button:hover{
+    color: white;
+    background-color: black;
+}
+.light-button:active{
+    transform: scale(1.05);
 }
 .dark-button:hover{
     background-color: #2c2b2b;
@@ -37,4 +59,7 @@ button{
 }
 input{
     font-family: inherit;
+}
+div{
+    border-color: #d5d1cf;
 }

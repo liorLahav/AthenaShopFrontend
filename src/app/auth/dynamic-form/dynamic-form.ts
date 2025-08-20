@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
 
-export interface InputField{
+export interface InputField {
   title : string,
   placeholder? : string,
   pattern?: string,
@@ -11,7 +11,7 @@ export interface InputField{
   type? : string,
   inputHandler? : (event : Event) => void;
 }
-export interface submitResult{
+export interface submitResult {
   success : boolean,
   message : string,
 }
@@ -27,8 +27,8 @@ export class DynamicForm {
   @Input() submitCallback! : (f : NgForm) => Observable<submitResult>;
   success = false;
   messsage : string = "";
-  onSubmit = (f : NgForm) =>{
-    const res = this.submitCallback(f).subscribe(res =>{
+  onSubmit = (form : NgForm) =>{
+    const res = this.submitCallback(form).subscribe(res =>{
       this.success = res.success;
       this.messsage = res.message;
     });
