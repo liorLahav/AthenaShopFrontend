@@ -8,11 +8,12 @@
     background-repeat: no-repeat;
     background-size: 15px 15px;
     background-color: transparent;
+    box-sizing: border-box;
+    padding: 5px 0 5px 5px;
 }
 .search-input::-webkit-input-placeholder {
     position: relative;
-    left: 10px;
-    bottom:px;
+    bottom:2px;
     font-size: 10px;
 }
 .size-wrapper {
