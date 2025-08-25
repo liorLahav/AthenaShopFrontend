@@ -10,18 +10,13 @@ import { USERS_API_SERVICE_TOKEN, usersServiceFactory } from './services/usersAp
 import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 import { Register } from './auth/register';
 import { Main } from './main/main';
-import { ShoeCard } from './components/shoe-card/shoe-card';
 import { LogoHeadline } from './components/logo-headline/logo-headline';
 import { persistState } from '@datorama/akita';
 import { shoesApiService } from './services/shoesApi/shoesApiService';
 import { TopPicks } from './components/top-picks/top-picks';
-import { Shop } from './shop/shop';
-import { ShopSidebar } from './shop/shop-sidebar/shop-sidebar';
-import { FilterBar } from './shop/shop-sidebar/filter-bar/filter-bar';
-import { Range } from './shop/shop-sidebar/filter-bar/range/range';
-import { Checkbox } from './shop/shop-sidebar/filter-bar/checkbox/checkbox';
-import { Sizes } from './shop/shop-sidebar/filter-bar/sizes/sizes';
 import {MatSliderModule} from '@angular/material/slider';
+import { shopModule } from './shop/shop.module';
+import { componentsModule } from './components/components.module';
 
 persistState({
   key : 'akita-store',
@@ -36,22 +31,14 @@ persistState({
     Login,
     Register,
     Main,
-    ShoeCard,
-    LogoHeadline,
-    TopPicks,
-    Shop,
-    ShopSidebar,
-    FilterBar,
-    Range,
-    Checkbox,
-    Sizes,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     AkitaNgDevtools.forRoot(),
-    MatSliderModule
+    shopModule,
+    componentsModule
   ],
   providers: [
     shoesApiService,
