@@ -23,13 +23,18 @@ export class Shop {
   shoes : shoeItem[] = [];
   chosenSort : string = "";
   filters : universalFilter[] = []
-  ngOnInit() : void{
+  shoesUnsubscribe : () => void = () => {}
+  r = Math.random()
+  ngOnInit(){
     this.shoesService.getShoesByFilter({}).subscribe(shoes => {
       this.shoes = shoes;
       this.setUpFilters();
       this.sortShoes();
-      this.subscribeToShoesByFilter();
+      this.shoesUnsubscribe = this.subscribeToShoesByFilter();
     })
+  }
+  ngOnDestroy(){
+    this.shoesUnsubscribe()
   }
   clearAllFilters(){
     this.filtersService.clear();
@@ -85,13 +90,16 @@ export class Shop {
         }
       ]
   }
-  subscribeToShoesByFilter(){
-    this.filtersService.isFilterChanged$.pipe(        
+  subscribeToShoesByFilter() : () => void{
+    this.shoesUnsubscribe();
+    const shoesSubscription = this.filtersService.isFilterChanged$.pipe(        
         debounceTime(DEBOUNCE_TIME),
       ).subscribe(() =>{
-        this.shoesService.getShoesByFilter(this.filtersService.getFiltersValues())
+          console.log(this.r);
+         this.shoesService.getShoesByFilter(this.filtersService.getFiltersValues())
         .subscribe(shoes => this.shoes = shoes);
     })
+    return ()=>{shoesSubscription.unsubscribe()};
   }
   getSortType(event: Event) {
     this.chosenSort = (event.target as HTMLSelectElement).value;

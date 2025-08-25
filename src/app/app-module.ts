@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
 import { Header } from './header/header';
 import { DynamicForm } from './auth/dynamic-form/dynamic-form';
-import { NgFor } from '@angular/common';
 import { Login } from './auth/login';
 import { USERS_API_SERVICE_TOKEN, usersServiceFactory } from './UsersApiService';
 import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
@@ -51,7 +50,6 @@ persistState({
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    NgFor,
     AkitaNgDevtools.forRoot(),
     MatSliderModule
   ],

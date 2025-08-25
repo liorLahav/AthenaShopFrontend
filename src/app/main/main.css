@@ -53,6 +53,7 @@
             position: absolute;
             bottom: 320px;
             right: 0;
+            line-height: 0.8;
         }
     .newest-shoe-image{
         transform: scaleX(-1) scale(1.4);
