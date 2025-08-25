@@ -1,9 +1,11 @@
 import { Store, StoreConfig } from "@datorama/akita";
-import { shoeItem } from "../../services/shoesApi/shoesApiService";
+import { Shoe, shoeItem } from "../../services/shoesApi/shoesApiService";
 import { Injectable } from "@angular/core";
 
+
+
 export interface cartState{
-    shoes : { [key : string] : shoeItem};
+    shoes : { [key : string] : number[]};
 }
 
 export const getInitalCartState = ()=>{

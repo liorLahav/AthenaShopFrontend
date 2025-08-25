@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { cartStore } from "./cart.store";
-import { shoeItem } from "../../services/shoesApi/shoesApiService";
+import { Shoe, shoeItem } from "../../services/shoesApi/shoesApiService";
 import { cartQuery } from "./cart.query";
 
 
@@ -8,19 +8,29 @@ import { cartQuery } from "./cart.query";
 export class cartService{
     constructor(private cartStore : cartStore,private query : cartQuery){}
 
-    addShoe(shoe : shoeItem){
-        const shoes = this.query.getShoesByIds;
-        shoes[shoe.id] = shoe
+    addShoe(shoeId : string,size : number){
+        const shoes = {...this.query.getShoesByIds};
+        if (!(shoeId in shoes)){
+            shoes[shoeId] = []
+        } 
+        shoes[shoeId].push(size);
         this.cartStore.update({
             shoes : shoes
         })
+        console.log(shoes);
     }
-    removeShoe(shoeId : string){
-        const shoes = this.query.getShoesByIds;
-        delete shoes[shoeId];
-        this.cartStore.update({
-            shoes : shoes
-        })
+    removeShoe(shoeId : string,size : number){
+        const shoes = {...this.query.getShoesByIds};
+        if(shoeId in shoes){
+            const index = shoes[shoeId].indexOf(size)
+            shoes[shoeId].splice(index,1);
+            if (shoes[shoeId].length){
+                delete shoes[shoeId]
+            }
+            this.cartStore.update({
+                shoes : shoes
+            })
+        }
     }
     clear(){
         this.cartStore.update({

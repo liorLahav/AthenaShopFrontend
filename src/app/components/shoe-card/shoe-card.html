@@ -6,7 +6,11 @@
                 <img class="favorite-icon" src="assets/images/Five_Pointed_Star_Solid.svg" />
                 <div class="rating-score">{{shoe.rating}}/5</div>
             </div>
-            <app-sizes [sizes] = "sizes" (cancel)="onCancel()" *ngIf="pressed;else notPressed"/>
+            <app-sizes 
+            [sizes] = "sizes"
+            (cancel)="onCancel()"
+            (sizeChose)="addShoeToCart($event)"
+            *ngIf="pressed;else notPressed"/>
             <div [class.shop-price] = "location == 'shop'" class="price">{{shoe.price}}$</div>
         </div>
 </div>
