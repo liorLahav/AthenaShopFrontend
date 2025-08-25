@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { defalutShoe, DisplayShoe, getDisplayShoe, Shoe, shoesApiService } from '../../shoesApiService';
 import { catchError, of, tap } from 'rxjs';
 
@@ -10,6 +10,7 @@ import { catchError, of, tap } from 'rxjs';
 })
 export class TopPicks {
   constructor(private shoesService : shoesApiService){}
+  @Input() location! : string;
   topPicksShoes : DisplayShoe[] = []
   ngOnInit() : void{
     this.getTopPicksShoes();

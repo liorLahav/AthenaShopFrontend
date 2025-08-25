@@ -23,6 +23,7 @@ app-root {
 app-root > *{
     width: 90%;
     margin-top: 15px;
+    overflow-x: visible;
 }
 
 body{
@@ -62,4 +63,9 @@ input{
 }
 div{
     border-color: #d5d1cf;
+}
+
+html, body { height: 100%; }
+body { margin: 0; 
+    font-size: 12px;
 }

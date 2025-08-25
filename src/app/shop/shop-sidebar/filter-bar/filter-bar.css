@@ -1,0 +1,50 @@
+.filter-bar-container{
+    width: 100%;
+    .filter-bar-header{
+        width: 100%;
+        margin-right: 10%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        .filter-bar-title{
+            font-weight: bold;
+        }
+        .filter-bar-arrow{
+            margin-top: 3px;
+            width: 22px;
+            cursor: pointer;
+        }
+    }
+    .text-input-container {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: nowrap;
+        font-size: 10px;
+        .text-input {
+            color: gray;
+            font-size: inherit;
+            margin-top: 10px;
+            width: 40%;
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+
+            .number-input {
+                font-size: inherit;
+                margin-left: 5px;
+                width: 60%;
+                min-width: 30px;
+                border-radius: 7px;
+                border: 1px gray solid;
+                text-align: center;
+                background-color: transparent;
+            }
+        }
+    }
+    .end-line {
+        width: 90%;
+        margin-left: 5%;
+        opacity: 0.2;
+    }
+}
