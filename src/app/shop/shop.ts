@@ -95,7 +95,6 @@ export class Shop {
     const shoesSubscription = this.filtersService.isFilterChanged$.pipe(        
         debounceTime(DEBOUNCE_TIME),
       ).subscribe(() =>{
-          console.log(this.r);
          this.shoesService.getShoesByFilter(this.filtersService.getFiltersValues())
         .subscribe(shoes => this.shoes = shoes);
     })
