@@ -404,11 +404,9 @@ export class ShoesApiMock implements shoesApiServiceInterface {
       const sizes = new Set<number>;
       this.shoeItems.forEach(shoeItem => {
         if(shoeItem.type.id === shoeId){
-          console.log(shoeItem);
             sizes.add(shoeItem.size)
         }
       })
-      console.log(sizes);
       return of([...sizes]);
     }
 }

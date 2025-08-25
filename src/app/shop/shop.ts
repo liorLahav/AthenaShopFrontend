@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {getDisplayShoe, shoesApiService, shoeItem, Shoe} from '../services/shoesApi/shoesApiService';
+import {getDisplayShoe, shoesApiService, shoeItem, Shoe, DisplayShoe} from '../services/shoesApi/shoesApiService';
 import {debounceTime } from 'rxjs';
 import { filtersService } from '../services/filter/filtersService';
 import { universalFilter } from './shop-sidebar/filter-bar/filter-bar';
@@ -21,6 +21,7 @@ enum sortType {
 export class Shop {
   constructor(protected shoesService : shoesApiService,protected filtersService : filtersService){}
   shoes : shoeItem[] = [];
+  displayShoes : DisplayShoe[] = []
   chosenSort : string = "";
   filters : universalFilter[] = []
   shoesUnsubscribe : () => void = () => {}
@@ -30,6 +31,7 @@ export class Shop {
       this.setUpFilters();
       this.sortShoes();
       this.shoesUnsubscribe = this.subscribeToShoesByFilter();
+      this.updateDisplayShoes();
     })
   }
   ngOnDestroy(){
@@ -94,9 +96,11 @@ export class Shop {
     const shoesSubscription = this.filtersService.isFilterChanged$.pipe(        
         debounceTime(DEBOUNCE_TIME),
       ).subscribe(() =>{
-          console.log(this.r);
          this.shoesService.getShoesByFilter(this.filtersService.getFiltersValues())
-        .subscribe(shoes => this.shoes = shoes);
+        .subscribe(shoes => {
+          this.shoes = shoes
+          this.updateDisplayShoes();
+        });
     })
     return ()=>{shoesSubscription.unsubscribe()};
   }
@@ -131,7 +135,7 @@ export class Shop {
     }
     return arr;
   }
-  get displayShoes(){
+  updateDisplayShoes(){
     const seen = new Set<string>();
     const distinctShoes: Shoe[] = [];
     for (const cur of this.shoes) {
@@ -140,6 +144,6 @@ export class Shop {
       seen.add(id);
       distinctShoes.push(cur.type);
     }
-    return distinctShoes.map(shoe => getDisplayShoe(shoe))
+    this.displayShoes = distinctShoes.map(shoe => getDisplayShoe(shoe))
   }
 }
