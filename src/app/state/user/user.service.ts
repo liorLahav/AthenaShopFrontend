@@ -1,6 +1,6 @@
 import { Inject, Injectable } from "@angular/core";
 import { UserStore } from "./user.store";
-import { User, USERS_API_SERVICE_TOKEN, UsersApiService } from "../../services/usersApi/UsersApiService";
+import {USERS_API_SERVICE_TOKEN, UsersApiService } from "../../services/usersApi/UsersApiService";
 import { catchError, finalize, map, Observable, of } from "rxjs";
 import { submitResult } from "../../auth/dynamic-form/dynamic-form";
 

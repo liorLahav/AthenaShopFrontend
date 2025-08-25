@@ -20,7 +20,7 @@ import { componentsModule } from './components/components.module';
 
 persistState({
   key : 'akita-store',
-  include : ["user"],
+  include : ["user","cart"],
   storage : localStorage
 })
 @NgModule({
