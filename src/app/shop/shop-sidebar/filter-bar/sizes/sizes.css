@@ -19,8 +19,6 @@
 .size-wrapper {
     width: 100%;
     overflow-y: scroll;
-    scrollbar-color: black white;
-    scrollbar-width: thin;
 
     .size-container {
         margin-top: 10px;

@@ -400,5 +400,15 @@ export class ShoesApiMock implements shoesApiServiceInterface {
       }
       return of(matchingShoes);
     }
-
+    getSizesByShoe(shoeId: string): Observable<number[]> {
+      const sizes = new Set<number>;
+      this.shoeItems.forEach(shoeItem => {
+        if(shoeItem.type.id === shoeId){
+          console.log(shoeItem);
+            sizes.add(shoeItem.size)
+        }
+      })
+      console.log(sizes);
+      return of([...sizes]);
+    }
 }

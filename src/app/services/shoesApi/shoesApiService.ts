@@ -24,6 +24,7 @@ export interface shoesFilter{
 }
 
 export interface DisplayShoe {
+    id : string,
     name : string,
     path : string,
     rating : number,
@@ -63,10 +64,12 @@ export interface shoesApiServiceInterface {
     getTopNMostCompetiableShoes(n? : number): Observable<Shoe[]>
     getLastNAddedShoe(n? : number) : Observable<Shoe[]>
     getShoesByFilter(filter : shoesFilter) : Observable<shoeItem[]>
+    getSizesByShoe(shoeId : string) : Observable<number[]>
 }
 export const getDisplayShoe = (shoe : Shoe) => {
     let shoeBrandKey = shoe.brand.join("_");
     return {
+        id : shoe.id,
         name : shoe.brand.at(-1)?.replace("_"," ") + " " + shoe.model.toLowerCase(),
         path : "assets/images/items/" + shoeBrandKey.toLowerCase() + "_" + shoe.model.replaceAll(" ","_").toLowerCase() + ".png",
         rating : shoe.rates.rank,
@@ -94,5 +97,8 @@ export class shoesApiService implements shoesApiServiceInterface {
     }
     getShoesByFilter(filter : shoesFilter) : Observable<shoeItem[]>{
         return this.shoesApiServiceProvider.getShoesByFilter(filter);
+    }
+    getSizesByShoe(shoeId : string){
+        return this.shoesApiServiceProvider.getSizesByShoe(shoeId);
     }    
 } 
