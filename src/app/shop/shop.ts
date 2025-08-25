@@ -24,7 +24,6 @@ export class Shop {
   chosenSort : string = "";
   filters : universalFilter[] = []
   shoesUnsubscribe : () => void = () => {}
-  r = Math.random()
   ngOnInit(){
     this.shoesService.getShoesByFilter({}).subscribe(shoes => {
       this.shoes = shoes;
