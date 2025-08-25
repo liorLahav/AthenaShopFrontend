@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { DisplayShoe } from '../../shoesApiService';
+import { DisplayShoe } from '../../services/shoesApi/shoesApiService';
 
 @Component({
   selector: 'app-shoe-card',

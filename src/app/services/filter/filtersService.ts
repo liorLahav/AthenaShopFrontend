@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { shoesApiService } from './shoesApiService';
+import { shoesApiService } from '../shoesApi/shoesApiService';
 import { BehaviorSubject, debounceTime, map } from 'rxjs';
 export const ALL_FILTERS = 'all'
 interface filter{

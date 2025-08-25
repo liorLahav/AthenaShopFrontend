@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { defalutShoe, DisplayShoe, getDisplayShoe, Shoe, shoesApiService } from '../../shoesApiService';
+import { defalutShoe, DisplayShoe, getDisplayShoe, Shoe, shoesApiService } from '../../services/shoesApi/shoesApiService';
 import { catchError, of, tap } from 'rxjs';
 
 @Component({

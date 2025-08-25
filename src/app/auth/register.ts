@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { InputField, submitResult } from './dynamic-form/dynamic-form';
 import { NgForm } from '@angular/forms';
 import { catchError, map, Observable, of } from 'rxjs';
-import { RegisterResponse, USERS_API_SERVICE_TOKEN, UsersApiService } from '../UsersApiService';
+import { RegisterResponse, USERS_API_SERVICE_TOKEN, UsersApiService } from '../services/usersApi/UsersApiService';
 
 interface passwordResponse{
   success : boolean,

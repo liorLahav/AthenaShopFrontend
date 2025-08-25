@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ALL_FILTERS, filtersService } from '../../../filtersService';
+import { ALL_FILTERS, filtersService } from '../../../services/filter/filtersService';
 import { option } from './checkbox/checkbox';
 
 export interface filter{

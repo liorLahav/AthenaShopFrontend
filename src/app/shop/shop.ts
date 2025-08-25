@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import {getDisplayShoe, shoesApiService, shoeItem, Shoe} from '../shoesApiService';
+import {getDisplayShoe, shoesApiService, shoeItem, Shoe} from '../services/shoesApi/shoesApiService';
 import {debounceTime } from 'rxjs';
-import { filtersService } from '../filtersService';
+import { filtersService } from '../services/filter/filtersService';
 import { universalFilter } from './shop-sidebar/filter-bar/filter-bar';
 
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { LoginResponse, RegisterResponse, User, userRoles, UsersApiService } from './UsersApiService';
+import { LoginResponse, RegisterResponse, User, userRoles, UsersApiService } from '../usersApi/UsersApiService';
 import { Observable, of } from 'rxjs';
-import { passwordRegexPattern } from './auth/register';
+import { passwordRegexPattern } from '../../auth/register';
 
 interface ServerUser extends User {
   password : string
