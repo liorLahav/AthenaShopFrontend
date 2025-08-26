@@ -8,10 +8,7 @@ export class cartQuery extends Query<cartState>{
     constructor(protected override store : cartStore){
         super(store);
     }
-    get getShoesByIds(){
-        return this.store.getValue().shoes;
-    }
     get getShoes(){
-        return Object.values(this.store.getValue().shoes);
+        return this.store.getValue().shoes;
     }
 }
