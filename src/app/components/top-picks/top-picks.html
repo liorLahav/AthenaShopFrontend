@@ -2,7 +2,7 @@
     <div class="top-picks-header">
         <img class="top-picks-header-image" src="assets/images/sneakers.svg">
         <div class="top-picks-header-headline">TOP picks for you</div>
-        <div class="top-picks-view-all">View all ></div>
+        <div (click)="onViewAllClick()" class="top-picks-view-all">View all ></div>
     </div>
     <div class="shoes-container">
         <app-shoe-card [location]="location" [shoe]="shoe" class="shoe-card" *ngFor="let shoe of topPicksShoes" />
