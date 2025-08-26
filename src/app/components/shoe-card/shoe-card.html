@@ -1,22 +1,11 @@
-<div class="shoe">
-        <img class="shoe-image" [src]="shoe.path" />
+<div [class]="{
+    shoe : true,
+    'shop-shoe' : location != 'cart',
+    'cart-shoe' : location == 'cart',
+    }">
+        <img class="shoe-image" [src]="displayShoe.path" />
         <div class="shoe-details">
-            <div class="shoe-name">{{shoe.name}}</div>
-            <div class="rating">
-                <img class="favorite-icon" src="assets/images/Five_Pointed_Star_Solid.svg" />
-                <div class="rating-score">{{shoe.rating}}/5</div>
-            </div>
-            <app-sizes 
-            [sizes] = "sizes"
-            (cancel)="onCancel()"
-            (sizeChose)="addShoeToCart($event)"
-            *ngIf="pressed;else notPressed"/>
-            <div [class.shop-price] = "location == 'shop'" class="price">{{shoe.price}}$</div>
-        </div>
+        <div class="shoe-name">{{displayShoe.name}}</div>
+        <app-shop-details [location]="location" [shoe]="shoe"/>
 </div>
 
-<ng-template #notPressed>
-    <div (click)="onAddClick()" class="button light-button add-button">
-        Add <div class="plus">+</div>
-    </div>
-</ng-template>

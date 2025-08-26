@@ -7,7 +7,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrl: './sizes.css'
 })
 export class Sizes {
-  @Input() sizes : number[] = [1,2,3,4,5,6];
+  @Input({required : true}) sizes! : number[];
   @Output() cancel = new EventEmitter<void>();
   @Output() sizeChose = new EventEmitter<number>();
   onXClick(){

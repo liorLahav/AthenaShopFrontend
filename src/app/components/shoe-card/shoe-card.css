@@ -21,40 +21,8 @@
             height: 20px;
             line-height: 15px;
         }
-        .price {
-            color: #e46464;
-            font-size: 12px;
-        }
-        .shop-price{
-            color: gray;
-            font-size: 14px;
-        }
-        .rating{
-            display: flex;
-            justify-content: flex-start;
-            width: 100%;
-            .favorite-icon{
-                width: 10px;
-            }
-        }
-        .add-button{
-            box-sizing: border-box;
-            width: 50px;
-            padding: 2px 1px;
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
-            flex-wrap: nowrap;
-            font-weight: bold;
-        }
-        .plus{
-            font-size: 15px;
-        }
     }
     .shoe-details > *{
         margin-bottom: 10px;
-    }
-    .shoe-details >*{
-        margin-bottom: 0;
     }
 }
