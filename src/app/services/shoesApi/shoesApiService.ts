@@ -2,6 +2,8 @@ import { Observable } from "rxjs";
 import { ShoesApiMock } from "./shoesApiMock";
 import { Injectable } from "@angular/core";
 import { v4 as uuid } from "uuid";
+import { cartShoe } from "../../state/cart/cart.store";
+import { inventoryStatus } from "../../cart/cart";
 
 
 export enum Brand {
@@ -59,12 +61,17 @@ export interface shoeItem {
     datePurchased : Date;
     id : string;
 }
+export interface invantoryResponse{
+    exist : shoeItem[],
+    missing : cartShoe[],
+}
 export interface shoesApiServiceInterface {
     getTopNMostSoldShoes(n? : number): Observable<Shoe[]>;
     getTopNMostCompetiableShoes(n? : number): Observable<Shoe[]>
     getLastNAddedShoe(n? : number) : Observable<Shoe[]>
     getShoesByFilter(filter : shoesFilter) : Observable<shoeItem[]>
     getSizesByShoe(shoeId : string) : Observable<number[]>
+    getInventoryCheck(shoes : cartShoe[]): Observable<inventoryStatus>
 }
 export const getDisplayShoe = (shoe : Shoe) => {
     let shoeBrandKey = shoe.brand.join("_");
@@ -100,5 +107,8 @@ export class shoesApiService implements shoesApiServiceInterface {
     }
     getSizesByShoe(shoeId : string){
         return this.shoesApiServiceProvider.getSizesByShoe(shoeId);
+    }
+    getInventoryCheck(shoes : cartShoe[]){
+        return this.shoesApiServiceProvider.getInventoryCheck(shoes);
     }    
 } 

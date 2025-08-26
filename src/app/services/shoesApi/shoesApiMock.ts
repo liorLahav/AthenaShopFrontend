@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import {shoesFilter, Brand, Shoe, shoeItem, shoesApiService, shoesApiServiceInterface } from './shoesApiService';
+import {shoesFilter, Brand, Shoe, shoeItem, shoesApiService, shoesApiServiceInterface, invantoryResponse } from './shoesApiService';
 import { Observable, of } from 'rxjs';
 import { v4 as uuid } from "uuid";
+import { cartShoe } from '../../state/cart/cart.store';
 
 
 
@@ -408,5 +409,25 @@ export class ShoesApiMock implements shoesApiServiceInterface {
         }
       })
       return of([...sizes]);
+    }
+    getInventoryCheck(shoes: cartShoe[]): Observable<invantoryResponse> {
+      const inventoryResponse : invantoryResponse = {
+        exist : [],
+        missing : [],
+      };
+      console.log(shoes);
+      shoes.forEach(shoe => {
+        let exist = false;
+        this.shoeItems.forEach(shoeItem =>{
+          if(shoeItem.size == shoe.size && shoeItem.type.id == shoe.type.id){
+            inventoryResponse.exist.push(shoeItem);
+            exist = true;
+            return;
+          }
+        })
+        if(!exist)
+            inventoryResponse.missing.push(shoe);
+      })
+      return of(inventoryResponse) 
     }
 }
