@@ -28,4 +28,8 @@ export class Header {
         this.currentRoute = event.urlAfterRedirects;
       })
     }
+    get isUnauthRoute(){
+      const route = this.currentRoute.split('/')[1]
+      return route == ROUTES.LOGIN || route == ROUTES.REGISTER;
+    }
 }
