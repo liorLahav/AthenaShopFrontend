@@ -3,6 +3,7 @@ import {getDisplayShoe, shoesApiService, shoeItem, Shoe} from '../shoesApiServic
 import {debounceTime } from 'rxjs';
 import { filtersService } from '../filtersService';
 import { universalFilter } from './shop-sidebar/filter-bar/filter-bar';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 
 
@@ -12,7 +13,7 @@ enum sortType {
   PriceAscending = "price (low to high)",
   PopularityDescending = "popularity (high to low)",
 }
-
+@UntilDestroy()
 @Component({
   selector: 'app-shop',
   standalone: false,
@@ -88,9 +89,9 @@ export class Shop {
       ]
   }
   subscribeToShoesByFilter(){
-    
     const shoesSubscription = this.filtersService.isFilterChanged$.pipe(        
         debounceTime(DEBOUNCE_TIME),
+        untilDestroyed(this)
       ).subscribe(() =>{
          this.isLoading = true
          this.shoesService.getShoesByFilter(this.filtersService.getFiltersValues())
