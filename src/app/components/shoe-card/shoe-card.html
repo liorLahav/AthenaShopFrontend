@@ -9,6 +9,6 @@
             <div class="button light-button add-button">
                 Add <div class="plus">+</div>
             </div>
-            <div [class.shop-price] = "location == 'shop'" class="price">{{shoe.price}}$</div>
+            <div [class.gray-price] = "!isPriceColorRed" class="price">{{shoe.price}}$</div>
         </div>
 </div>

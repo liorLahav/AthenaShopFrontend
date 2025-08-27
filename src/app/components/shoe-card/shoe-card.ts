@@ -8,6 +8,6 @@ import { DisplayShoe } from '../../shoesApiService';
   styleUrl: './shoe-card.css'
 })
 export class ShoeCard {
-  @Input() location : string = "shop";
+  @Input() isPriceColorRed : boolean = false;
   @Input() shoe! : DisplayShoe;
 }
