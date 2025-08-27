@@ -1,3 +1,11 @@
+.loading{
+    display: block;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    top: 50%;
+    left: 50%;
+}
 .shop-container{
     overflow: visible;
     width: 100%;
@@ -96,6 +104,7 @@
             width: 100%;
             display: flex;
             justify-content: flex-start;
+            align-items: center;
             flex-wrap: wrap;
             margin-top: 20px;
             .shoe {
