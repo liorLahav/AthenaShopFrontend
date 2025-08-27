@@ -23,6 +23,7 @@ export class TopPicks {
         this.topPicksShoes = shoes.sort((a : Shoe,b : Shoe) => b.rates.rank - a.rates.rank).map(shoe => getDisplayShoe(shoe));
       }),
       catchError((err) =>{
+        console.error("Couldn't fetch top picks shoes");
         this.topPicksShoes = Array(4).fill(defalutShoe);
         return of(this.topPicksShoes);
       })

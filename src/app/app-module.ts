@@ -22,6 +22,7 @@ import { Range } from './shop/shop-sidebar/filter-bar/range/range';
 import { Checkbox } from './shop/shop-sidebar/filter-bar/checkbox/checkbox';
 import { Sizes } from './shop/shop-sidebar/filter-bar/sizes/sizes';
 import {MatSliderModule} from '@angular/material/slider';
+import { Loading } from './components/loading/loading';
 
 persistState({
   key : 'akita-store',
@@ -45,6 +46,7 @@ persistState({
     Range,
     Checkbox,
     Sizes,
+    Loading,
   ],
   imports: [
     BrowserModule,
