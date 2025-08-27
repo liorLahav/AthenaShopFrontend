@@ -1,5 +1,12 @@
+:host{
+    position: sticky;
+    top: 0;
+    background-color: #fbf7f6;
+    z-index: 1000;
+}
 .header {
     width: 100%;
+    background-color: #fbf7f6;
     height: 60px;
     padding-top: 20px;
     box-sizing: border-box;
