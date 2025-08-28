@@ -1,0 +1,21 @@
+<div class="cart-container">
+    <div class="header">
+        <div class="title">Your bag</div>
+        <div class="total">
+            <div class="total-text">Total:</div>
+            <div class="price">{{cartShoes.length}} items ({{cartQuery.cartPrice}}$)</div>
+        </div>
+    </div>
+    <div class="checkout-container">
+        <div class="shoes-container">
+            <div *ngIf="cartShoes.length == 0" class="empty-cart">There is nothing in your cart...</div>
+            <app-wide-shoe-card
+                (remove)="onRemove($event)"
+                class="shoe"
+                *ngFor="let cartShoe of cartShoes"
+                [shoe]="cartShoe.type"
+                [size]="cartShoe.size"/>
+        </div>
+        <app-order-summery/>
+    </div>
+</div>

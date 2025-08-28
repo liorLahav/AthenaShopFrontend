@@ -10,13 +10,11 @@ import { USERS_API_SERVICE_TOKEN, usersServiceFactory } from './services/usersAp
 import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 import { Register } from './auth/register';
 import { Main } from './main/main';
-import { LogoHeadline } from './components/logo-headline/logo-headline';
 import { persistState } from '@datorama/akita';
 import { shoesApiService } from './services/shoesApi/shoesApiService';
-import { TopPicks } from './components/top-picks/top-picks';
-import {MatSliderModule} from '@angular/material/slider';
 import { shopModule } from './shop/shop.module';
 import { componentsModule } from './components/components.module';
+import { CartModule } from './cart/cart.module';
 
 persistState({
   key : 'akita-store',
@@ -38,7 +36,8 @@ persistState({
     FormsModule,
     AkitaNgDevtools.forRoot(),
     shopModule,
-    componentsModule
+    componentsModule,
+    CartModule
   ],
   providers: [
     shoesApiService,

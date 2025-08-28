@@ -6,6 +6,7 @@ import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { ShopDetails } from "./shoe-card/shop-details/shop-details";
 import { Sizes } from "./shoe-card/shop-details/sizes/sizes";
+import { WideShoeCard } from "./wide-shoe-card/wide-shoe-card";
 
 @NgModule({
     declarations : [
@@ -14,9 +15,10 @@ import { Sizes } from "./shoe-card/shop-details/sizes/sizes";
         TopPicks,
         ShopDetails,
         Sizes,
+        WideShoeCard
     ],
     imports : [CommonModule,FormsModule],
-    exports : [LogoHeadline,ShoeCard,TopPicks]
+    exports : [LogoHeadline,WideShoeCard,ShoeCard,TopPicks]
 })
 
 export class componentsModule{}

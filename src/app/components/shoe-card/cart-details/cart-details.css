@@ -1,0 +1,7 @@
+:host{
+    display: flex;
+    justify-content: space-between;
+}
+.shoe-title{
+    font-weight: bold;
+}

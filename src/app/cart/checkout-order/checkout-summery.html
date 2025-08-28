@@ -1,0 +1,13 @@
+<div class="order-summery">
+    <div class="order-headline">Order summery</div>
+    <app-section 
+    *ngFor="let section of sections"
+        [title]="section.title" 
+        [price]="section.price || 0"/>
+    <hr>
+    <app-section
+        [title]="'Total'"
+        [price]="cartQuery.cartPrice"
+        [isBold]="true"
+    />
+</div>

@@ -1,0 +1,13 @@
+:host{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.order-summery{
+    margin-top: 150px;
+    width: 90%;
+    margin-left: 10%;
+    .order-headline{
+        font-weight: bold;
+    }
+}

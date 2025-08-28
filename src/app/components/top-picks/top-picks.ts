@@ -11,14 +11,14 @@ import { catchError, of, tap } from 'rxjs';
 export class TopPicks {
   constructor(private shoesService : shoesApiService){}
   @Input() location! : string;
-  topPicksShoes : DisplayShoe[] = []
+  topPicksShoes : Shoe[] = []
   ngOnInit() : void{
     this.getTopPicksShoes();
   }
   getTopPicksShoes(){
     this.shoesService.getTopNMostCompetiableShoes(4).pipe(
       tap((shoes : Shoe[]) => {
-        this.topPicksShoes = shoes.sort((a : Shoe,b : Shoe) => b.rates.rank - a.rates.rank).map(shoe => getDisplayShoe(shoe));
+        this.topPicksShoes = shoes.sort((a : Shoe,b : Shoe) => b.rates.rank - a.rates.rank);
       }),
       catchError((err) =>{
         this.topPicksShoes = Array(4).fill(defalutShoe);
