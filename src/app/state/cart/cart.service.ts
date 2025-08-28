@@ -20,9 +20,13 @@ export class cartService{
         console.log(shoes);
     }
     removeShoe(typeId : string,size : number){
+        console.log(typeId)
+        console.log([...this.query.getShoes])
         const index = this.query.getShoes.findIndex(shoe => shoe.size == size && shoe.type.id == typeId)
+        console.log(index)
         if(index != -1){
-            const shoes = [...this.query.getShoes].splice(index,1);
+            const shoes = [...this.query.getShoes];
+            shoes.splice(index,1);
             this.cartStore.update({
                 shoes : shoes
             })
