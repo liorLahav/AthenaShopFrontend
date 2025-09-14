@@ -20,9 +20,13 @@
                     <div (click)="clearAllFilters()" *ngIf="filtersArray.length > 0" class="clear-all">Clear all</div>
                 </div>
         </div>
-        <div class="shoes-container">
-            <app-shoe-card class="shoe" *ngFor="let shoe of shoes" [shoe] = "shoe.type" />
+        <div *ngIf="!isLoading;else loading" class="shoes-container">
+            <app-shoe-card class="shoe" *ngFor="let dispalyShoe of displayShoes" [shoe] = "dispalyShoe" />
             <div class="empty-message" *ngIf="displayShoes.length == 0">no shoes</div>
         </div>
     </div>
 </div>
+
+<ng-template #loading>
+    <app-loading class="loading" [isLoading]="isLoading" />
+</ng-template>

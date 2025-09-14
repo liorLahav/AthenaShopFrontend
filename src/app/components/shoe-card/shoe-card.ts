@@ -9,11 +9,6 @@ import { cartService } from '../../state/cart/cart.service';
   styleUrl: './shoe-card.css'
 })
 export class ShoeCard {
-  constructor(private shoeService : shoesApiService,private cartService : cartService){}
-  @Input() location : string = "shop";
-  @Input({required : true}) shoe! : Shoe;
-  pressed = false;
-  get displayShoe(){
-    return getDisplayShoe(this.shoe);
-  }
+  @Input() isPriceColorRed : boolean = false;
+  @Input() shoe! : DisplayShoe;
 }

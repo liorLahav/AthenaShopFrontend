@@ -1,3 +1,11 @@
+.loading{
+    display: block;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    top: 50%;
+    left: 50%;
+}
 .shop-container{
     overflow: visible;
     width: 100%;
@@ -24,7 +32,7 @@
                 width: 100%;
                 overflow: visible;
                 .sort{
-                    width: 150px;
+                    width: 200px;
                     display: flex;
                     justify-content: center;
                     flex-wrap: nowrap;
@@ -33,10 +41,11 @@
                         display: inline;
                         margin-top: 4px;
                         margin-right: 10px;
+                        text-overflow: ellipsis;
                     }
                     .sort-select{
                         height: 30px;
-                        width: 80px;
+                        width: 120px;
                         padding: 0 5px;
                         font-size: 12px;
                         cursor: pointer;
@@ -45,6 +54,7 @@
                         border-radius: 5px;
                         border-color: gray;
                         color: gray;
+                        text-overflow: ellipsis;
                         option{
                             background-color: #fbf7f6;
                             border: 1px black;                            
@@ -96,6 +106,7 @@
             width: 100%;
             display: flex;
             justify-content: flex-start;
+            align-items: center;
             flex-wrap: wrap;
             margin-top: 20px;
             .shoe {

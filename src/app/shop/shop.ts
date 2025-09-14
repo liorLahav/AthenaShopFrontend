@@ -3,6 +3,8 @@ import {getDisplayShoe, shoesApiService, shoeItem, Shoe, DisplayShoe} from '../s
 import {debounceTime } from 'rxjs';
 import { filtersService } from '../services/filter/filtersService';
 import { universalFilter } from './shop-sidebar/filter-bar/filter-bar';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+
 
 
 const DEBOUNCE_TIME = 500;
@@ -11,7 +13,7 @@ enum sortType {
   PriceAscending = "price (low to high)",
   PopularityDescending = "popularity (high to low)",
 }
-
+@UntilDestroy()
 @Component({
   selector: 'app-shop',
   standalone: false,
@@ -24,18 +26,14 @@ export class Shop {
   displayShoes : DisplayShoe[] = []
   chosenSort : string = "";
   filters : universalFilter[] = []
-  shoesUnsubscribe : () => void = () => {}
+  isLoading : boolean = true;
   ngOnInit(){
     this.shoesService.getShoesByFilter({}).subscribe(shoes => {
-      this.shoes = shoes;
-      this.setUpFilters();
+      const tempShoes = shoes;
+      this.setUpFilters(tempShoes);
       this.sortShoes();
-      this.shoesUnsubscribe = this.subscribeToShoesByFilter();
-      this.updateDisplayShoes();
+      this.subscribeToShoesByFilter();
     })
-  }
-  ngOnDestroy(){
-    this.shoesUnsubscribe()
   }
   clearAllFilters(){
     this.filtersService.clear();
@@ -44,15 +42,15 @@ export class Shop {
     const title = (event.target as HTMLElement).id;
     this.filtersService.remove(title);
   }
-  setUpFilters(){
+  setUpFilters(shoes : shoeItem[]){
     const prices = [
-      ...this.shoes.reduce((acc, cur) => {
+      ...shoes.reduce((acc, cur) => {
         acc.add(cur.type.price);
         return acc;
       }, new Set<number>())
     ];
     const seen = new Set<string>;
-    const brands = this.shoes.reduce((acc,cur) =>{
+    const brands = shoes.reduce((acc,cur) =>{
             if(!seen.has(cur.type.id)){
               cur.type.brand.forEach(brand =>{
                 if(!(brand in acc)){
@@ -69,7 +67,7 @@ export class Shop {
         {
           title : "Size",
           type : "size",
-          sizes : [...this.shoes.reduce((acc,cur) =>{
+          sizes : [...shoes.reduce((acc,cur) =>{
             acc.add(cur.size)
             return acc;
           },new Set<number>())].sort((a, b) => a - b)
@@ -91,18 +89,18 @@ export class Shop {
         }
       ]
   }
-  subscribeToShoesByFilter() : () => void{
-    this.shoesUnsubscribe();
+  subscribeToShoesByFilter(){
     const shoesSubscription = this.filtersService.isFilterChanged$.pipe(        
         debounceTime(DEBOUNCE_TIME),
+        untilDestroyed(this)
       ).subscribe(() =>{
+         this.isLoading = true
          this.shoesService.getShoesByFilter(this.filtersService.getFiltersValues())
         .subscribe(shoes => {
           this.shoes = shoes
-          this.updateDisplayShoes();
+          this.isLoading = false
         });
     })
-    return ()=>{shoesSubscription.unsubscribe()};
   }
   getSortType(event: Event) {
     this.chosenSort = (event.target as HTMLSelectElement).value;

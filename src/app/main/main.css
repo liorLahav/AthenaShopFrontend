@@ -78,7 +78,7 @@
         width: 37%;
         font-size: 12px;
         max-width: 400px;
-        margin-bottom: 70px;
+        margin-top: 30px;
         margin-right: 7%;
     }
     .about-text{
@@ -93,5 +93,12 @@
     }
     .about-shoe{
         width: 100%;
+    }
+}
+@media (max-width: 750px) {
+    .about{
+        .about-data{
+            margin-top: 200px;
+        }
     }
 }

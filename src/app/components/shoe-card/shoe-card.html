@@ -1,10 +1,15 @@
-<div [class]="{
-    shoe : true,
-    'shop-shoe' : location != 'cart',
-    'cart-shoe' : location == 'cart',
-    }">
-        <img class="shoe-image" [src]="displayShoe.path" />
+<div>
+        <img class="shoe-image" [src]="shoe.path" />
         <div class="shoe-details">
-        <app-shop-details [title]="displayShoe.name" [location]="location" [shoe]="shoe"/>
+            <div class="shoe-name">{{shoe.name}}</div>
+            <div class="rating">
+                <img class="favorite-icon" src="assets/images/Five_Pointed_Star_Solid.svg" />
+                <div class="rating-score">{{shoe.rating}}/5</div>
+            </div>            
+            <div class="button light-button add-button">
+                Add <div class="plus">+</div>
+            </div>
+            <div [class.gray-price] = "!isPriceColorRed" class="price">{{shoe.price}}$</div>
+        </div>
 </div>
 

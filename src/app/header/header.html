@@ -1,6 +1,6 @@
 <header class="header" [ngClass]="{
-    'authed': userQuery.isAuthed,
-    'unauthed': !userQuery.isAuthed
+    'authed': !isUnauthRoute,
+    'unauthed': isUnauthRoute
   }">
     <app-logo-headline [RedirectToHome]="true" class="headline-logo"/>
     <ng-container *ngIf="userQuery.isAuthed && currentRoute != '/login'">
