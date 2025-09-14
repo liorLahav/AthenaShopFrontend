@@ -7,7 +7,7 @@
     border-radius: 15px;
     padding: 10px 20px;
     box-sizing: border-box;
-    font-size: 12px;
+    font-size: 11px;
     .shoe-image{
         width: clamp(70px,70%,200px);
     }
@@ -19,10 +19,15 @@
         .shoe-name{
             width: 100%;
             height: 20px;
+            line-height: 15px;
         }
         .price {
             color: #e46464;
             font-size: 12px;
+        }
+        .gray-price{
+            color: gray;
+            font-size: 14px;
         }
         .rating{
             display: flex;

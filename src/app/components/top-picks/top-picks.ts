@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { defalutShoe, DisplayShoe, getDisplayShoe, Shoe, shoesApiService } from '../../shoesApiService';
 import { catchError, of, tap } from 'rxjs';
+import { Router } from '@angular/router';
+import { ROUTES } from '../../routes';
 
 @Component({
   selector: 'app-top-picks',
@@ -9,7 +11,8 @@ import { catchError, of, tap } from 'rxjs';
   styleUrl: './top-picks.css'
 })
 export class TopPicks {
-  constructor(private shoesService : shoesApiService){}
+  constructor(private shoesService : shoesApiService, private router : Router){}
+  @Input() location! : string;
   topPicksShoes : DisplayShoe[] = []
   ngOnInit() : void{
     this.getTopPicksShoes();
@@ -20,9 +23,13 @@ export class TopPicks {
         this.topPicksShoes = shoes.sort((a : Shoe,b : Shoe) => b.rates.rank - a.rates.rank).map(shoe => getDisplayShoe(shoe));
       }),
       catchError((err) =>{
+        console.error("Couldn't fetch top picks shoes");
         this.topPicksShoes = Array(4).fill(defalutShoe);
         return of(this.topPicksShoes);
       })
     ).subscribe()
+  }
+  onViewAllClick(){
+    this.router.navigate([ROUTES.SHOP])
   }
 }

@@ -8,5 +8,6 @@ import { DisplayShoe } from '../../shoesApiService';
   styleUrl: './shoe-card.css'
 })
 export class ShoeCard {
+  @Input() isPriceColorRed : boolean = false;
   @Input() shoe! : DisplayShoe;
 }

@@ -6,6 +6,7 @@ import { Main } from './main/main';
 import { authGuard } from './authGuard';
 import { unAuthGuard } from './unAuthGuard';
 import { ROUTES } from './routes';
+import { Shop } from './shop/shop';
 
 
 const routes: Routes = [{
@@ -20,7 +21,13 @@ const routes: Routes = [{
   path : ROUTES.HOME,
   component : Main,
   canActivate : [authGuard]
-},{
+},
+{
+  path : ROUTES.SHOP,
+  component : Shop,
+  canActivate : [authGuard]
+}
+,{
   path : '**',
   redirectTo : ROUTES.LOGIN
 }];

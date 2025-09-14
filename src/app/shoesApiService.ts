@@ -1,16 +1,27 @@
 import { Observable } from "rxjs";
 import { ShoesApiMock } from "./shoesApiMock";
 import { Injectable } from "@angular/core";
+import { v4 as uuid } from "uuid";
+
 
 export enum Brand {
   Yeezy = 'Yeezy',
   Nike = 'Nike',
   Puma = 'Puma',
   Adidas = 'Adidas',
-  OffWhite = "Off_White",
+  OffWhite = "Off---White",
   AirJordan = "Air_Jordan"
 }
+export interface shoesFilter{
+    n? : number
+    brand? : Brand[],
+    size? : number[],
+    price? : {
+        min : number,
 
+        max : number,
+    }
+}
 
 export interface DisplayShoe {
     name : string,
@@ -19,15 +30,15 @@ export interface DisplayShoe {
     price : number,
 }
 export const defalutShoe : Shoe = {
-    brand : [Brand.Adidas,Brand.Yeezy],
-    model : "350 natural",
-    price : 100,
-    rates : {
-        amount : 100,
-        rank : 4.5,
-    },
-    id : "item_4"
-}
+  id: uuid(),
+  brand: [Brand.Adidas, Brand.Yeezy],
+  model: "350 Beluga",
+  price: 220,
+  rates: {
+    rank: 5.0,
+    amount: 0
+  }
+};
 
 export interface Shoe {
     brand : Brand[],
@@ -51,14 +62,13 @@ export interface shoesApiServiceInterface {
     getTopNMostSoldShoes(n? : number): Observable<Shoe[]>;
     getTopNMostCompetiableShoes(n? : number): Observable<Shoe[]>
     getLastNAddedShoe(n? : number) : Observable<Shoe[]>
+    getShoesByFilter(filter : shoesFilter) : Observable<shoeItem[]>
 }
 export const getDisplayShoe = (shoe : Shoe) => {
-    let shoeBrandKey = "";
-    shoe.brand.forEach(b => shoeBrandKey += b + "_")
-    shoeBrandKey = shoeBrandKey.slice(0,-1);
+    let shoeBrandKey = shoe.brand.join("_");
     return {
         name : shoe.brand.at(-1)?.replace("_"," ") + " " + shoe.model.toLowerCase(),
-        path : "assets/images/items/" + shoeBrandKey.toLowerCase() + "_" + shoe.model.replaceAll(" ","_") + ".png",
+        path : "assets/images/items/" + shoeBrandKey.toLowerCase() + "_" + shoe.model.replaceAll(" ","_").toLowerCase() + ".png",
         rating : shoe.rates.rank,
         price : shoe.price,
     }
@@ -81,5 +91,8 @@ export class shoesApiService implements shoesApiServiceInterface {
     }
     getLastNAddedShoe(n? : number): Observable<Shoe[]> {
         return this.shoesApiServiceProvider.getLastNAddedShoe();
+    }
+    getShoesByFilter(filter : shoesFilter) : Observable<shoeItem[]>{
+        return this.shoesApiServiceProvider.getShoesByFilter(filter);
     }    
 } 

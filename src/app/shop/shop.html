@@ -1,0 +1,32 @@
+<div class="shop-container">
+    <app-shop-sidebar [filters]="filters"/>
+    <div class="items-container">
+        <div class="items-header">
+            <div class="items-headline">SNEAKERS SHOP</div>
+                <div class="items-header-top">
+                    <div class="sneakers-amount">{{displayShoes.length}} sneakers</div>
+                    <div class="sort">
+                        <div class="select-label">Sort by</div>
+                        <select (change)="getSortType($event)" class="sort-select">
+                            <option class="default-option" value="" [selected]="chosenSort === ''">Selected</option>
+                            <option [value]="sort" 
+                                    *ngFor="let sort of typesArray"
+                                     [selected]="chosenSort === sort">{{sort}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="items-headline-bottom">
+                    <div class="filter-tag" *ngFor="let filter of filtersArray">{{filter.title}} : {{filter.value}} <div [id]="filter.title" (click)="clearFilter($event)" class ="x">X</div></div>
+                    <div (click)="clearAllFilters()" *ngIf="filtersArray.length > 0" class="clear-all">Clear all</div>
+                </div>
+        </div>
+        <div *ngIf="!isLoading;else loading" class="shoes-container">
+            <app-shoe-card class="shoe" *ngFor="let dispalyShoe of displayShoes" [shoe] = "dispalyShoe" />
+            <div class="empty-message" *ngIf="displayShoes.length == 0">no shoes</div>
+        </div>
+    </div>
+</div>
+
+<ng-template #loading>
+    <app-loading class="loading" [isLoading]="isLoading" />
+</ng-template>
