@@ -8,7 +8,7 @@
 (cancel)="onCancel()"
 (sizeChose)="addShoeToCart($event)"
 *ngIf="pressed;else notPressed"/>
-<div [class.shop-price] = "location == 'shop'" class="price">{{shoe.price}}$</div>
+<div class="price">{{shoe.price}}$</div>
 
 <ng-template #notPressed>
     <div (click)="onAddClick()" class="button light-button add-button">

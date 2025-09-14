@@ -10,7 +10,6 @@ import { cartService } from '../../../state/cart/cart.service';
 })
 export class ShopDetails {
   constructor(private shoeService : shoesApiService,private cartService : cartService){}
-  @Input({required : true}) location! : string;
   @Input({required : true}) shoe! : Shoe;
   @Input({required : true}) title! : string;
   pressed = false;

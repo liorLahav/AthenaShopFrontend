@@ -10,5 +10,8 @@ import { cartService } from '../../state/cart/cart.service';
 })
 export class ShoeCard {
   @Input() isPriceColorRed : boolean = false;
-  @Input() shoe! : DisplayShoe;
+  @Input() shoe! : Shoe;
+  get displayShoe(){
+    return getDisplayShoe(this.shoe);
+  }
 }

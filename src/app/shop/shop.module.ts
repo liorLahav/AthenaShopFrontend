@@ -5,7 +5,6 @@ import { FilterBar } from "./shop-sidebar/filter-bar/filter-bar";
 import { Range } from "./shop-sidebar/filter-bar/range/range";
 import { Sizes } from "./shop-sidebar/filter-bar/sizes/sizes";
 import { Checkbox } from "./shop-sidebar/filter-bar/checkbox/checkbox";
-import { ShoeCard } from "../components/shoe-card/shoe-card";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { MatSliderModule } from "@angular/material/slider";
