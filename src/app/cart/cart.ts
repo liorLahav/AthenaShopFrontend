@@ -1,16 +1,19 @@
 import { Component } from '@angular/core';
 import { cartQuery } from '../state/cart/cart.query';
 import { ShoesApiMock } from '../services/shoesApi/shoesApiMock';
-import { Shoe, shoeItem } from '../services/shoesApi/shoesApiService';
+import { inventoryResponse, Shoe, shoeItem } from '../services/shoesApi/shoesApiService';
 import { cartShoe } from '../state/cart/cart.store';
 import { getDistictShoes } from '../utils/shoes';
 import { cartService } from '../state/cart/cart.service';
+import { Observable } from 'rxjs';
 
 export interface inventoryStatus{
   exist : shoeItem[],
   missing : cartShoe[]
 }
-
+export interface cartShoeStatus extends cartShoe{
+  inStock : boolean
+}
 @Component({
   selector: 'app-cart',
   standalone: false,
@@ -19,21 +22,16 @@ export interface inventoryStatus{
 })
 export class Cart {
   constructor(protected cartQuery : cartQuery,private cartService : cartService,private shoesService : ShoesApiMock){}
-  exist : shoeItem[] = [];
-  missing : cartShoe[] = [];
+  inventory:cartShoeStatus[] = [];
   ngOnInit(){
-    this.inventoryCheck();
-  }
-  inventoryCheck(){
-    this.shoesService.getInventoryCheck(this.cartQuery.getShoes).subscribe(status => {
-      this.exist = status.exist;
-      this.missing = status.missing;
-    }) 
+    this.cartQuery.shoes$.subscribe(shoes => {
+      this.shoesService.getInventoryCheck(shoes).subscribe(i =>{
+        this.inventory = i.shoes;
+        console.log(this.inventory);
+      })
+    });
   }
   onRemove(shoe : cartShoe){
     this.cartService.removeShoe(shoe.type.id,shoe.size);
-  }
-  get cartShoes() : cartShoe[]{
-    return this.cartQuery.getShoes;
   }
 }

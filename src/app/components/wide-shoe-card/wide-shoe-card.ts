@@ -10,6 +10,7 @@ import { cartShoe } from '../../state/cart/cart.store';
 export class WideShoeCard {
   @Input({required: true}) shoe!: Shoe;
   @Input({required : true}) size! : number;
+  @Input() isSoldOut : boolean = false;
   @Output() remove = new EventEmitter<cartShoe>();
 
   onXClick(){

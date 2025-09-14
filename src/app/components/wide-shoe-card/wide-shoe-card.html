@@ -8,6 +8,6 @@
             <div (click)="onXClick()" class="x">X</div>
         </div>
         <div class="size">Size: {{size}} (US Men)</div>
-        <div class="price">{{displayShoe.price}}$</div>
+        <div class="price">{{!isSoldOut ? displayShoe.price + "$" : "Sold out"}}</div>
     </div>
 </div>

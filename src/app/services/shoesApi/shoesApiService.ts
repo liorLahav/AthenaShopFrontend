@@ -3,7 +3,7 @@ import { ShoesApiMock } from "./shoesApiMock";
 import { Injectable } from "@angular/core";
 import { v4 as uuid } from "uuid";
 import { cartShoe } from "../../state/cart/cart.store";
-import { inventoryStatus } from "../../cart/cart";
+import { cartShoeStatus } from "../../cart/cart";
 
 
 export enum Brand {
@@ -61,9 +61,8 @@ export interface shoeItem {
     datePurchased : Date;
     id : string;
 }
-export interface invantoryResponse{
-    exist : shoeItem[],
-    missing : cartShoe[],
+export interface inventoryResponse{
+    shoes : cartShoeStatus[]
 }
 export interface shoesApiServiceInterface {
     getTopNMostSoldShoes(n? : number): Observable<Shoe[]>;
@@ -71,7 +70,7 @@ export interface shoesApiServiceInterface {
     getLastNAddedShoe(n? : number) : Observable<Shoe[]>
     getShoesByFilter(filter : shoesFilter) : Observable<shoeItem[]>
     getSizesByShoe(shoeId : string) : Observable<number[]>
-    getInventoryCheck(shoes : cartShoe[]): Observable<inventoryStatus>
+    getInventoryCheck(shoes : cartShoe[]): Observable<inventoryResponse>
 }
 export const getDisplayShoe = (shoe : Shoe) => {
     let shoeBrandKey = shoe.brand.join("_");

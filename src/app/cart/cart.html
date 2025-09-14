@@ -3,19 +3,22 @@
         <div class="title">Your bag</div>
         <div class="total">
             <div class="total-text">Total:</div>
-            <div class="price">{{cartShoes.length}} items ({{cartQuery.cartPrice}}$)</div>
+            <div class="price">{{inventory.length}} items ({{cartQuery.cartPrice}}$)</div>
         </div>
     </div>
     <div class="checkout-container">
         <div class="shoes-container">
-            <div *ngIf="cartShoes.length == 0" class="empty-cart">There is nothing in your cart...</div>
+            <div *ngIf="inventory.length == 0" class="empty-cart">There is nothing in your cart...</div>
             <app-wide-shoe-card
                 (remove)="onRemove($event)"
                 class="shoe"
-                *ngFor="let cartShoe of cartShoes"
+                *ngFor="let cartShoe of inventory"
                 [shoe]="cartShoe.type"
-                [size]="cartShoe.size"/>
+                [size]="cartShoe.size"
+                [isSoldOut]="!cartShoe.inStock"
+                />
         </div>
-        <app-order-summery/>
+        <app-order-summery *ngIf="cartQuery.cartSize != 0"/>
     </div>
+    <app-top-picks/>
 </div>
