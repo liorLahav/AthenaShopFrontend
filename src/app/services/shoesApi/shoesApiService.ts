@@ -64,6 +64,10 @@ export interface shoeItem {
 export interface inventoryResponse{
     shoes : cartShoeStatus[]
 }
+export interface checkoutResponse{
+    success : boolean,
+    missingShoes : cartShoe[]
+}
 export interface shoesApiServiceInterface {
     getTopNMostSoldShoes(n? : number): Observable<Shoe[]>;
     getTopNMostCompetiableShoes(n? : number): Observable<Shoe[]>
@@ -71,6 +75,7 @@ export interface shoesApiServiceInterface {
     getShoesByFilter(filter : shoesFilter) : Observable<shoeItem[]>
     getSizesByShoe(shoeId : string) : Observable<number[]>
     getInventoryCheck(shoes : cartShoe[]): Observable<inventoryResponse>
+    checkout(shoes : cartShoe[]) : Observable<checkoutResponse>
 }
 export const getDisplayShoe = (shoe : Shoe) => {
     let shoeBrandKey = shoe.brand.join("_");
@@ -109,5 +114,8 @@ export class shoesApiService implements shoesApiServiceInterface {
     }
     getInventoryCheck(shoes : cartShoe[]){
         return this.shoesApiServiceProvider.getInventoryCheck(shoes);
+    }
+    checkout(shoes : cartShoe[]){
+        return this.shoesApiServiceProvider.checkout(shoes);
     }    
 } 

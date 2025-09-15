@@ -3,7 +3,7 @@
         <div class="title">Your bag</div>
         <div class="total">
             <div class="total-text">Total:</div>
-            <div class="price">{{inventory.length}} items ({{cartQuery.cartPrice}}$)</div>
+            <div class="price">{{inventory.length}} items ({{cartSum}}$)</div>
         </div>
     </div>
     <div class="checkout-container">
@@ -18,7 +18,12 @@
                 [isSoldOut]="!cartShoe.inStock"
                 />
         </div>
-        <app-order-summery *ngIf="cartQuery.cartSize != 0"/>
+        <app-order-summery [disabled] = "isCartValid" *ngIf="cartQuery.cartSize != 0" (checkoutReponse)="onCheckoutResponse($event)"/>
     </div>
     <app-top-picks/>
+    <app-checkout-message (closeMessage)="onMessageClose()" *ngIf="checkoutReponse != null" [checkoutResponse]="checkoutReponse" />
 </div>
+
+<ng-template #RemoveItems>
+    <div class="remove-items-message">please remove all sold out items from the cart to proceed</div>
+</ng-template>

@@ -11,7 +11,7 @@
     justify-content: space-around;
     align-items: center;
     border-radius: 15px;
-    padding:20px 0;
+    padding:20px 15px;
     box-sizing: border-box;
     font-size: 11px;
     .image-wrapper{
@@ -50,7 +50,7 @@
         }
         .price{
             margin-top: 30px;
-            margin-left: 70%;
+            margin-left: auto;
             color: #e46464;
             font-size: 18px;
         }

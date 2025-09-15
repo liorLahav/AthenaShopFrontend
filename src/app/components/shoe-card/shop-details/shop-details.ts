@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Shoe, shoesApiService } from '../../../services/shoesApi/shoesApiService';
 import { cartService } from '../../../state/cart/cart.service';
+import { cartQuery } from '../../../state/cart/cart.query';
 
 @Component({
   selector: 'app-shop-details',
@@ -9,7 +10,7 @@ import { cartService } from '../../../state/cart/cart.service';
   styleUrl: './shop-details.css'
 })
 export class ShopDetails {
-  constructor(private shoeService : shoesApiService,private cartService : cartService){}
+  constructor(private shoeService : shoesApiService,private cartService : cartService,private cartQuery : cartQuery){}
   @Input({required : true}) shoe! : Shoe;
   @Input({required : true}) title! : string;
   pressed = false;
@@ -25,13 +26,23 @@ export class ShopDetails {
     this.getShoeSizes()
   }
   addShoeToCart(size : number){
-    console.log("ttt")
     this.cartService.addShoe(this.shoe,size);
+    this.pressed = false;
   }
   getShoeSizes(){
-    this.shoeService.getSizesByShoe(this.shoe.id).subscribe( sizesData =>
-      this.sizes = sizesData
-    )
+    this.shoeService.getSizesByShoe(this.shoe.id).subscribe( sizesData =>{
+      const cart = [...this.cartQuery.getShoes]
+      this.sizes = sizesData.reduce((acc,cur) =>{
+        const shoeIndex = cart.findIndex(s => s.type.id == this.shoe.id && cur == s.size)
+        if(shoeIndex == -1){
+          acc.push(cur)
+        }
+        else{
+          cart.splice(shoeIndex,1)
+        }
+        return acc;
+      },[] as number[])
+    })
   }
   
 }

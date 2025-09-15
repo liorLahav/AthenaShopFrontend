@@ -16,11 +16,6 @@ import { shopModule } from './shop/shop.module';
 import { componentsModule } from './components/components.module';
 import { CartModule } from './cart/cart.module';
 
-persistState({
-  key : 'akita-store',
-  include : ["user","cart"],
-  storage : localStorage
-})
 @NgModule({
   declarations: [
     App,

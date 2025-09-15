@@ -4,6 +4,7 @@ import {debounceTime } from 'rxjs';
 import { filtersService } from '../services/filter/filtersService';
 import { universalFilter } from './shop-sidebar/filter-bar/filter-bar';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { cartQuery } from '../state/cart/cart.query';
 
 
 
@@ -18,12 +19,12 @@ enum sortType {
   selector: 'app-shop',
   standalone: false,
   templateUrl: './shop.html',
-  styleUrl: './shop.css'
+  styleUrl: './shop.css',
 })
 export class Shop {
-  constructor(protected shoesService : shoesApiService,protected filtersService : filtersService){}
+  constructor(protected shoesService : shoesApiService,protected filtersService : filtersService,private cartQuery : cartQuery){}
   shoes : shoeItem[] = [];
-  displayShoes : DisplayShoe[] = []
+  distinctShoes : Shoe[] = []
   chosenSort : string = "";
   filters : universalFilter[] = []
   isLoading : boolean = true;
@@ -97,7 +98,18 @@ export class Shop {
          this.isLoading = true
          this.shoesService.getShoesByFilter(this.filtersService.getFiltersValues())
         .subscribe(shoes => {
-          this.shoes = shoes
+          const cart = [...this.cartQuery.getShoes]
+          this.shoes = shoes.reduce((acc,cur) =>{
+            const shoeindex = cart.findIndex(s => s.type.id == cur.type.id && s.size == cur.size)
+            if(shoeindex == -1){
+              acc.push(cur);
+            }
+            else{
+              cart.splice(shoeindex,1);
+            }
+            return acc;
+          },[] as shoeItem[])
+          this.updateDistinctShoes();
           this.isLoading = false
         });
     })
@@ -133,7 +145,7 @@ export class Shop {
     }
     return arr;
   }
-  updateDisplayShoes(){
+  updateDistinctShoes(){
     const seen = new Set<string>();
     const distinctShoes: Shoe[] = [];
     for (const cur of this.shoes) {
@@ -142,6 +154,6 @@ export class Shop {
       seen.add(id);
       distinctShoes.push(cur.type);
     }
-    this.displayShoes = distinctShoes.map(shoe => getDisplayShoe(shoe))
+    this.distinctShoes = distinctShoes
   }
 }

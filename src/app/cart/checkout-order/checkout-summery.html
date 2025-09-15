@@ -10,4 +10,5 @@
         [price]="cartQuery.TotalPrice"
         [isBold]="true"
     />
+    <div [attr.disabled]="disabled" (click)="!disabled && buyShoes()" class="checkout-button button dark-button">Check out</div>
 </div>

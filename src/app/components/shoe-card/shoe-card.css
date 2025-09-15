@@ -7,7 +7,8 @@
     border-radius: 15px;
     padding: 20px;
     box-sizing: border-box;
-    font-size: 11px;
+    font-size: 14px;
+    margin-bottom: 20px;
     .shoe-image{
         width: clamp(70px,70%,200px);
     }
@@ -23,7 +24,7 @@
         }
         .price {
             color: #e46464;
-            font-size: 12px;
+            font-size: 14px;
         }
         .gray-price{
             color: gray;

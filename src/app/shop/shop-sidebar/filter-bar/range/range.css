@@ -1,12 +1,12 @@
 .prices{
-    font-size: 10px;
+    font-size: 12px;
 }
 .text-input-container {
     width: 100%;
     display: flex;
     justify-content: space-between;
     flex-wrap: nowrap;
-    font-size: 10px;
+    font-size: 12px;
     .text-input {
         color: gray;
         font-size: inherit;

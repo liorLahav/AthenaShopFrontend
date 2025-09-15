@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {shoesFilter, Brand, Shoe, shoeItem, shoesApiServiceInterface, inventoryResponse } from './shoesApiService';
+import {shoesFilter, Brand, Shoe, shoeItem, shoesApiServiceInterface, inventoryResponse, checkoutResponse } from './shoesApiService';
 import { Observable, of } from 'rxjs';
 import { v4 as uuid } from "uuid";
 import { cartShoe } from '../../state/cart/cart.store';
@@ -11,6 +11,24 @@ import { shoes,shoeItems } from './shoes';
   providedIn: 'root'
 })
 export class ShoesApiMock implements shoesApiServiceInterface {
+    checkout(shoes: shoeItem[]): Observable<checkoutResponse> {
+      const inventoryStatus = this.InventoryCheck(shoes);
+      const missingShoes = inventoryStatus.shoes.filter(shoe => !shoe.inStock);
+      if(missingShoes.length > 0){
+        return of({
+          success : false,
+          missingShoes : missingShoes
+        })
+      }
+      shoes.forEach(shoe => {
+        const shoeIndex = shoeItems.findIndex(shoeItem => shoeItem.type.id == shoe.type.id && shoeItem.size == shoe.size)
+        shoeItems.splice(shoeIndex,1);
+      })
+      return of({
+        success : true,
+        missingShoes: []
+      })
+    }
     getTopNMostSoldShoes(n?: number): Observable<Shoe[]> {
       if (!n)
         n = 1;
@@ -58,16 +76,15 @@ export class ShoesApiMock implements shoesApiServiceInterface {
     getInventoryCheck(
       shoes: cartShoe[]
     ): Observable<inventoryResponse> {
+      return of(this.InventoryCheck(shoes));
+    }
+    InventoryCheck(shoes: cartShoe[]){
       const res: inventoryResponse = { shoes: [] };
       const stock = [...shoeItems];
-
       for (const shoe of shoes) {
         const index = stock.findIndex(shoeItem =>
           shoe.size === shoeItem.size && shoe.type.id === shoeItem.type.id
         );
-
-        console.log(index);
-        console.log(stock[index]);
         if (index !== -1) {
           res.shoes.push({ ...shoe, inStock: true });
           stock.splice(index, 1);
@@ -75,8 +92,7 @@ export class ShoesApiMock implements shoesApiServiceInterface {
           res.shoes.push({ ...shoe, inStock: false });
         }
       }
-
-      return of(res);
+      return res;
     }
 }
 

@@ -1,6 +1,6 @@
 .main > *{
     border-bottom: 2px solid #d5d1cf;
-    padding-bottom: 50px;
+    padding-bottom: 8%;
     width: 100%;
 }
 .top-picks{
@@ -76,7 +76,7 @@
     }
     .about-data{
         width: 37%;
-        font-size: 12px;
+        font-size: 14px;
         max-width: 400px;
         margin-top: 30px;
         margin-right: 7%;
