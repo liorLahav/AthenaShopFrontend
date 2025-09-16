@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Shoe, shoesApiService } from '../../../services/shoesApi/shoesApiService';
+import {shoesApiService } from '../../../services/shoesApi/shoesApiService';
+import { Shoe } from 'athena-shop-types';
 import { cartService } from '../../../state/cart/cart.service';
 import { cartQuery } from '../../../state/cart/cart.query';
 

@@ -1,29 +1,5 @@
-export enum Brand {
-  Yeezy = 'Yeezy',
-  Nike = 'Nike',
-  Puma = 'Puma',
-  Adidas = 'Adidas',
-  OffWhite = "Off---White",
-  AirJordan = "Air_Jordan"
-}
-export interface Shoe {
-    brand : Brand[],
-    model : string,
-    price : number,
-    rates : rate,
-    id : string,
-}
-export interface rate {
-    amount : number,
-    rank : number,
-}
-export interface shoeItem {
-    size : number,
-    dateCreated : Date;
-    type : Shoe;
-    datePurchased : Date;
-    id : string;
-}
+import { Brand,Shoe,shoeItem } from "athena-shop-types";
+
 export const shoes: Shoe[] = [
     {
       id: "1",
@@ -378,6 +354,5 @@ export const shoeItems: shoeItem[] = [
     { size: 4.5, dateCreated: new Date("2025-01-01"), datePurchased: new Date("2025-01-01"), type: shoes[25], id: "item_97" },
     { size: 8,   dateCreated: new Date("2025-01-01"), datePurchased: new Date("2025-01-01"), type: shoes[26], id: "item_98" },
     { size: 6.5, dateCreated: new Date("2025-01-01"), datePurchased: new Date("2025-01-01"), type: shoes[27], id: "item_99" },
-    { size: 3,   dateCreated: new Date("2025-01-01"), datePurchased: new Date("2025-01-01"), type: shoes[28], id: "item_100" },
-  ];
-
+    { size: 3,   dateCreated: new Date("2025-01-01"), datePurchased: new Date("2025-01-01"), type: shoes[28], id: "item_100" }
+]

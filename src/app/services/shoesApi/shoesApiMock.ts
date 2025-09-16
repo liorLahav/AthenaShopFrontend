@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import {shoesFilter, Brand, Shoe, shoeItem, shoesApiServiceInterface, inventoryResponse, checkoutResponse } from './shoesApiService';
+import {shoesFilter, shoesApiServiceInterface, inventoryResponse, checkoutResponse } from './shoesApiService';
+import {Brand, Shoe, shoeItem} from 'athena-shop-types';
 import { Observable, of } from 'rxjs';
-import { v4 as uuid } from "uuid";
 import { cartShoe } from '../../state/cart/cart.store';
 import { shoes,shoeItems } from './shoes';
-
 
 
 @Injectable({

@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import {getDisplayShoe, Shoe} from '../../services/shoesApi/shoesApiService'
+import {getDisplayShoe} from '../../services/shoesApi/shoesApiService';
+import {Shoe} from 'athena-shop-types';
+
 import { cartShoe } from '../../state/cart/cart.store';
 @Component({
   selector: 'app-wide-shoe-card',

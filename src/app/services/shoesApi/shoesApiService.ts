@@ -4,16 +4,9 @@ import { Injectable } from "@angular/core";
 import { v4 as uuid } from "uuid";
 import { cartShoe } from "../../state/cart/cart.store";
 import { cartShoeStatus } from "../../cart/cart";
+import { Brand, Shoe, shoeItem } from "athena-shop-types";
 
 
-export enum Brand {
-  Yeezy = 'Yeezy',
-  Nike = 'Nike',
-  Puma = 'Puma',
-  Adidas = 'Adidas',
-  OffWhite = "Off---White",
-  AirJordan = "Air_Jordan"
-}
 export interface shoesFilter{
     n? : number
     brand? : Brand[],
@@ -43,24 +36,6 @@ export const defalutShoe : Shoe = {
   }
 };
 
-export interface Shoe {
-    brand : Brand[],
-    model : string,
-    price : number,
-    rates : rate,
-    id : string,
-}
-export interface rate {
-    amount : number,
-    rank : number,
-}
-export interface shoeItem {
-    size : number,
-    dateCreated : Date;
-    type : Shoe;
-    datePurchased : Date;
-    id : string;
-}
 export interface inventoryResponse{
     shoes : cartShoeStatus[]
 }

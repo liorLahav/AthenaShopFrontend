@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { Shoe, shoesApiService,getDisplayShoe, DisplayShoe, defalutShoe } from '../services/shoesApi/shoesApiService';
+import {shoesApiService,getDisplayShoe, DisplayShoe, defalutShoe } from '../services/shoesApi/shoesApiService';
 import {  catchError, of, tap } from 'rxjs';
+import { Shoe } from 'athena-shop-types';
  
 @Component({
   selector: 'app-main',

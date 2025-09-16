@@ -1,5 +1,5 @@
 import { Store, StoreConfig } from "@datorama/akita";
-import { Shoe, shoeItem } from "../../services/shoesApi/shoesApiService";
+import { Shoe } from "athena-shop-types";
 import { Injectable } from "@angular/core";
 
 export interface cartShoe{

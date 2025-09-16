@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { defalutShoe, DisplayShoe, getDisplayShoe, Shoe, shoesApiService } from '../../services/shoesApi/shoesApiService';
+import { defalutShoe, DisplayShoe, getDisplayShoe, shoesApiService } from '../../services/shoesApi/shoesApiService';
 import { catchError, of, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { ROUTES } from '../../routes';
-
+import {Shoe} from 'athena-shop-types'
 @Component({
   selector: 'app-top-picks',
   standalone: false,

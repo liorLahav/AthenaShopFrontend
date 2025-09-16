@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { cartStore } from "./cart.store";
-import { Shoe, shoeItem } from "../../services/shoesApi/shoesApiService";
+import { Shoe } from "athena-shop-types";
 import { cartQuery } from "./cart.query";
 
 

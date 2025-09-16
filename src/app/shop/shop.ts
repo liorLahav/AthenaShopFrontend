@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import {getDisplayShoe, shoesApiService, shoeItem, Shoe, DisplayShoe} from '../services/shoesApi/shoesApiService';
+import {shoesApiService} from '../services/shoesApi/shoesApiService';
+import {shoeItem, Shoe} from 'athena-shop-types';
 import {debounceTime } from 'rxjs';
 import { filtersService } from '../services/filter/filtersService';
 import { universalFilter } from './shop-sidebar/filter-bar/filter-bar';

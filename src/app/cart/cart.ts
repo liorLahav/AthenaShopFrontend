@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 import { cartQuery } from '../state/cart/cart.query';
 import { ShoesApiMock } from '../services/shoesApi/shoesApiMock';
-import { checkoutResponse, inventoryResponse, Shoe, shoeItem } from '../services/shoesApi/shoesApiService';
+import { checkoutResponse } from '../services/shoesApi/shoesApiService';
+import {shoeItem} from 'athena-shop-types'
 import { cartShoe } from '../state/cart/cart.store';
-import { getDistictShoes } from '../utils/shoes';
 import { cartService } from '../state/cart/cart.service';
-import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 

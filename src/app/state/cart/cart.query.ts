@@ -1,8 +1,7 @@
 import { Injectable } from "@angular/core";
 import { cartShoe, cartState, cartStore } from "./cart.store";
 import { Query } from "@datorama/akita";
-import { shoesApiService } from "../../services/shoesApi/shoesApiService";
-import { Observable, switchMap } from "rxjs";
+import { Observable } from "rxjs";
 const DELIVERY_PRICE = 10;
 
 

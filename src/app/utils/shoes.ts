@@ -1,4 +1,4 @@
-import { Shoe } from "../services/shoesApi/shoesApiService";
+import { Shoe } from "athena-shop-types";
 
 export const getDistictShoes =(shoes : Shoe[])=>{
     const seen = new Set<string>();
