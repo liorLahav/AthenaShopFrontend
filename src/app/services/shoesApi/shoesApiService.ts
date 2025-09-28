@@ -1,10 +1,11 @@
 import { Observable } from "rxjs";
 import { ShoesApiMock } from "./shoesApiMock";
-import { Injectable } from "@angular/core";
+import { Injectable, InjectionToken } from "@angular/core";
 import { v4 as uuid } from "uuid";
 import { cartShoe } from "../../state/cart/cart.store";
 import { cartShoeStatus } from "../../cart/cart";
 import { Brand, Shoe, shoeItem } from "athena-shop-types";
+
 
 
 export interface shoesFilter{
@@ -43,7 +44,7 @@ export interface checkoutResponse{
     success : boolean,
     missingShoes : cartShoe[]
 }
-export interface shoesApiServiceInterface {
+export interface shoesApiService {
     getTopNMostSoldShoes(n? : number): Observable<Shoe[]>;
     getTopNMostCompetiableShoes(n? : number): Observable<Shoe[]>
     getLastNAddedShoe(n? : number) : Observable<Shoe[]>
@@ -63,34 +64,5 @@ export const getDisplayShoe = (shoe : Shoe) => {
     }
 }
 
-const sheosApiServiceFactory = (type : string) : shoesApiServiceInterface => {
-    return new ShoesApiMock();
-}
+export const SHOES_API_SERVICE_TOKEN = new InjectionToken<shoesApiService>('shoesService');
 
-@Injectable({
-  providedIn: 'root'
-})
-export class shoesApiService implements shoesApiServiceInterface {
-    shoesApiServiceProvider : shoesApiServiceInterface = sheosApiServiceFactory("memory");
-    getTopNMostSoldShoes(n?: number): Observable<Shoe[]> {
-        return this.shoesApiServiceProvider.getTopNMostSoldShoes(n);
-    }
-    getTopNMostCompetiableShoes(n?: number): Observable<Shoe[]> {
-        return this.shoesApiServiceProvider.getTopNMostCompetiableShoes(n);
-    }
-    getLastNAddedShoe(n? : number): Observable<Shoe[]> {
-        return this.shoesApiServiceProvider.getLastNAddedShoe();
-    }
-    getShoesByFilter(filter : shoesFilter) : Observable<shoeItem[]>{
-        return this.shoesApiServiceProvider.getShoesByFilter(filter);
-    }
-    getSizesByShoe(shoeId : string){
-        return this.shoesApiServiceProvider.getSizesByShoe(shoeId);
-    }
-    getInventoryCheck(shoes : cartShoe[]){
-        return this.shoesApiServiceProvider.getInventoryCheck(shoes);
-    }
-    checkout(shoes : cartShoe[]){
-        return this.shoesApiServiceProvider.checkout(shoes);
-    }    
-} 

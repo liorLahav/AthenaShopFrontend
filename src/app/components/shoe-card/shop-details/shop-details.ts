@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import {shoesApiService } from '../../../services/shoesApi/shoesApiService';
+import { Component, Inject, Input } from '@angular/core';
+import {SHOES_API_SERVICE_TOKEN, shoesApiService } from '../../../services/shoesApi/shoesApiService';
 import { Shoe } from 'athena-shop-types';
 import { cartService } from '../../../state/cart/cart.service';
 import { cartQuery } from '../../../state/cart/cart.query';
@@ -11,7 +11,7 @@ import { cartQuery } from '../../../state/cart/cart.query';
   styleUrl: './shop-details.css'
 })
 export class ShopDetails {
-  constructor(private shoeService : shoesApiService,private cartService : cartService,private cartQuery : cartQuery){}
+  constructor(@Inject(SHOES_API_SERVICE_TOKEN) private shoeService : shoesApiService,private cartService : cartService,private cartQuery : cartQuery){}
   @Input({required : true}) shoe! : Shoe;
   @Input({required : true}) title! : string;
   pressed = false;

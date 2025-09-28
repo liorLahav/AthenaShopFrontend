@@ -10,11 +10,15 @@ import { USERS_API_SERVICE_TOKEN, usersServiceFactory } from './services/usersAp
 import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 import { Register } from './auth/register';
 import { Main } from './main/main';
-import { persistState } from '@datorama/akita';
-import { shoesApiService } from './services/shoesApi/shoesApiService';
+import { SHOES_API_SERVICE_TOKEN, shoesApiService } from './services/shoesApi/shoesApiService';
 import { shopModule } from './shop/shop.module';
 import { componentsModule } from './components/components.module';
 import { CartModule } from './cart/cart.module';
+import { shoesApi } from './services/shoesApi/shoesApi';
+import { environment } from '../environments/environment';
+import {enviromentTypes} from '../environments/environment-types'
+import { ShoesApiMock } from './services/shoesApi/shoesApiMock';
+import { UsersApiMock } from './services/usersApi/usersApiMock';
 
 @NgModule({
   declarations: [
@@ -23,7 +27,7 @@ import { CartModule } from './cart/cart.module';
     DynamicForm,
     Login,
     Register,
-    Main,
+    Main
   ],
   imports: [
     BrowserModule,
@@ -35,8 +39,14 @@ import { CartModule } from './cart/cart.module';
     CartModule
   ],
   providers: [
-    shoesApiService,
-    {provide : USERS_API_SERVICE_TOKEN,useValue : usersServiceFactory()}
+    {
+      provide : USERS_API_SERVICE_TOKEN,
+      useClass : UsersApiMock
+    },
+    {
+      provide : SHOES_API_SERVICE_TOKEN,
+      useClass : environment.type == enviromentTypes.local ? ShoesApiMock : shoesApi,
+    }
   ],
   bootstrap: [App]
 })

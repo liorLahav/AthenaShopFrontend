@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { cartQuery } from '../state/cart/cart.query';
 import { ShoesApiMock } from '../services/shoesApi/shoesApiMock';
-import { checkoutResponse } from '../services/shoesApi/shoesApiService';
+import { checkoutResponse, SHOES_API_SERVICE_TOKEN, shoesApiService } from '../services/shoesApi/shoesApiService';
 import {shoeItem} from 'athena-shop-types'
 import { cartShoe } from '../state/cart/cart.store';
 import { cartService } from '../state/cart/cart.service';
@@ -23,7 +23,7 @@ export interface cartShoeStatus extends cartShoe{
   styleUrl: './cart.css'
 })
 export class Cart {
-  constructor(protected cartQuery : cartQuery,private cartService : cartService,private shoesService : ShoesApiMock,private router : Router){}
+  constructor(protected cartQuery : cartQuery,private cartService : cartService,@Inject(SHOES_API_SERVICE_TOKEN) private shoesService : shoesApiService,private router : Router){}
   inventory:cartShoeStatus[] = [];
   checkoutReponse : checkoutResponse | null = null;
   isCartValid : boolean = false;

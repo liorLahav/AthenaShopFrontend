@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import {shoesApiService,getDisplayShoe, DisplayShoe, defalutShoe } from '../services/shoesApi/shoesApiService';
+import { Component, Inject, Input } from '@angular/core';
+import {shoesApiService,getDisplayShoe, DisplayShoe, defalutShoe, SHOES_API_SERVICE_TOKEN } from '../services/shoesApi/shoesApiService';
 import {  catchError, of, tap } from 'rxjs';
 import { Shoe } from 'athena-shop-types';
  
@@ -11,7 +11,7 @@ import { Shoe } from 'athena-shop-types';
 })
 export class Main {
 
-  constructor(private shoesService : shoesApiService){}
+  constructor(@Inject(SHOES_API_SERVICE_TOKEN) private shoesService : shoesApiService){}
   lastShoeAdded : DisplayShoe | null = null;
   highestRatedShoe : DisplayShoe | null = null;
   ngOnInit() : void{

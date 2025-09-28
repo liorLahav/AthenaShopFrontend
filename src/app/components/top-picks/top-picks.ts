@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { defalutShoe, DisplayShoe, getDisplayShoe, shoesApiService } from '../../services/shoesApi/shoesApiService';
+import { Component, Inject, Input } from '@angular/core';
+import { defalutShoe, DisplayShoe, getDisplayShoe, SHOES_API_SERVICE_TOKEN, shoesApiService } from '../../services/shoesApi/shoesApiService';
 import { catchError, of, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { ROUTES } from '../../routes';
@@ -11,7 +11,7 @@ import {Shoe} from 'athena-shop-types'
   styleUrl: './top-picks.css'
 })
 export class TopPicks {
-  constructor(private shoesService : shoesApiService, private router : Router){}
+  constructor(@Inject(SHOES_API_SERVICE_TOKEN) private shoesService : shoesApiService, private router : Router){}
   @Input() location! : string;
   topPicksShoes : Shoe[] = []
   ngOnInit() : void{

@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import {shoesApiService} from '../services/shoesApi/shoesApiService';
+import { Component, Inject } from '@angular/core';
+import {SHOES_API_SERVICE_TOKEN, shoesApiService} from '../services/shoesApi/shoesApiService';
 import {shoeItem, Shoe} from 'athena-shop-types';
 import {debounceTime } from 'rxjs';
 import { filtersService } from '../services/filter/filtersService';
@@ -23,7 +23,7 @@ enum sortType {
   styleUrl: './shop.css',
 })
 export class Shop {
-  constructor(protected shoesService : shoesApiService,protected filtersService : filtersService,private cartQuery : cartQuery){}
+  constructor(@Inject(SHOES_API_SERVICE_TOKEN) protected shoesService : shoesApiService,protected filtersService : filtersService,private cartQuery : cartQuery){}
   shoes : shoeItem[] = [];
   distinctShoes : Shoe[] = []
   chosenSort : string = "";

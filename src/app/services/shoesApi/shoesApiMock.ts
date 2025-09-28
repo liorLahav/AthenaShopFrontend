@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {shoesFilter, shoesApiServiceInterface, inventoryResponse, checkoutResponse } from './shoesApiService';
+import {shoesFilter, shoesApiService, inventoryResponse, checkoutResponse } from './shoesApiService';
 import {Brand, Shoe, shoeItem} from 'athena-shop-types';
 import { Observable, of } from 'rxjs';
 import { cartShoe } from '../../state/cart/cart.store';
@@ -9,7 +9,7 @@ import { shoes,shoeItems } from './shoes';
 @Injectable({
   providedIn: 'root'
 })
-export class ShoesApiMock implements shoesApiServiceInterface {
+export class ShoesApiMock implements shoesApiService {
     checkout(shoes: shoeItem[]): Observable<checkoutResponse> {
       const inventoryStatus = this.InventoryCheck(shoes);
       const missingShoes = inventoryStatus.shoes.filter(shoe => !shoe.inStock);

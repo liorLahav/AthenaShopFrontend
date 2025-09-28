@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
 import { cartQuery } from '../../state/cart/cart.query';
 import { cartService } from '../../state/cart/cart.service';
-import { checkoutResponse, shoesApiService } from '../../services/shoesApi/shoesApiService';
+import { checkoutResponse, SHOES_API_SERVICE_TOKEN, shoesApiService } from '../../services/shoesApi/shoesApiService';
 import { catchError, of } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -21,7 +21,7 @@ interface section{
   styleUrl: './checkout-summery.css'
 })
 export class OrderSummery {
-  constructor(protected cartQuery : cartQuery,private cartService : cartService,private shoesApiService : shoesApiService,private router : Router){}
+  constructor(protected cartQuery : cartQuery,private cartService : cartService,@Inject(SHOES_API_SERVICE_TOKEN) private shoesApiService : shoesApiService,private router : Router){}
   sections : section[] = []
   @Input() disabled : boolean = false; 
   @Output() checkoutReponse = new EventEmitter<checkoutResponse>();
