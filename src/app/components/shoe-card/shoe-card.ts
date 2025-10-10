@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import {  getDisplayShoe,  } from '../../services/shoesApi/shoesApiService';
-import { Shoe } from 'athena-shop-types';
+import { BasicShoe } from '../../../graphql/generated';
 
 @Component({
   selector: 'app-shoe-card',
@@ -10,7 +10,7 @@ import { Shoe } from 'athena-shop-types';
 })
 export class ShoeCard {
   @Input() isPriceColorRed : boolean = false;
-  @Input() shoe! : Shoe;
+  @Input() shoe! : BasicShoe;
   get displayShoe(){
     return getDisplayShoe(this.shoe);
   }

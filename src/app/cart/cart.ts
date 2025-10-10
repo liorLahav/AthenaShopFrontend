@@ -2,14 +2,14 @@ import { Component, Inject } from '@angular/core';
 import { cartQuery } from '../state/cart/cart.query';
 import { ShoesApiMock } from '../services/shoesApi/shoesApiMock';
 import { checkoutResponse, SHOES_API_SERVICE_TOKEN, shoesApiService } from '../services/shoesApi/shoesApiService';
-import {shoeItem} from 'athena-shop-types'
 import { cartShoe } from '../state/cart/cart.store';
 import { cartService } from '../state/cart/cart.service';
 import { Router } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { ShoeItem } from '../../graphql/generated';
 
 export interface inventoryStatus{
-  exist : shoeItem[],
+  exist : ShoeItem[],
   missing : cartShoe[]
 }
 export interface cartShoeStatus extends cartShoe{
@@ -33,6 +33,7 @@ export class Cart {
       this.shoesService.getInventoryCheck(shoes).pipe(        
         untilDestroyed(this)
       ).subscribe(i =>{
+        console.log(i);
         this.inventory = i.shoes;
         this.isCartValid = -1 == this.inventory.findIndex(i => !i.inStock)
         this.cartSum = 0;

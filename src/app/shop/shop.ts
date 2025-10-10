@@ -1,11 +1,11 @@
 import { Component, Inject } from '@angular/core';
 import {SHOES_API_SERVICE_TOKEN, shoesApiService} from '../services/shoesApi/shoesApiService';
-import {shoeItem, Shoe} from 'athena-shop-types';
 import {debounceTime } from 'rxjs';
 import { filtersService } from '../services/filter/filtersService';
 import { universalFilter } from './shop-sidebar/filter-bar/filter-bar';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { cartQuery } from '../state/cart/cart.query';
+import { BasicShoe, ShoeItem, ShoesFilter } from '../../graphql/generated';
 
 
 
@@ -24,13 +24,13 @@ enum sortType {
 })
 export class Shop {
   constructor(@Inject(SHOES_API_SERVICE_TOKEN) protected shoesService : shoesApiService,protected filtersService : filtersService,private cartQuery : cartQuery){}
-  shoes : shoeItem[] = [];
-  distinctShoes : Shoe[] = []
+  shoes : ShoeItem[] = [];
+  distinctShoes : BasicShoe[] = []
   chosenSort : string = "";
   filters : universalFilter[] = []
   isLoading : boolean = true;
   ngOnInit(){
-    this.shoesService.getShoesByFilter({}).subscribe(shoes => {
+    this.shoesService.getShoesByFilter({} as ShoesFilter).subscribe(shoes => {
       const tempShoes = shoes;
       this.setUpFilters(tempShoes);
       this.sortShoes();
@@ -44,7 +44,7 @@ export class Shop {
     const title = (event.target as HTMLElement).id;
     this.filtersService.remove(title);
   }
-  setUpFilters(shoes : shoeItem[]){
+  setUpFilters(shoes : ShoeItem[]){
     const prices = [
       ...shoes.reduce((acc, cur) => {
         acc.add(cur.type.price);
@@ -109,7 +109,7 @@ export class Shop {
               cart.splice(shoeindex,1);
             }
             return acc;
-          },[] as shoeItem[])
+          },[] as ShoeItem[])
           this.updateDistinctShoes();
           this.isLoading = false
         });
@@ -122,13 +122,13 @@ export class Shop {
   sortShoes(){
     switch(this.chosenSort){
       case sortType.PriceAscending:
-        this.shoes = [...this.shoes].sort((a : shoeItem,b : shoeItem) => a.type.price - b.type.price);
+        this.shoes = [...this.shoes].sort((a : ShoeItem,b : ShoeItem) => a.type.price - b.type.price);
         break;
       case sortType.PriceDescending:
-        this.shoes = [...this.shoes].sort((a : shoeItem,b : shoeItem) => b.type.price - a.type.price)
+        this.shoes = [...this.shoes].sort((a : ShoeItem,b : ShoeItem) => b.type.price - a.type.price)
         break;
       default: 
-        this.shoes = [...this.shoes].sort((a : shoeItem,b : shoeItem) => b.type.rates.rank - a.type.rates.rank)
+        this.shoes = [...this.shoes].sort((a : ShoeItem,b : ShoeItem) => b.type.rates - a.type.rates)
     }
   }
   get typesArray(){
@@ -148,7 +148,7 @@ export class Shop {
   }
   updateDistinctShoes(){
     const seen = new Set<string>();
-    const distinctShoes: Shoe[] = [];
+    const distinctShoes: BasicShoe[] = [];
     for (const cur of this.shoes) {
       const id = cur.type.id;
       if (seen.has(id)) continue;

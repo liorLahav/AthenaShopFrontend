@@ -1,16 +1,13 @@
-import { Shoe, shoeItem } from "athena-shop-types";
-import { catchError, map, Observable, of, tap } from "rxjs";
+import {Observable} from "rxjs";
 import { cartShoe } from "../../state/cart/cart.store";
-import { checkoutResponse, inventoryResponse, shoesApiService, shoesFilter } from "./shoesApiService";
+import { checkoutResponse, inventoryResponse, shoesApiService} from "./shoesApiService";
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from '../../../environments/environment';
-import { getSizeByShoe } from "./queries";
+import { ShoesApiMock } from "./shoesApiMock";
+import {BasicShoe, BasicShoeInput, CartShoeInput, Order, ShoeItem, ShoesFilter} from '../../../graphql/generated'
+import { ClientService } from "../Client/client";
+const shoeItems = "sneaker_shop_shoe_items"
 
-interface hasuraHeader extends HttpHeaders{
-    'content-type' : string,
-    'x-hasura-admin-secret' : string,
-}
 
 const hasuraUrl = environment.hasuraUrl
 const hasuraHeader = {
@@ -21,34 +18,29 @@ const hasuraHeader = {
   providedIn: 'root'
 })
 export class shoesApi implements shoesApiService{
-    constructor(private http : HttpClient){}
-    getTopNMostSoldShoes(n?: number): Observable<Shoe[]> {
-        throw new Error("Method not implemented.");
+    private mock: shoesApiService;
+    constructor(private client :ClientService){
+        this.mock = new ShoesApiMock();
     }
-    getTopNMostCompetiableShoes(n?: number): Observable<Shoe[]> {
-        throw new Error("Method not implemented.");
+    getTopNMostSoldShoes(n?: number): Observable<BasicShoe[]> {
+        return this.client.getBasicShoes(Order.Sales,n);
     }
-    getLastNAddedShoe(n?: number): Observable<Shoe[]> {
-        throw new Error("Method not implemented.");
+    getTopNMostCompetiableShoes(n?: number): Observable<BasicShoe[]> {
+        return this.client.getBasicShoes(Order.Competiable,n);
     }
-    getShoesByFilter(filter: shoesFilter): Observable<shoeItem[]> {
-        throw new Error("Method not implemented.");
+    getLastNAddedShoe(n?: number): Observable<BasicShoe[]> {
+        return this.client.getBasicShoes(Order.LastAdded,n);
     }
-    getSizesByShoe(shoeId: string): Observable<number[]> {
-        // return this.http.post(hasuraUrl,getSizeByShoe,{
-        //     headers : hasuraHeader
-        // }).pipe(map(() =>{
-            
-        // }),catchError((_err) =>{
-        //     return [];
-        // })).subscribe()
-        return of([])
+    getShoesByFilter(filter: ShoesFilter): Observable<ShoeItem[]> {
+        return this.client.getShoeItems(filter)
     }
-    getInventoryCheck(shoes: cartShoe[]): Observable<inventoryResponse> {
-        throw new Error("Method not implemented.");
+    getSizesByShoe(basicShoeId: string): Observable<number[]> {
+        return this.client.getSizesByBasicShoe(basicShoeId);
+    }
+    getInventoryCheck(shoes: CartShoeInput[]): Observable<inventoryResponse> {
+        return this.client.getShoesByCart(shoes);
     }
     checkout(shoes: cartShoe[]): Observable<checkoutResponse> {
-        throw new Error("Method not implemented.");
+        return this.mock.checkout(shoes);
     }
-    
 }

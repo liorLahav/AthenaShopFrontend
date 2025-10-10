@@ -1,9 +1,9 @@
 import { Store, StoreConfig } from "@datorama/akita";
-import { Shoe } from "athena-shop-types";
 import { Injectable } from "@angular/core";
+import { BasicShoe } from "../../../graphql/generated";
 
 export interface cartShoe{
-    type : Shoe,
+    type : BasicShoe,
     size : number,
 }
 

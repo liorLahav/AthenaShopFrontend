@@ -1,7 +1,7 @@
 import { Component, Inject, Input } from '@angular/core';
 import {shoesApiService,getDisplayShoe, DisplayShoe, defalutShoe, SHOES_API_SERVICE_TOKEN } from '../services/shoesApi/shoesApiService';
 import {  catchError, of, tap } from 'rxjs';
-import { Shoe } from 'athena-shop-types';
+import { BasicShoe } from '../../graphql/generated';
  
 @Component({
   selector: 'app-main',
@@ -19,8 +19,8 @@ export class Main {
     this.getMostSoldShoe();
   }
   getLastAddedShoe() {
-      this.shoesService.getLastNAddedShoe().pipe(
-      tap((shoe : Shoe[]) =>{
+      this.shoesService.getLastNAddedShoe(1).pipe(
+      tap((shoe : BasicShoe[]) =>{
         this.lastShoeAdded = getDisplayShoe(shoe[0]);
       }),
       catchError((err)=>{
@@ -30,7 +30,7 @@ export class Main {
     ).subscribe();
   }
   getMostSoldShoe() {
-    this.shoesService.getTopNMostSoldShoes().pipe(
+    this.shoesService.getTopNMostSoldShoes(1).pipe(
       tap(shoes =>{
         this.highestRatedShoe = getDisplayShoe(shoes[0]);
       }),

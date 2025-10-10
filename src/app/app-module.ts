@@ -1,4 +1,4 @@
-import { NgModule} from '@angular/core';
+import { inject, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing-module';
@@ -19,6 +19,11 @@ import { environment } from '../environments/environment';
 import {enviromentTypes} from '../environments/environment-types'
 import { ShoesApiMock } from './services/shoesApi/shoesApiMock';
 import { UsersApiMock } from './services/usersApi/usersApiMock';
+import { ClientService } from './services/Client/client';
+import { HttpClientModule, provideHttpClient } from '@angular/common/http';
+import { provideApollo } from 'apollo-angular';
+import { HttpLink } from 'apollo-angular/http';
+import { InMemoryCache } from '@apollo/client/cache';
 
 @NgModule({
   declarations: [
@@ -36,7 +41,7 @@ import { UsersApiMock } from './services/usersApi/usersApiMock';
     AkitaNgDevtools.forRoot(),
     shopModule,
     componentsModule,
-    CartModule
+    CartModule,
   ],
   providers: [
     {
@@ -46,7 +51,17 @@ import { UsersApiMock } from './services/usersApi/usersApiMock';
     {
       provide : SHOES_API_SERVICE_TOKEN,
       useClass : environment.type == enviromentTypes.local ? ShoesApiMock : shoesApi,
-    }
+    },
+    ClientService,
+    provideHttpClient(),
+    provideApollo(() => {
+      const httpLink = inject(HttpLink);
+ 
+      return {
+        link: httpLink.create({ uri: environment.serverUrl }),
+        cache: new InMemoryCache(),
+      };
+    }),
   ],
   bootstrap: [App]
 })

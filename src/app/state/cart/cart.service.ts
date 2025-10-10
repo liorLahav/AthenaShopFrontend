@@ -1,14 +1,14 @@
 import { Injectable } from "@angular/core";
 import { cartStore } from "./cart.store";
-import { Shoe } from "athena-shop-types";
 import { cartQuery } from "./cart.query";
+import { BasicShoe } from "../../../graphql/generated";
 
 
 @Injectable({providedIn : 'root'})
 export class cartService{
     constructor(private cartStore : cartStore,private query : cartQuery){}
 
-    addShoe(type : Shoe,size : number){
+    addShoe(type : BasicShoe,size : number){
         const shoes = [...this.query.getShoes];
         shoes.push({
             type : type,

@@ -1,8 +1,8 @@
 import { Component, Inject, Input } from '@angular/core';
 import {SHOES_API_SERVICE_TOKEN, shoesApiService } from '../../../services/shoesApi/shoesApiService';
-import { Shoe } from 'athena-shop-types';
 import { cartService } from '../../../state/cart/cart.service';
 import { cartQuery } from '../../../state/cart/cart.query';
+import { BasicShoe } from '../../../../graphql/generated';
 
 @Component({
   selector: 'app-shop-details',
@@ -12,7 +12,7 @@ import { cartQuery } from '../../../state/cart/cart.query';
 })
 export class ShopDetails {
   constructor(@Inject(SHOES_API_SERVICE_TOKEN) private shoeService : shoesApiService,private cartService : cartService,private cartQuery : cartQuery){}
-  @Input({required : true}) shoe! : Shoe;
+  @Input({required : true}) shoe! : BasicShoe;
   @Input({required : true}) title! : string;
   pressed = false;
   sizes : number[] = []

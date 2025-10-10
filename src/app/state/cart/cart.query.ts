@@ -11,7 +11,8 @@ export class cartQuery extends Query<cartState>{
     constructor(protected override store : cartStore){
         super(store);
         this.shoes$ = this.select(s => s.shoes);
-    }    get getShoes() : cartShoe[]{
+    }    
+    get getShoes() : cartShoe[]{
         return this.store.getValue().shoes;
     }
     get cartPrice() : number{
