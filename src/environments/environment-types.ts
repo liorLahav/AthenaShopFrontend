@@ -1,6 +1,6 @@
 
 export enum enviromentTypes{
-    development,
+    dev,
     local,
     production
 }
