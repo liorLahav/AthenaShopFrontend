@@ -71,6 +71,20 @@ export type QuerySizesByBasicShoeArgs = {
   basicShoeId?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type User = {
+  __typename?: 'User';
+  dateCreated: Scalars['Int']['output'];
+  password: Scalars['String']['output'];
+  recommendedShoes: Array<ShoePreference>;
+  userName: Scalars['String']['output'];
+  userRole: UserRoles;
+};
+
+export enum UserRoles {
+  Admin = 'Admin',
+  User = 'User'
+}
+
 export type BasicShoe = {
   __typename?: 'basicShoe';
   brand: Array<Brand>;
@@ -91,7 +105,7 @@ export type BasicShoeInput = {
 export type BuyShoeResponse = {
   __typename?: 'buyShoeResponse';
   missingShoes?: Maybe<Array<CartShoe>>;
-  sucsses: Scalars['Boolean']['output'];
+  success: Scalars['Boolean']['output'];
 };
 
 export type CartShoe = {
@@ -115,15 +129,21 @@ export type Purchase = {
   date: Scalars['String']['output'];
   id: Scalars['String']['output'];
   shoeItem: ShoeItem;
-  username: Scalars['String']['output'];
+  userId: Scalars['String']['output'];
 };
 
 export type ShoeItem = {
   __typename?: 'shoeItem';
-  dateCreated: Scalars['String']['output'];
-  datePurchased: Scalars['String']['output'];
+  dateCreated: Scalars['Int']['output'];
+  datePurchased?: Maybe<Scalars['Int']['output']>;
   id: Scalars['String']['output'];
   size: Scalars['Float']['output'];
+  type: BasicShoe;
+};
+
+export type ShoePreference = {
+  __typename?: 'shoePreference';
+  preference: Scalars['Int']['output'];
   type: BasicShoe;
 };
 
@@ -134,12 +154,19 @@ export type ShoesFilter = {
   size?: InputMaybe<Array<Scalars['Float']['input']>>;
 };
 
+export type BuyShoesMutationVariables = Exact<{
+  shoes: Array<CartShoeInput> | CartShoeInput;
+}>;
+
+
+export type BuyShoesMutation = { __typename?: 'Mutation', buyShoes?: { __typename?: 'buyShoeResponse', success: boolean, missingShoes?: Array<{ __typename?: 'cartShoe', size: number, type: { __typename?: 'basicShoe', id: string, brand: Array<Brand>, model: string, price: number, rates: number } }> | null } | null };
+
 export type GetShoeItemsQueryVariables = Exact<{
   filter: ShoesFilter;
 }>;
 
 
-export type GetShoeItemsQuery = { __typename?: 'Query', shoeItemsByFilter?: Array<{ __typename?: 'shoeItem', id: string, size: number, dateCreated: string, datePurchased: string, type: { __typename?: 'basicShoe', id: string, brand: Array<Brand>, model: string, price: number, rates: number } }> | null };
+export type GetShoeItemsQuery = { __typename?: 'Query', shoeItemsByFilter?: Array<{ __typename?: 'shoeItem', id: string, size: number, dateCreated: number, datePurchased?: number | null, type: { __typename?: 'basicShoe', id: string, brand: Array<Brand>, model: string, price: number, rates: number } }> | null };
 
 export type GetBasicShoesQueryVariables = Exact<{
   order?: InputMaybe<Order>;
@@ -163,6 +190,34 @@ export type GetShoesByCartQueryVariables = Exact<{
 
 export type GetShoesByCartQuery = { __typename?: 'Query', shoeItemsByCart?: Array<{ __typename?: 'shoeItem', size: number, type: { __typename?: 'basicShoe', id: string, brand: Array<Brand>, model: string, price: number, rates: number } }> | null };
 
+export const BuyShoesDocument = gql`
+    mutation buyShoes($shoes: [cartShoeInput!]!) {
+  buyShoes(shoes: $shoes) {
+    success
+    missingShoes {
+      type {
+        id
+        brand
+        model
+        price
+        rates
+      }
+      size
+    }
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class BuyShoesGQL extends Apollo.Mutation<BuyShoesMutation, BuyShoesMutationVariables> {
+    document = BuyShoesDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
 export const GetShoeItemsDocument = gql`
     query getShoeItems($filter: shoesFilter!) {
   shoeItemsByFilter(filter: $filter) {

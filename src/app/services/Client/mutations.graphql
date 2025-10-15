@@ -1,0 +1,15 @@
+mutation buyShoes($shoes: [cartShoeInput!]!) {
+  buyShoes(shoes: $shoes) {
+    success
+    missingShoes {
+      type {
+        id
+        brand
+        model
+        price
+        rates
+      }
+      size
+    }
+  }
+}

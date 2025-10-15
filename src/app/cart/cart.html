@@ -18,7 +18,7 @@
                 [isSoldOut]="!cartShoe.inStock"
                 />
         </div>
-        <app-order-summery [disabled] = "isCartValid" *ngIf="cartQuery.cartSize != 0" (checkoutReponse)="onCheckoutResponse($event)"/>
+        <app-order-summery [disabled] = "!isCartValid" *ngIf="cartQuery.cartSize != 0" (checkoutReponse)="onCheckoutResponse($event)"/>
     </div>
     <app-top-picks/>
     <app-checkout-message (closeMessage)="onMessageClose()" *ngIf="checkoutReponse != null" [checkoutResponse]="checkoutReponse" />

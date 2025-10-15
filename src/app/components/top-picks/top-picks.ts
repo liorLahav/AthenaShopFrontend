@@ -1,7 +1,7 @@
 import { Component, Inject, Input } from '@angular/core';
 import { defalutShoe, DisplayShoe, getDisplayShoe, SHOES_API_SERVICE_TOKEN, shoesApiService } from '../../services/shoesApi/shoesApiService';
-import { catchError, map, of, tap } from 'rxjs';
-import { Router } from '@angular/router';
+import { catchError, map, of, tap, filter } from 'rxjs';
+import { NavigationEnd, Router } from '@angular/router';
 import { ROUTES } from '../../routes';
 import { BasicShoe } from '../../../graphql/generated';
 
@@ -33,6 +33,8 @@ export class TopPicks {
     ).subscribe()
   }
   onViewAllClick(){
-    this.router.navigate([ROUTES.SHOP])
+    this.router.navigate([ROUTES.SHOP]).then(()=>{
+      window.location.reload();
+    })
   }
 }

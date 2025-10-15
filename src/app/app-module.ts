@@ -6,11 +6,11 @@ import { App } from './app';
 import { Header } from './header/header';
 import { DynamicForm } from './auth/dynamic-form/dynamic-form';
 import { Login } from './auth/login';
-import { USERS_API_SERVICE_TOKEN, usersServiceFactory } from './services/usersApi/UsersApiService';
+import { USERS_API_SERVICE_TOKEN } from './services/usersApi/UsersApiService';
 import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 import { Register } from './auth/register';
 import { Main } from './main/main';
-import { SHOES_API_SERVICE_TOKEN, shoesApiService } from './services/shoesApi/shoesApiService';
+import { SHOES_API_SERVICE_TOKEN } from './services/shoesApi/shoesApiService';
 import { shopModule } from './shop/shop.module';
 import { componentsModule } from './components/components.module';
 import { CartModule } from './cart/cart.module';
@@ -20,7 +20,7 @@ import {enviromentTypes} from '../environments/environment-types'
 import { ShoesApiMock } from './services/shoesApi/shoesApiMock';
 import { UsersApiMock } from './services/usersApi/usersApiMock';
 import { ClientService } from './services/Client/client';
-import { HttpClientModule, provideHttpClient } from '@angular/common/http';
+import { provideHttpClient } from '@angular/common/http';
 import { provideApollo } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular/http';
 import { InMemoryCache } from '@apollo/client/cache';
@@ -50,7 +50,7 @@ import { InMemoryCache } from '@apollo/client/cache';
     },
     {
       provide : SHOES_API_SERVICE_TOKEN,
-      useClass : environment.type == enviromentTypes.local ? ShoesApiMock : shoesApi,
+      useClass : environment.type == enviromentTypes.dev ? ShoesApiMock : shoesApi,
     },
     ClientService,
     provideHttpClient(),

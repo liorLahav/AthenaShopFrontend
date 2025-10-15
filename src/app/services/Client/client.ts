@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import { BasicShoe, GetShoeItemsGQL,GetBasicShoesGQL, Order, ShoeItem, ShoesFilter, GetSizesByBasicShoeQuery, GetSizesByBasicShoeGQL, GetShoesByCartGQL, CartShoe, CartShoeInput, BasicShoeInput } from '../../../graphql/generated';
+import { BasicShoe, GetShoeItemsGQL,GetBasicShoesGQL, Order, ShoeItem, ShoesFilter, GetSizesByBasicShoeQuery, GetSizesByBasicShoeGQL, GetShoesByCartGQL, CartShoe, CartShoeInput, BasicShoeInput, BuyShoeResponse, BuyShoesGQL } from '../../../graphql/generated';
 import { catchError, map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { cartShoeStatus } from '../../cart/cart';
 import { inventoryResponse } from '../shoesApi/shoesApiService';
-import { shoeItems } from '../shoesApi/shoes';
 import { cartShoe } from '../../state/cart/cart.store';
 
 @Injectable({
@@ -16,7 +15,8 @@ export class ClientService {
     private getShoeItemsGQL: GetShoeItemsGQL,
     private getBasicShoesGQL : GetBasicShoesGQL,
     private getSizesByBasicShoeGQL : GetSizesByBasicShoeGQL,
-    private getShoesByCartGQL : GetShoesByCartGQL
+    private getShoesByCartGQL : GetShoesByCartGQL,
+    private buyShoesGQL : BuyShoesGQL
   ) {}
 
   getShoeItems(filter : ShoesFilter) : Observable<ShoeItem[]> {
@@ -78,12 +78,10 @@ export class ClientService {
     }).pipe(
       map(res => {
         if(res && res.data && res.data.shoeItemsByCart){
-          console.log(res.data.shoeItemsByCart)
           const shoeItemsByCart = [...res.data.shoeItemsByCart]
           const shoesResponse : cartShoeStatus[] = []
           shoes.forEach(shoe => {
             const shoeIndex = shoeItemsByCart.findIndex(shoeCart => shoeCart.type.id == shoe.type.id && shoeCart.size == shoe.size);
-            console.log(shoeIndex);
             shoesResponse.push({
               inStock : shoeIndex != -1,
               ...shoe
@@ -106,6 +104,30 @@ export class ClientService {
         }];
       })
     )
+  }
+  buyShoes(shoes : cartShoe[]) : Observable<BuyShoeResponse>{
+    console.log(shoes);
+    return this.buyShoesGQL.mutate({
+      shoes : shoes.map(shoe => {
+        const { __typename, ...typeWithoutTypename } = shoe.type as any;
+        return { ...shoe, type: typeWithoutTypename };
+      })
+    }).pipe(map(res =>{
+      if(res && res.data && res.data.buyShoes){
+        return res.data.buyShoes
+      }
+      return {
+        success : false,
+        missingShoes : shoes
+      }
+    }),
+  catchError(err => {
+    console.error(err);
+    return of({
+      success: false,
+      missingShoes: shoes
+    });
+  }))
   }
 }
 
