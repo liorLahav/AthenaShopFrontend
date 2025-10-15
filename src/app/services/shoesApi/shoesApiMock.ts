@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import {shoesApiService, inventoryResponse, checkoutResponse } from './shoesApiService';
+import {inventoryResponse, shoesApiService } from './shoesApiService';
 import { Observable, of } from 'rxjs';
 import { cartShoe } from '../../state/cart/cart.store';
 import { shoes,shoeItems } from './shoes';
-import { BasicShoe, Brand, ShoeItem, ShoesFilter } from '../../../graphql/generated';
+import { BasicShoe, Brand, BuyShoeResponse, ShoeItem, ShoesFilter } from '../../../graphql/generated';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShoesApiMock implements shoesApiService {
-    checkout(shoes: cartShoe[]): Observable<checkoutResponse> {
-      const inventoryStatus = this.InventoryCheck(shoes);
+    checkout(shoes: cartShoe[]): Observable<BuyShoeResponse> {
+      const inventoryStatus : inventoryResponse = this.InventoryCheck(shoes);
       const missingShoes = inventoryStatus.shoes.filter(shoe => !shoe.inStock);
       if(missingShoes.length > 0){
         return of({

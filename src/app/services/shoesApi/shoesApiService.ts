@@ -3,10 +3,7 @@ import {InjectionToken } from "@angular/core";
 import { v4 as uuid } from "uuid";
 import { cartShoe } from "../../state/cart/cart.store";
 import { cartShoeStatus } from "../../cart/cart";
-import { BasicShoe, ShoeItem, ShoesFilter, Brand } from "../../../graphql/generated";
-
-
-
+import { BasicShoe, ShoeItem, ShoesFilter, Brand, BuyShoeResponse } from "../../../graphql/generated";
 
 export interface DisplayShoe {
     id : string,
@@ -26,10 +23,6 @@ export const defalutShoe : BasicShoe = {
 export interface inventoryResponse{
     shoes : cartShoeStatus[]
 }
-export interface checkoutResponse{
-    success : boolean,
-    missingShoes : cartShoe[]
-}
 export interface shoesApiService {
     getTopNMostSoldShoes(n? : number): Observable<BasicShoe[]>;
     getTopNMostCompetiableShoes(n? : number): Observable<BasicShoe[]>
@@ -37,7 +30,7 @@ export interface shoesApiService {
     getShoesByFilter(filter : ShoesFilter) : Observable<ShoeItem[]>
     getSizesByShoe(shoeId : string) : Observable<number[]>
     getInventoryCheck(shoes : cartShoe[]): Observable<inventoryResponse>
-    checkout(shoes : cartShoe[]) : Observable<checkoutResponse>
+    checkout(shoes : cartShoe[]) : Observable<BuyShoeResponse>
 }
 export const getDisplayShoe = (shoe : BasicShoe) => {
     let shoeBrandKey = shoe.brand.join("_");
