@@ -1,11 +1,12 @@
 import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
 import { cartQuery } from '../../state/cart/cart.query';
 import { cartService } from '../../state/cart/cart.service';
-import { checkoutResponse, SHOES_API_SERVICE_TOKEN, shoesApiService } from '../../services/shoesApi/shoesApiService';
+import { SHOES_API_SERVICE_TOKEN, shoesApiService } from '../../services/shoesApi/shoesApiService';
 import { catchError, of } from 'rxjs';
 import { Router } from '@angular/router';
+import { BuyShoeResponse } from '../../../graphql/generated';
 
-const errorCheckoutResponse : checkoutResponse = {
+const errorCheckoutResponse : BuyShoeResponse = {
   success : false,
   missingShoes : []
 }
@@ -24,8 +25,9 @@ export class OrderSummery {
   constructor(protected cartQuery : cartQuery,private cartService : cartService,@Inject(SHOES_API_SERVICE_TOKEN) private shoesApiService : shoesApiService,private router : Router){}
   sections : section[] = []
   @Input() disabled : boolean = false; 
-  @Output() checkoutReponse = new EventEmitter<checkoutResponse>();
+  @Output() checkoutReponse = new EventEmitter<BuyShoeResponse>();
   ngOnInit(){
+    console.log(this.disabled)
     this.getSections();
   }
 
