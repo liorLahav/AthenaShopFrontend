@@ -14,20 +14,18 @@
 .search-input::-webkit-input-placeholder {
     position: relative;
     bottom:2px;
-    font-size: 10px;
+    font-size: 14px;
 }
 .size-wrapper {
     width: 100%;
     overflow-y: scroll;
-    scrollbar-color: black white;
-    scrollbar-width: thin;
 
     .size-container {
         margin-top: 10px;
         height: 100px;
         width: 95%;
         max-width: 140px;
-        font-size: 12px;;
+        font-size: 14px;;
         display: flex;
         justify-content: flex-start;
         align-items: flex-start;

@@ -5,7 +5,7 @@
     align-items: center;
     .option-text {
         margin: 5px;
-        font-size: 10px;
+        font-size: 12px;
         display: flex;
         flex-wrap: nowrap;
         .amount {

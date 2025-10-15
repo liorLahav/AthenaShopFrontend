@@ -3,7 +3,7 @@
         <div class="buy-new-shoes">
             <div class="buy-new-shoes-headline">Buy new shoes</div>
             <div class="buy-new-shoes-text">Take the time to be sure the shoes you buy are right for your feet</div>
-            <div class="button dark-button buy-new-shoes-button">Buy Now</div>
+            <div class="button dark-button buy-new-shoes-button" (click)="onBuyNow()">Buy Now</div>
         </div>
         <div class="newest-shoe-headline">{{lastShoeAdded?.name}}</div>
         <img class="newest-shoe-image" [src]="lastShoeAdded ? lastShoeAdded.path : ''" alt="shoe">

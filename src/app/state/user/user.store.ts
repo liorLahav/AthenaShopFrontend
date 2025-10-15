@@ -1,5 +1,5 @@
 import { Store, StoreConfig } from "@datorama/akita";
-import { User } from "../../UsersApiService";
+import { User } from "../../services/usersApi/UsersApiService";
 import { Injectable } from "@angular/core";
 
 export interface UserState {

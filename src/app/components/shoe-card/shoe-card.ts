@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { DisplayShoe } from '../../shoesApiService';
+import {  getDisplayShoe,  } from '../../services/shoesApi/shoesApiService';
+import { BasicShoe } from '../../../graphql/generated';
 
 @Component({
   selector: 'app-shoe-card',
@@ -9,5 +10,8 @@ import { DisplayShoe } from '../../shoesApiService';
 })
 export class ShoeCard {
   @Input() isPriceColorRed : boolean = false;
-  @Input() shoe! : DisplayShoe;
+  @Input() shoe! : BasicShoe;
+  get displayShoe(){
+    return getDisplayShoe(this.shoe);
+  }
 }

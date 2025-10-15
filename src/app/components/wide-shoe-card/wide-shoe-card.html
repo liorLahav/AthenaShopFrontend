@@ -1,0 +1,13 @@
+<div class="shoe-card">
+    <div class="image-wrapper">
+        <img class="shoe-image" [src]="displayShoe.path" [alt]="displayShoe.name">
+    </div>
+    <div class="shoe-details">
+        <div class="details-header">
+            <div class="shoe-name">{{displayShoe.name}}</div>
+            <div (click)="onXClick()" class="x">X</div>
+        </div>
+        <div class="size">Size: {{size}} (US Men)</div>
+        <div class="price">{{!isSoldOut ? displayShoe.price + "$" : "Sold out"}}</div>
+    </div>
+</div>

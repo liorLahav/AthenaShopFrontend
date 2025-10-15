@@ -28,6 +28,9 @@ export class Header {
         this.currentRoute = event.urlAfterRedirects;
       })
     }
+    onCartClick(){
+      this.router.navigate([ROUTES.CART])
+    }
     get isUnauthRoute(){
       const route = this.currentRoute.split('/')[1]
       return route == ROUTES.LOGIN || route == ROUTES.REGISTER;

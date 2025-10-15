@@ -1,8 +1,11 @@
-import { Component, Input } from '@angular/core';
-import { defalutShoe, DisplayShoe, getDisplayShoe, Shoe, shoesApiService } from '../../shoesApiService';
-import { catchError, of, tap } from 'rxjs';
-import { Router } from '@angular/router';
+import { Component, Inject, Input } from '@angular/core';
+import { defalutShoe, DisplayShoe, getDisplayShoe, SHOES_API_SERVICE_TOKEN, shoesApiService } from '../../services/shoesApi/shoesApiService';
+import { catchError, map, of, tap, filter } from 'rxjs';
+import { NavigationEnd, Router } from '@angular/router';
 import { ROUTES } from '../../routes';
+import { BasicShoe } from '../../../graphql/generated';
+
+const DISPLAYED_SHOES = 4
 
 @Component({
   selector: 'app-top-picks',
@@ -11,25 +14,27 @@ import { ROUTES } from '../../routes';
   styleUrl: './top-picks.css'
 })
 export class TopPicks {
-  constructor(private shoesService : shoesApiService, private router : Router){}
+  constructor(@Inject(SHOES_API_SERVICE_TOKEN) private shoesService : shoesApiService, private router : Router){}
   @Input() location! : string;
-  topPicksShoes : DisplayShoe[] = []
+  topPicksShoes : BasicShoe[] = []
   ngOnInit() : void{
     this.getTopPicksShoes();
   }
   getTopPicksShoes(){
-    this.shoesService.getTopNMostCompetiableShoes(4).pipe(
-      tap((shoes : Shoe[]) => {
-        this.topPicksShoes = shoes.sort((a : Shoe,b : Shoe) => b.rates.rank - a.rates.rank).map(shoe => getDisplayShoe(shoe));
+    this.shoesService.getTopNMostCompetiableShoes(DISPLAYED_SHOES).pipe(
+      map((shoes : BasicShoe[]) => {
+        this.topPicksShoes = shoes.slice(0,DISPLAYED_SHOES);
       }),
       catchError((err) =>{
-        console.error("Couldn't fetch top picks shoes");
+        console.error("Couldn't fetch top picks shoes",err);
         this.topPicksShoes = Array(4).fill(defalutShoe);
         return of(this.topPicksShoes);
       })
     ).subscribe()
   }
   onViewAllClick(){
-    this.router.navigate([ROUTES.SHOP])
+    this.router.navigate([ROUTES.SHOP]).then(()=>{
+      window.location.reload();
+    })
   }
 }

@@ -1,0 +1,42 @@
+query getShoeItems($filter: shoesFilter!) {
+  shoeItemsByFilter(filter: $filter){
+    id 
+    size
+    dateCreated
+    datePurchased
+    type{
+        id
+        brand
+        model
+        price
+        rates
+    }
+  }
+}
+
+query getBasicShoes($order: Order $n: Int) {
+  basicShoe(order: $order, n :$n) {
+    id
+    brand
+    model
+    price
+    rates
+  }
+}
+
+query getSizesByBasicShoe($basicShoeId: String ) {
+  sizesByBasicShoe(basicShoeId: $basicShoeId)
+}
+
+query getShoesByCart($shoes: [cartShoeInput]) {
+  shoeItemsByCart(shoes: $shoes) {
+    size
+    type {
+      id
+      brand
+      model
+      price
+      rates
+    }
+  }
+}

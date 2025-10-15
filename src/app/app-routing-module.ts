@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Login } from './auth/login';
 import { Register } from './auth/register';
@@ -7,6 +7,7 @@ import { authGuard } from './authGuard';
 import { unAuthGuard } from './unAuthGuard';
 import { ROUTES } from './routes';
 import { Shop } from './shop/shop';
+import { Cart } from './cart/cart';
 
 
 const routes: Routes = [{
@@ -25,6 +26,11 @@ const routes: Routes = [{
 {
   path : ROUTES.SHOP,
   component : Shop,
+  canActivate : [authGuard]
+},
+{
+  path : ROUTES.CART,
+  component : Cart,
   canActivate : [authGuard]
 }
 ,{

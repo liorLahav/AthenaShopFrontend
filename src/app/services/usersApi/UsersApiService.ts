@@ -1,5 +1,5 @@
 import { Observable } from "rxjs";
-import { environment } from "../environments/environment.development";
+import { environment } from "../../../environments/environment";
 import { InjectionToken } from "@angular/core";
 import { UsersApiMock } from "./usersApiMock";
 
@@ -29,6 +29,6 @@ export interface UsersApiService{
 export const USERS_API_SERVICE_TOKEN = new InjectionToken<UsersApiService>('UsersService');
 
 export const usersServiceFactory = () : UsersApiService =>{
-    const db = environment.dbType;
+    const db = environment.type;
     return new UsersApiMock;
 }
