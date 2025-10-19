@@ -24,7 +24,7 @@ const MISSING_DIGIT : passwordResponse = {
 const PASSWORD_VALID : passwordResponse = {
   success : true
 }
-const PASSWORD_ARE_DIFFERENT : RegisterResponse = {
+const PASSWORDS_ARE_DIFFERENT : RegisterResponse = {
   success : false,
   message : "Passwords are different"
 }
@@ -83,7 +83,7 @@ export class Register {
         const username : string  = this.inputFields[0].value as string;
         const password : string  = this.inputFields[1].value as string;
         if (this.inputFields[1].value != this.inputFields[2].value)
-          return of(PASSWORD_ARE_DIFFERENT)
+          return of(PASSWORDS_ARE_DIFFERENT)
         const passwordValidatonResponse : passwordResponse = this.validatePassword(password);
         if(passwordValidatonResponse.success)
           return this.usersApiService.register(username,password).pipe(

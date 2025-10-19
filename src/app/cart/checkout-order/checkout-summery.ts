@@ -27,7 +27,6 @@ export class OrderSummery {
   @Input() disabled : boolean = false; 
   @Output() checkoutReponse = new EventEmitter<BuyShoeResponse>();
   ngOnInit(){
-    console.log(this.disabled)
     this.getSections();
   }
 

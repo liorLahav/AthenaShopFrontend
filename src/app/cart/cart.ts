@@ -32,10 +32,8 @@ export class Cart {
       this.shoesService.getInventoryCheck(shoes).pipe(        
         untilDestroyed(this)
       ).subscribe(i =>{
-        console.log(i);
         this.inventory = i.shoes;
         this.isCartValid = -1 == this.inventory.findIndex(i => !i.inStock)
-        console.log(this.isCartValid)
         this.cartSum = 0;
         this.inventory.forEach(s => {
           this.cartSum += +s.inStock * s.type.price

@@ -20,7 +20,6 @@ export class Main {
   ngOnInit() : void{
     this.getLastAddedShoe();
     this.getMostSoldShoe();
-    console.log(environment.type)
   }
   getLastAddedShoe() {
       this.shoesService.getLastNAddedShoe(1).pipe(

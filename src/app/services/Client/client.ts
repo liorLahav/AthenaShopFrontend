@@ -29,7 +29,7 @@ export class ClientService {
         return [];
       }),
       catchError(err => {
-        console.log(err);
+        console.error(err);
         return [];
       })
     );
@@ -40,7 +40,6 @@ export class ClientService {
         n
       }).pipe(
         map(res =>{
-          console.log(order,res);
           if(res && res.data && res.data.basicShoe)
             return res.data.basicShoe as BasicShoe[];
           return [];
@@ -66,10 +65,6 @@ export class ClientService {
   )
   }
   getShoesByCart(shoes : cartShoe[]) : Observable<inventoryResponse>{
-    console.log(shoes.map(shoe => {
-      const { __typename, ...typeWithoutTypename } = shoe.type as any;
-      return { ...shoe, type: typeWithoutTypename };
-    }))
     return this.getShoesByCartGQL.fetch({
       shoes : shoes.map(shoe => {
         const { __typename, ...typeWithoutTypename } = shoe.type as any;
@@ -89,7 +84,6 @@ export class ClientService {
             if(shoeIndex != -1)
               shoeItemsByCart.splice(shoeIndex,1)
           })
-          console.log(shoesResponse)
           return { shoes : shoesResponse}
         }
         return { shoes : shoes.map(shoe => ({ inStock : false, ...shoe })) }
@@ -106,7 +100,6 @@ export class ClientService {
     )
   }
   buyShoes(shoes : cartShoe[]) : Observable<BuyShoeResponse>{
-    console.log(shoes);
     return this.buyShoesGQL.mutate({
       shoes : shoes.map(shoe => {
         const { __typename, ...typeWithoutTypename } = shoe.type as any;
