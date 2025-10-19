@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { BasicShoe, GetShoeItemsGQL,GetBasicShoesGQL, Order, ShoeItem, ShoesFilter, GetSizesByBasicShoeQuery, GetSizesByBasicShoeGQL, GetShoesByCartGQL, CartShoe, CartShoeInput, BasicShoeInput, BuyShoeResponse, BuyShoesGQL } from '../../../graphql/generated';
+import { BasicShoe, GetShoeItemsGQL,GetBasicShoesGQL, Order, ShoeItem, ShoesFilter, GetSizesByBasicShoeQuery, GetSizesByBasicShoeGQL, GetShoesByCartGQL, CartShoe, CartShoeInput, BasicShoeInput, BuyShoeResponse, BuyShoesGQL } from '../../../../graphql/generated';
 import { catchError, map } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
-import { cartShoeStatus } from '../../cart/cart';
-import { inventoryResponse } from '../shoesApi/shoesApiService';
-import { cartShoe } from '../../state/cart/cart.store';
+import { cartShoeStatus } from '../../../cart/cart';
+import { inventoryResponse } from '../../shoesApi/shoesApiService';
+import { cartShoe } from '../../../state/cart/cart.store';
 
 @Injectable({
   providedIn: 'root'

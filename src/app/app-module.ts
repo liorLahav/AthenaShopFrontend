@@ -19,7 +19,7 @@ import { environment } from '../environments/environment';
 import {enviromentTypes} from '../environments/environment-types'
 import { ShoesApiMock } from './services/shoesApi/shoesApiMock';
 import { UsersApiMock } from './services/usersApi/usersApiMock';
-import { ClientService } from './services/Client/client';
+import { ClientService } from './services/Client/shoeClient/shoeClient';
 import { provideHttpClient } from '@angular/common/http';
 import { provideApollo } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular/http';

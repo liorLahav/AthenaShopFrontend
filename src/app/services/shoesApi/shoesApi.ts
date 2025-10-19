@@ -5,7 +5,7 @@ import { Injectable } from "@angular/core";
 import { environment } from '../../../environments/environment';
 import { ShoesApiMock } from "./shoesApiMock";
 import {BasicShoe, BasicShoeInput, BuyShoeResponse, CartShoeInput, Order, ShoeItem, ShoesFilter} from '../../../graphql/generated'
-import { ClientService } from "../Client/client";
+import { ClientService } from "../Client/shoeClient/shoeClient";
 const shoeItems = "sneaker_shop_shoe_items"
 
 
