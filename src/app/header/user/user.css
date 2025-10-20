@@ -1,0 +1,7 @@
+.user{
+    margin-left: 10px;
+    text-align: center;
+    .username{
+        cursor: pointer;
+    }
+}

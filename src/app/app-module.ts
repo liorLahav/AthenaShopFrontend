@@ -24,6 +24,8 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideApollo } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular/http';
 import { InMemoryCache } from '@apollo/client/cache';
+import usersApi from './services/usersApi/usersApi';
+import { User } from './header/user/user';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import { InMemoryCache } from '@apollo/client/cache';
     DynamicForm,
     Login,
     Register,
-    Main
+    Main,
+    User
   ],
   imports: [
     BrowserModule,
@@ -46,7 +49,7 @@ import { InMemoryCache } from '@apollo/client/cache';
   providers: [
     {
       provide : USERS_API_SERVICE_TOKEN,
-      useClass : UsersApiMock
+      useClass : environment.type == enviromentTypes.dev ? UsersApiMock : usersApi,
     },
     {
       provide : SHOES_API_SERVICE_TOKEN,

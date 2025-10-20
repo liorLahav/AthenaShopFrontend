@@ -52,6 +52,7 @@
             padding: 10px 0;
             text-align: center;
             border-color: white;
+            line-height: 12px;
             color: white;
         }
         .dynamic-form-message.success {
