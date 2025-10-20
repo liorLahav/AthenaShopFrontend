@@ -26,14 +26,35 @@ export enum Brand {
   Yeezy = 'Yeezy'
 }
 
+export type ClientSideUser = {
+  __typename?: 'ClientSideUser';
+  dateCreated: Scalars['Int']['output'];
+  userRole: UserRoles;
+  username: Scalars['String']['output'];
+};
+
+export type LoginResponse = {
+  __typename?: 'LoginResponse';
+  message: Scalars['String']['output'];
+  success: Scalars['Boolean']['output'];
+  user?: Maybe<ClientSideUser>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   buyShoes?: Maybe<BuyShoeResponse>;
+  register?: Maybe<RegisterResponse>;
 };
 
 
 export type MutationBuyShoesArgs = {
   shoes: Array<CartShoeInput>;
+};
+
+
+export type MutationRegisterArgs = {
+  password?: InputMaybe<Scalars['String']['input']>;
+  username?: InputMaybe<Scalars['String']['input']>;
 };
 
 export enum Order {
@@ -45,6 +66,7 @@ export enum Order {
 export type Query = {
   __typename?: 'Query';
   basicShoe?: Maybe<Array<BasicShoe>>;
+  login?: Maybe<LoginResponse>;
   shoeItemsByCart?: Maybe<Array<ShoeItem>>;
   shoeItemsByFilter?: Maybe<Array<ShoeItem>>;
   sizesByBasicShoe?: Maybe<Array<Scalars['Float']['output']>>;
@@ -54,6 +76,12 @@ export type Query = {
 export type QueryBasicShoeArgs = {
   n?: InputMaybe<Scalars['Int']['input']>;
   order?: InputMaybe<Order>;
+};
+
+
+export type QueryLoginArgs = {
+  password?: InputMaybe<Scalars['String']['input']>;
+  username?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -71,13 +99,19 @@ export type QuerySizesByBasicShoeArgs = {
   basicShoeId?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type RegisterResponse = {
+  __typename?: 'RegisterResponse';
+  message: Scalars['String']['output'];
+  success: Scalars['Boolean']['output'];
+};
+
 export type User = {
   __typename?: 'User';
   dateCreated: Scalars['Int']['output'];
   password: Scalars['String']['output'];
   recommendedShoes: Array<ShoePreference>;
-  userName: Scalars['String']['output'];
   userRole: UserRoles;
+  username: Scalars['String']['output'];
 };
 
 export enum UserRoles {
@@ -154,6 +188,12 @@ export type ShoesFilter = {
   size?: InputMaybe<Array<Scalars['Float']['input']>>;
 };
 
+export type SignupResponse = {
+  __typename?: 'signupResponse';
+  message: Scalars['String']['output'];
+  success: Scalars['Boolean']['output'];
+};
+
 export type BuyShoesMutationVariables = Exact<{
   shoes: Array<CartShoeInput> | CartShoeInput;
 }>;
@@ -189,6 +229,22 @@ export type GetShoesByCartQueryVariables = Exact<{
 
 
 export type GetShoesByCartQuery = { __typename?: 'Query', shoeItemsByCart?: Array<{ __typename?: 'shoeItem', size: number, type: { __typename?: 'basicShoe', id: string, brand: Array<Brand>, model: string, price: number, rates: number } }> | null };
+
+export type RegisterMutationVariables = Exact<{
+  username?: InputMaybe<Scalars['String']['input']>;
+  password?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type RegisterMutation = { __typename?: 'Mutation', register?: { __typename?: 'RegisterResponse', success: boolean, message: string } | null };
+
+export type LoginQueryVariables = Exact<{
+  username?: InputMaybe<Scalars['String']['input']>;
+  password?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type LoginQuery = { __typename?: 'Query', login?: { __typename?: 'LoginResponse', success: boolean, message: string, user?: { __typename?: 'ClientSideUser', username: string } | null } | null };
 
 export const BuyShoesDocument = gql`
     mutation buyShoes($shoes: [cartShoeInput!]!) {
@@ -304,6 +360,47 @@ export const GetShoesByCartDocument = gql`
   })
   export class GetShoesByCartGQL extends Apollo.Query<GetShoesByCartQuery, GetShoesByCartQueryVariables> {
     document = GetShoesByCartDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const RegisterDocument = gql`
+    mutation Register($username: String, $password: String) {
+  register(username: $username, password: $password) {
+    success
+    message
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class RegisterGQL extends Apollo.Mutation<RegisterMutation, RegisterMutationVariables> {
+    document = RegisterDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const LoginDocument = gql`
+    query Login($username: String, $password: String) {
+  login(username: $username, password: $password) {
+    success
+    message
+    user {
+      username
+    }
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class LoginGQL extends Apollo.Query<LoginQuery, LoginQueryVariables> {
+    document = LoginDocument;
     
     constructor(apollo: Apollo.Apollo) {
       super(apollo);
