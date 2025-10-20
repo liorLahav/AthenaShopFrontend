@@ -3,7 +3,5 @@ import { enviromentTypes, environmentInterface } from "./environment-types";
 
 export const environment: environmentInterface = {
     type: enviromentTypes.local,
-    hasuraUrl: "",
-    serverUrl : "",
-    "x-hasura-admin-secret": "",
+    serverUrl : "http://localhost:3000/graphql",
 };

@@ -7,7 +7,5 @@ export enum enviromentTypes{
 
 export interface environmentInterface{
     type : enviromentTypes,
-    hasuraUrl : string,
     serverUrl : string,
-    "x-hasura-admin-secret" : string
 }
