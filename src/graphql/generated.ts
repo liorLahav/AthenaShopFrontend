@@ -49,12 +49,13 @@ export type Mutation = {
 
 export type MutationBuyShoesArgs = {
   shoes: Array<CartShoeInput>;
+  username: Scalars['String']['input'];
 };
 
 
 export type MutationRegisterArgs = {
-  password?: InputMaybe<Scalars['String']['input']>;
-  username?: InputMaybe<Scalars['String']['input']>;
+  password: Scalars['String']['input'];
+  username: Scalars['String']['input'];
 };
 
 export enum Order {
@@ -62,6 +63,14 @@ export enum Order {
   LastAdded = 'LastAdded',
   Sales = 'Sales'
 }
+
+export type PurchaseType = {
+  __typename?: 'PurchaseType';
+  date: Scalars['Int']['output'];
+  id: Scalars['String']['output'];
+  shoeItem: ShoeItem;
+  userId: Scalars['String']['output'];
+};
 
 export type Query = {
   __typename?: 'Query';
@@ -76,12 +85,13 @@ export type Query = {
 export type QueryBasicShoeArgs = {
   n?: InputMaybe<Scalars['Int']['input']>;
   order?: InputMaybe<Order>;
+  username: Scalars['String']['input'];
 };
 
 
 export type QueryLoginArgs = {
-  password?: InputMaybe<Scalars['String']['input']>;
-  username?: InputMaybe<Scalars['String']['input']>;
+  password: Scalars['String']['input'];
+  username: Scalars['String']['input'];
 };
 
 
@@ -96,7 +106,7 @@ export type QueryShoeItemsByFilterArgs = {
 
 
 export type QuerySizesByBasicShoeArgs = {
-  basicShoeId?: InputMaybe<Scalars['String']['input']>;
+  basicShoeId: Scalars['String']['input'];
 };
 
 export type RegisterResponse = {
@@ -158,14 +168,6 @@ export type Price = {
   min: Scalars['Int']['input'];
 };
 
-export type Purchase = {
-  __typename?: 'purchase';
-  date: Scalars['String']['output'];
-  id: Scalars['String']['output'];
-  shoeItem: ShoeItem;
-  userId: Scalars['String']['output'];
-};
-
 export type ShoeItem = {
   __typename?: 'shoeItem';
   dateCreated: Scalars['Int']['output'];
@@ -195,6 +197,7 @@ export type SignupResponse = {
 };
 
 export type BuyShoesMutationVariables = Exact<{
+  username: Scalars['String']['input'];
   shoes: Array<CartShoeInput> | CartShoeInput;
 }>;
 
@@ -209,6 +212,7 @@ export type GetShoeItemsQueryVariables = Exact<{
 export type GetShoeItemsQuery = { __typename?: 'Query', shoeItemsByFilter?: Array<{ __typename?: 'shoeItem', id: string, size: number, dateCreated: number, datePurchased?: number | null, type: { __typename?: 'basicShoe', id: string, brand: Array<Brand>, model: string, price: number, rates: number } }> | null };
 
 export type GetBasicShoesQueryVariables = Exact<{
+  username: Scalars['String']['input'];
   order?: InputMaybe<Order>;
   n?: InputMaybe<Scalars['Int']['input']>;
 }>;
@@ -217,7 +221,7 @@ export type GetBasicShoesQueryVariables = Exact<{
 export type GetBasicShoesQuery = { __typename?: 'Query', basicShoe?: Array<{ __typename?: 'basicShoe', id: string, brand: Array<Brand>, model: string, price: number, rates: number }> | null };
 
 export type GetSizesByBasicShoeQueryVariables = Exact<{
-  basicShoeId?: InputMaybe<Scalars['String']['input']>;
+  basicShoeId: Scalars['String']['input'];
 }>;
 
 
@@ -231,24 +235,24 @@ export type GetShoesByCartQueryVariables = Exact<{
 export type GetShoesByCartQuery = { __typename?: 'Query', shoeItemsByCart?: Array<{ __typename?: 'shoeItem', size: number, type: { __typename?: 'basicShoe', id: string, brand: Array<Brand>, model: string, price: number, rates: number } }> | null };
 
 export type RegisterMutationVariables = Exact<{
-  username?: InputMaybe<Scalars['String']['input']>;
-  password?: InputMaybe<Scalars['String']['input']>;
+  username: Scalars['String']['input'];
+  password: Scalars['String']['input'];
 }>;
 
 
 export type RegisterMutation = { __typename?: 'Mutation', register?: { __typename?: 'RegisterResponse', success: boolean, message: string } | null };
 
 export type LoginQueryVariables = Exact<{
-  username?: InputMaybe<Scalars['String']['input']>;
-  password?: InputMaybe<Scalars['String']['input']>;
+  username: Scalars['String']['input'];
+  password: Scalars['String']['input'];
 }>;
 
 
 export type LoginQuery = { __typename?: 'Query', login?: { __typename?: 'LoginResponse', success: boolean, message: string, user?: { __typename?: 'ClientSideUser', username: string } | null } | null };
 
 export const BuyShoesDocument = gql`
-    mutation buyShoes($shoes: [cartShoeInput!]!) {
-  buyShoes(shoes: $shoes) {
+    mutation buyShoes($username: String!, $shoes: [cartShoeInput!]!) {
+  buyShoes(username: $username, shoes: $shoes) {
     success
     missingShoes {
       type {
@@ -303,8 +307,8 @@ export const GetShoeItemsDocument = gql`
     }
   }
 export const GetBasicShoesDocument = gql`
-    query getBasicShoes($order: Order, $n: Int) {
-  basicShoe(order: $order, n: $n) {
+    query getBasicShoes($username: String!, $order: Order, $n: Int) {
+  basicShoe(username: $username, order: $order, n: $n) {
     id
     brand
     model
@@ -325,7 +329,7 @@ export const GetBasicShoesDocument = gql`
     }
   }
 export const GetSizesByBasicShoeDocument = gql`
-    query getSizesByBasicShoe($basicShoeId: String) {
+    query getSizesByBasicShoe($basicShoeId: String!) {
   sizesByBasicShoe(basicShoeId: $basicShoeId)
 }
     `;
@@ -366,7 +370,7 @@ export const GetShoesByCartDocument = gql`
     }
   }
 export const RegisterDocument = gql`
-    mutation Register($username: String, $password: String) {
+    mutation Register($username: String!, $password: String!) {
   register(username: $username, password: $password) {
     success
     message
@@ -385,7 +389,7 @@ export const RegisterDocument = gql`
     }
   }
 export const LoginDocument = gql`
-    query Login($username: String, $password: String) {
+    query Login($username: String!, $password: String!) {
   login(username: $username, password: $password) {
     success
     message

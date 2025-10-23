@@ -5,6 +5,7 @@ import { Observable, of } from 'rxjs';
 import { cartShoeStatus } from '../../../cart/cart';
 import { inventoryResponse } from '../../shoesApi/shoesApiService';
 import { cartShoe } from '../../../state/cart/cart.store';
+import { UserQuery } from '../../../state/user/user.query';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,8 @@ export class ClientService {
     private getBasicShoesGQL : GetBasicShoesGQL,
     private getSizesByBasicShoeGQL : GetSizesByBasicShoeGQL,
     private getShoesByCartGQL : GetShoesByCartGQL,
-    private buyShoesGQL : BuyShoesGQL
+    private buyShoesGQL : BuyShoesGQL,
+    private userQuery : UserQuery
   ) {}
 
   getShoeItems(filter : ShoesFilter) : Observable<ShoeItem[]> {
@@ -36,6 +38,7 @@ export class ClientService {
   }
   getBasicShoes(order?: Order,n? : number) : Observable<BasicShoe[]>{
       return this.getBasicShoesGQL.fetch({
+        username : this.userQuery.username,
         order,
         n
       }).pipe(
@@ -104,7 +107,8 @@ export class ClientService {
       shoes : shoes.map(shoe => {
         const { __typename, ...typeWithoutTypename } = shoe.type as any;
         return { ...shoe, type: typeWithoutTypename };
-      })
+      }),
+      username : this.userQuery.username
     }).pipe(map(res =>{
       if(res && res.data && res.data.buyShoes){
         return res.data.buyShoes

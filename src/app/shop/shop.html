@@ -21,7 +21,7 @@
                 </div>
         </div>
         <div *ngIf="!isLoading;else loading" class="shoes-container">
-            <app-shoe-card class="shoe" *ngFor="let shoe of shoes" [shoe] = "shoe.type" />
+            <app-shoe-card class="shoe" *ngFor="let shoe of distinctShoes" [shoe] = "shoe" />
             <div class="empty-message" *ngIf="distinctShoes.length == 0">no shoes</div>
         </div>
     </div>

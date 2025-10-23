@@ -155,6 +155,7 @@ export class Shop {
       seen.add(id);
       distinctShoes.push(cur.type);
     }
+    console.log(distinctShoes)
     this.distinctShoes = distinctShoes
   }
 }

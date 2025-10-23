@@ -59,10 +59,15 @@ import { User } from './header/user/user';
     provideHttpClient(),
     provideApollo(() => {
       const httpLink = inject(HttpLink);
- 
+
       return {
         link: httpLink.create({ uri: environment.serverUrl }),
         cache: new InMemoryCache(),
+        defaultOptions: {
+          query: {
+            fetchPolicy: 'no-cache',
+          }
+        }
       };
     }),
   ],
