@@ -6,6 +6,7 @@ import { environment } from '../../../environments/environment';
 import { ShoesApiMock } from "./shoesApiMock";
 import {BasicShoe, BasicShoeInput, BuyShoeResponse, CartShoeInput, Order, ShoeItem, ShoesFilter} from '../../../graphql/generated'
 import { ClientService } from "../Client/shoeClient/shoeClient";
+import { UserQuery } from "../../state/user/user.query";
 const shoeItems = "sneaker_shop_shoe_items"
 
 
@@ -13,15 +14,15 @@ const shoeItems = "sneaker_shop_shoe_items"
   providedIn: 'root'
 })
 export class shoesApi implements shoesApiService{
-    constructor(private client :ClientService){}
+    constructor(private client :ClientService,private userQuery : UserQuery){}
     getTopNMostSoldShoes(n?: number): Observable<BasicShoe[]> {
-        return this.client.getBasicShoes(Order.Sales,n);
+        return this.client.getBasicShoes(this.userQuery.username,Order.Sales,n);
     }
     getTopNMostCompetiableShoes(n?: number): Observable<BasicShoe[]> {
-        return this.client.getBasicShoes(Order.Competiable,n);
+        return this.client.getBasicShoes(this.userQuery.username,Order.Competiable,n);
     }
     getLastNAddedShoe(n?: number): Observable<BasicShoe[]> {
-        return this.client.getBasicShoes(Order.LastAdded,n);
+        return this.client.getBasicShoes(this.userQuery.username,Order.LastAdded,n);
     }
     getShoesByFilter(filter: ShoesFilter): Observable<ShoeItem[]> {
         return this.client.getShoeItems(filter)
@@ -33,6 +34,6 @@ export class shoesApi implements shoesApiService{
         return this.client.getShoesByCart(shoes);
     }
     checkout(shoes: cartShoe[]): Observable<BuyShoeResponse> {
-        return this.client.buyShoes(shoes);
+        return this.client.buyShoes(this.userQuery.username,shoes);
     }
 }
