@@ -23,7 +23,6 @@ export class TopPicks {
   getTopPicksShoes(){
     this.shoesService.getTopNMostCompetiableShoes(DISPLAYED_SHOES).pipe(
       map((shoes : BasicShoe[]) => {
-        console.log(shoes)
         this.topPicksShoes = shoes.slice(0,DISPLAYED_SHOES);
       }),
       catchError((err) =>{
