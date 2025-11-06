@@ -1,25 +1,9 @@
 import { Observable } from "rxjs";
-import { environment } from "../environments/environment.development";
+import { environment } from "../../../environments/environment";
 import { InjectionToken } from "@angular/core";
 import { UsersApiMock } from "./usersApiMock";
+import { LoginResponse, RegisterResponse } from "../../../graphql/generated";
 
-export enum userRoles {Admin,User}
-
-export interface User {
-    userName : string,
-    id :number,
-    userRole : userRoles,
-    dateCreated : Date,
-    buyingHistory : string[], // TODO create Receipt entity
-}
-export interface LoginResponse{
-    success : boolean,
-    user? : User,
-}
-export interface RegisterResponse{
-    success : boolean,
-    message : string,
-}
 
 export interface UsersApiService{
     login(username : string,password : string): Observable<LoginResponse>;
@@ -29,6 +13,6 @@ export interface UsersApiService{
 export const USERS_API_SERVICE_TOKEN = new InjectionToken<UsersApiService>('UsersService');
 
 export const usersServiceFactory = () : UsersApiService =>{
-    const db = environment.dbType;
+    const db = environment.type;
     return new UsersApiMock;
 }

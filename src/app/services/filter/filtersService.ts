@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { shoesApiService } from './shoesApiService';
-import { BehaviorSubject, debounceTime, map } from 'rxjs';
+import { Inject, Injectable } from '@angular/core';
+import { SHOES_API_SERVICE_TOKEN, shoesApiService } from '../shoesApi/shoesApiService';
+import { BehaviorSubject} from 'rxjs';
 export const ALL_FILTERS = 'all'
 interface filter{
   title : string
@@ -12,7 +12,7 @@ interface filter{
 })
 
 export class filtersService {
-  constructor(private shoesService : shoesApiService){}
+  constructor(@Inject(SHOES_API_SERVICE_TOKEN) private shoesService : shoesApiService){}
   private filters : {[key : string] : any} = {}
   private isFilterChangedSource = new BehaviorSubject<void>(undefined);
   isFilterChanged$ = this.isFilterChangedSource.asObservable();

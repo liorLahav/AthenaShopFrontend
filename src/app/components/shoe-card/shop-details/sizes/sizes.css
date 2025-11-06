@@ -1,0 +1,26 @@
+:host{
+    width: 60%;
+}
+.sizes{
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: auto;  
+    overflow-y: hidden;
+    .size{
+        flex: 0 0 auto;
+        height: 25px;
+        width: 25px;
+        margin: 0 2px;
+        box-sizing: border-box;
+        padding: 2px;
+        text-align: center;
+        border-radius: 5px;
+        font-weight: bold;
+    }
+    .size:hover{
+        background-color: black;
+        color: white;
+    }
+}

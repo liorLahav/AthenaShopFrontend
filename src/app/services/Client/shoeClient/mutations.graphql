@@ -1,0 +1,15 @@
+mutation buyShoes($username: String!,$shoes: [cartShoeInput!]!) {
+  buyShoes(username:$username,shoes: $shoes) {
+    success
+    missingShoes {
+      type {
+        id
+        brand
+        model
+        price
+        rates
+      }
+      size
+    }
+  }
+}

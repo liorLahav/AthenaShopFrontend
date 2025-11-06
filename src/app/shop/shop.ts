@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
-import {getDisplayShoe, shoesApiService, shoeItem, Shoe} from '../shoesApiService';
+import { Component, Inject } from '@angular/core';
+import {SHOES_API_SERVICE_TOKEN, shoesApiService} from '../services/shoesApi/shoesApiService';
 import {debounceTime } from 'rxjs';
-import { filtersService } from '../filtersService';
+import { filtersService } from '../services/filter/filtersService';
 import { universalFilter } from './shop-sidebar/filter-bar/filter-bar';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { cartQuery } from '../state/cart/cart.query';
+import { BasicShoe, ShoeItem, ShoesFilter } from '../../graphql/generated';
 
 
 
@@ -18,16 +20,17 @@ enum sortType {
   selector: 'app-shop',
   standalone: false,
   templateUrl: './shop.html',
-  styleUrl: './shop.css'
+  styleUrl: './shop.css',
 })
 export class Shop {
-  constructor(protected shoesService : shoesApiService,protected filtersService : filtersService){}
-  shoes : shoeItem[] = [];
+  constructor(@Inject(SHOES_API_SERVICE_TOKEN) protected shoesService : shoesApiService,protected filtersService : filtersService,private cartQuery : cartQuery){}
+  shoes : ShoeItem[] = [];
+  distinctShoes : BasicShoe[] = []
   chosenSort : string = "";
   filters : universalFilter[] = []
   isLoading : boolean = true;
   ngOnInit(){
-    this.shoesService.getShoesByFilter({}).subscribe(shoes => {
+    this.shoesService.getShoesByFilter({} as ShoesFilter).subscribe(shoes => {
       const tempShoes = shoes;
       this.setUpFilters(tempShoes);
       this.sortShoes();
@@ -41,7 +44,7 @@ export class Shop {
     const title = (event.target as HTMLElement).id;
     this.filtersService.remove(title);
   }
-  setUpFilters(shoes : shoeItem[]){
+  setUpFilters(shoes : ShoeItem[]){
     const prices = [
       ...shoes.reduce((acc, cur) => {
         acc.add(cur.type.price);
@@ -96,7 +99,18 @@ export class Shop {
          this.isLoading = true
          this.shoesService.getShoesByFilter(this.filtersService.getFiltersValues())
         .subscribe(shoes => {
-          this.shoes = shoes
+          const cart = [...this.cartQuery.getShoes]
+          this.shoes = shoes.reduce((acc,cur) =>{
+            const shoeindex = cart.findIndex(s => s.type.id == cur.type.id && s.size == cur.size)
+            if(shoeindex == -1){
+              acc.push(cur);
+            }
+            else{
+              cart.splice(shoeindex,1);
+            }
+            return acc;
+          },[] as ShoeItem[])
+          this.updateDistinctShoes();
           this.isLoading = false
         });
     })
@@ -104,17 +118,18 @@ export class Shop {
   getSortType(event: Event) {
     this.chosenSort = (event.target as HTMLSelectElement).value;
     this.sortShoes();
+    this.updateDistinctShoes();
   }
   sortShoes(){
     switch(this.chosenSort){
       case sortType.PriceAscending:
-        this.shoes = [...this.shoes].sort((a : shoeItem,b : shoeItem) => a.type.price - b.type.price);
+        this.shoes = [...this.shoes].sort((a : ShoeItem,b : ShoeItem) => a.type.price - b.type.price);
         break;
       case sortType.PriceDescending:
-        this.shoes = [...this.shoes].sort((a : shoeItem,b : shoeItem) => b.type.price - a.type.price)
+        this.shoes = [...this.shoes].sort((a : ShoeItem,b : ShoeItem) => b.type.price - a.type.price)
         break;
       default: 
-        this.shoes = [...this.shoes].sort((a : shoeItem,b : shoeItem) => b.type.rates.rank - a.type.rates.rank)
+        this.shoes = [...this.shoes].sort((a : ShoeItem,b : ShoeItem) => b.type.rates - a.type.rates)
     }
   }
   get typesArray(){
@@ -132,15 +147,15 @@ export class Shop {
     }
     return arr;
   }
-  get displayShoes(){
+  updateDistinctShoes(){
     const seen = new Set<string>();
-    const distinctShoes: Shoe[] = [];
+    const distinctShoes: BasicShoe[] = [];
     for (const cur of this.shoes) {
       const id = cur.type.id;
       if (seen.has(id)) continue;
       seen.add(id);
       distinctShoes.push(cur.type);
     }
-    return distinctShoes.map(shoe => getDisplayShoe(shoe))
+    this.distinctShoes = distinctShoes
   }
 }

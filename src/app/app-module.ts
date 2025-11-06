@@ -1,4 +1,4 @@
-import { NgModule} from '@angular/core';
+import { inject, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing-module';
@@ -6,29 +6,27 @@ import { App } from './app';
 import { Header } from './header/header';
 import { DynamicForm } from './auth/dynamic-form/dynamic-form';
 import { Login } from './auth/login';
-import { USERS_API_SERVICE_TOKEN, usersServiceFactory } from './UsersApiService';
+import { USERS_API_SERVICE_TOKEN } from './services/usersApi/UsersApiService';
 import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 import { Register } from './auth/register';
 import { Main } from './main/main';
-import { ShoeCard } from './components/shoe-card/shoe-card';
-import { LogoHeadline } from './components/logo-headline/logo-headline';
-import { persistState } from '@datorama/akita';
-import { shoesApiService } from './shoesApiService';
-import { TopPicks } from './components/top-picks/top-picks';
-import { Shop } from './shop/shop';
-import { ShopSidebar } from './shop/shop-sidebar/shop-sidebar';
-import { FilterBar } from './shop/shop-sidebar/filter-bar/filter-bar';
-import { Range } from './shop/shop-sidebar/filter-bar/range/range';
-import { Checkbox } from './shop/shop-sidebar/filter-bar/checkbox/checkbox';
-import { Sizes } from './shop/shop-sidebar/filter-bar/sizes/sizes';
-import {MatSliderModule} from '@angular/material/slider';
-import { Loading } from './components/loading/loading';
+import { SHOES_API_SERVICE_TOKEN } from './services/shoesApi/shoesApiService';
+import { shopModule } from './shop/shop.module';
+import { componentsModule } from './components/components.module';
+import { CartModule } from './cart/cart.module';
+import { shoesApi } from './services/shoesApi/shoesApi';
+import { environment } from '../environments/environment';
+import {enviromentTypes} from '../environments/environment-types'
+import { ShoesApiMock } from './services/shoesApi/shoesApiMock';
+import { UsersApiMock } from './services/usersApi/usersApiMock';
+import { ClientService } from './services/Client/shoeClient/shoeClient';
+import { provideHttpClient } from '@angular/common/http';
+import { provideApollo } from 'apollo-angular';
+import { HttpLink } from 'apollo-angular/http';
+import { InMemoryCache } from '@apollo/client/cache';
+import usersApi from './services/usersApi/usersApi';
+import { User } from './header/user/user';
 
-persistState({
-  key : 'akita-store',
-  include : ["user"],
-  storage : localStorage
-})
 @NgModule({
   declarations: [
     App,
@@ -37,27 +35,41 @@ persistState({
     Login,
     Register,
     Main,
-    ShoeCard,
-    LogoHeadline,
-    TopPicks,
-    Shop,
-    ShopSidebar,
-    FilterBar,
-    Range,
-    Checkbox,
-    Sizes,
-    Loading,
+    User
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     AkitaNgDevtools.forRoot(),
-    MatSliderModule
+    shopModule,
+    componentsModule,
+    CartModule,
   ],
   providers: [
-    shoesApiService,
-    {provide : USERS_API_SERVICE_TOKEN,useValue : usersServiceFactory()}
+    {
+      provide : USERS_API_SERVICE_TOKEN,
+      useClass : environment.type == enviromentTypes.dev ? UsersApiMock : usersApi,
+    },
+    {
+      provide : SHOES_API_SERVICE_TOKEN,
+      useClass : environment.type == enviromentTypes.dev ? ShoesApiMock : shoesApi,
+    },
+    ClientService,
+    provideHttpClient(),
+    provideApollo(() => {
+      const httpLink = inject(HttpLink);
+
+      return {
+        link: httpLink.create({ uri: environment.serverUrl }),
+        cache: new InMemoryCache(),
+        defaultOptions: {
+          query: {
+            fetchPolicy: 'no-cache',
+          }
+        }
+      };
+    }),
   ],
   bootstrap: [App]
 })

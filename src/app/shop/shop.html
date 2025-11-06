@@ -4,7 +4,7 @@
         <div class="items-header">
             <div class="items-headline">SNEAKERS SHOP</div>
                 <div class="items-header-top">
-                    <div class="sneakers-amount">{{displayShoes.length}} sneakers</div>
+                    <div class="sneakers-amount">{{distinctShoes.length}} sneakers</div>
                     <div class="sort">
                         <div class="select-label">Sort by</div>
                         <select (change)="getSortType($event)" class="sort-select">
@@ -21,8 +21,8 @@
                 </div>
         </div>
         <div *ngIf="!isLoading;else loading" class="shoes-container">
-            <app-shoe-card class="shoe" *ngFor="let dispalyShoe of displayShoes" [shoe] = "dispalyShoe" />
-            <div class="empty-message" *ngIf="displayShoes.length == 0">no shoes</div>
+            <app-shoe-card class="shoe" *ngFor="let shoe of distinctShoes" [shoe] = "shoe" />
+            <div class="empty-message" *ngIf="distinctShoes.length == 0">no shoes</div>
         </div>
     </div>
 </div>

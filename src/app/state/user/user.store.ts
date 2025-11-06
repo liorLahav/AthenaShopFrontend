@@ -1,15 +1,15 @@
 import { Store, StoreConfig } from "@datorama/akita";
-import { User } from "../../UsersApiService";
 import { Injectable } from "@angular/core";
+import { ClientSideUser } from "../../../graphql/generated";
 
 export interface UserState {
-    user : User,
+    user : ClientSideUser,
     isAuthed : boolean
 }
 
 export const getInitialUserState = () => {
     return {
-        user : {} as User,
+        user : {} as ClientSideUser,
         isAuthed : false,
     }
 }

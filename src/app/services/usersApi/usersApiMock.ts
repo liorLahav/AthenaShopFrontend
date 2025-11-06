@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { LoginResponse, RegisterResponse, User, userRoles, UsersApiService } from './UsersApiService';
+import { UsersApiService } from '../usersApi/UsersApiService';
 import { Observable, of } from 'rxjs';
-import { passwordRegexPattern } from './auth/register';
+import { passwordRegexPattern } from '../../auth/register';
+import { ClientSideUser, LoginResponse, RegisterResponse, User, UserRoles } from '../../../graphql/generated';
 
-interface ServerUser extends User {
+interface ServerUser extends ClientSideUser {
   password : string
 }
 const USER_EXISTS : RegisterResponse = {
@@ -30,59 +31,54 @@ export class UsersApiMock implements UsersApiService {
   idCounter :number = 4;
   users: ServerUser[] = [
     {
-      userName: 'Alice',
+      username: 'Alice',
       password: '111111111',
-      id: 1,
-      userRole: userRoles.Admin,
-      dateCreated: new Date('2024-01-01'),
-      buyingHistory: []
-      
+      dateCreated: new Date('2024-01-01').getTime(),
+      userRole: UserRoles.Admin
     },
     {
-      userName: 'Bob',
-      id: 2,
-      userRole: userRoles.User,
-      dateCreated: new Date('2024-02-15'),
-      buyingHistory: [],
-      password: '111111111'
+      username: 'Bob',
+      dateCreated: new Date('2024-02-15').getTime(),
+      password: '111111111',
+      userRole: UserRoles.Admin
     },
     {
-      userName: 'Charlie',
-      id: 3,
-      userRole: userRoles.User,
-      dateCreated: new Date('2024-03-20'),
-      buyingHistory: [],
+      username: 'Charlie',
+      userRole: UserRoles.User,
+      dateCreated: new Date('2024-03-20').getTime(),
       password: '111111111'
     }
   ];
   login(username : string,password : string): Observable<LoginResponse> {
-    let user : ServerUser | undefined = this.users.find(u =>u.userName == username && u.password == password);
-    // Temporary
+    let user : ServerUser | undefined = this.users.find(u =>u.username == username && u.password == password);
     if(!user)
       user = this.users[0];
     if (user){
-      const {password , ...passwordLessUser} = user;
-      return of({success :true,user : passwordLessUser});
+      const clientSideUser : ClientSideUser = {
+        username : user.username,
+        userRole : user.userRole,
+        dateCreated : user.dateCreated
+      };
+      return of({success :true,message : "User logged in succesfully",user : clientSideUser});
     }
     return of({
-      success : false
+      success : false,
+      message : "Error"
     });
   }
   register(username: string, password: string): Observable<RegisterResponse> {
     if (username.length < 8)
       return of(INVALID_USERNAME)
-    const user = this.users.find(user => user.userName == username);
+    const user = this.users.find(user => user.username == username);
     if (user)
       return of(USER_EXISTS);
     const passwordReg :RegExp = new RegExp(passwordRegexPattern)
     if(passwordReg.test(password)){
       this.users.push({
-        userName: username,
+        username: username,
         password: password,
-        id: this.idCounter++,
-        userRole: userRoles.User,
-        dateCreated: new Date(),
-        buyingHistory: []
+        userRole: UserRoles.User,
+        dateCreated: new Date().getTime(),
       },)
       return of(SUCCESS)
     }

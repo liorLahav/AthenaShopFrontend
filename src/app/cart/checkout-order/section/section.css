@@ -1,0 +1,16 @@
+.section{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+.bold-section{
+    .price{
+        color: #e46464;
+        font-size: 20px;
+    }
+    .title{
+        font-weight: bold;
+        font-size: 18px;
+    }
+}
