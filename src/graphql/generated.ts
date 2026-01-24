@@ -180,7 +180,7 @@ export type ShoeItem = {
 export type ShoePreference = {
   __typename?: 'shoePreference';
   preference: Scalars['Int']['output'];
-  type: BasicShoe;
+  type: Scalars['String']['output'];
 };
 
 export type ShoesFilter = {

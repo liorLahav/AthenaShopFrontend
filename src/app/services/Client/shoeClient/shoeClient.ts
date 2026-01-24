@@ -36,7 +36,7 @@ export class ClientService {
       })
     );
   }
-  getBasicShoes(order?: Order,n? : number) : Observable<BasicShoe[]>{
+  getBasicShoes(username: string,order?: Order,n? : number) : Observable<BasicShoe[]>{
       return this.getBasicShoesGQL.fetch({
         username : this.userQuery.username,
         order,
@@ -102,8 +102,9 @@ export class ClientService {
       })
     )
   }
-  buyShoes(shoes : cartShoe[]) : Observable<BuyShoeResponse>{
+  buyShoes(username:string,shoes : cartShoe[]) : Observable<BuyShoeResponse>{
     return this.buyShoesGQL.mutate({
+      username,
       shoes : shoes.map(shoe => {
         const { __typename, ...typeWithoutTypename } = shoe.type as any;
         return { ...shoe, type: typeWithoutTypename };
