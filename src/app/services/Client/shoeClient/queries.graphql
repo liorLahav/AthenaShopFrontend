@@ -14,8 +14,8 @@ query getShoeItems($filter: shoesFilter!) {
   }
 }
 
-query getBasicShoes($username: String!,$order: Order $n: Int) {
-  basicShoe(username: $username,order: $order, n :$n) {
+query getBasicShoes($username: String! ,$order: Order $n: Int) {
+  basicShoe(username:$username,order: $order, n :$n) {
     id
     brand
     model

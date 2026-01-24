@@ -1,5 +1,5 @@
 mutation buyShoes($username: String!,$shoes: [cartShoeInput!]!) {
-  buyShoes(username: $username,shoes: $shoes) {
+  buyShoes(username:$username,shoes: $shoes) {
     success
     missingShoes {
       type {

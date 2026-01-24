@@ -118,6 +118,7 @@ export class Shop {
   getSortType(event: Event) {
     this.chosenSort = (event.target as HTMLSelectElement).value;
     this.sortShoes();
+    this.updateDistinctShoes();
   }
   sortShoes(){
     switch(this.chosenSort){
